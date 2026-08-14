@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from taterbench.paths import llama_supported_speculative_methods
+from taterbench.paths import llama_server_candidates, llama_supported_speculative_methods
 
 
 class RuntimeCapabilityTests(unittest.TestCase):
@@ -25,8 +25,21 @@ class RuntimeCapabilityTests(unittest.TestCase):
                     stderr="" if method == "draft-mtp" else "unknown speculative type",
                 )
 
-            with mock.patch("taterbench.paths.subprocess.run", side_effect=fake_run):
+            with (
+                mock.patch.dict("os.environ", {"TATER_BENCH_LLAMA_SERVER": str(server)}, clear=False),
+                mock.patch("taterbench.paths.subprocess.run", side_effect=fake_run),
+            ):
                 self.assertEqual(llama_supported_speculative_methods(home), {"draft-mtp"})
+
+    def test_tater_app_engine_precedes_downloaded_runtime(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            home = Path(temp) / "tater-home"
+            resources = Path(temp) / "Tater.app" / "Contents" / "Resources"
+            with mock.patch.dict("os.environ", {"TATER_APP_RESOURCES_DIR": str(resources)}, clear=False):
+                candidates = llama_server_candidates(home)
+            bundled = resources / "Native" / "llama.cpp" / "bin" / "llama-server"
+            runtime = home / "runtime" / "llama.cpp" / "build" / "bin" / "llama-server"
+            self.assertLess(candidates.index(bundled), candidates.index(runtime))
 
 
 if __name__ == "__main__":

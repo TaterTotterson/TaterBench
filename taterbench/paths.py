@@ -19,10 +19,22 @@ def model_registry_path(home: Path) -> Path:
 
 
 def llama_server_candidates(home: Path) -> list[Path]:
-    configured = os.getenv("TATER_BENCH_LLAMA_SERVER") or os.getenv("TATER_LLAMA_CPP_SERVER_BIN")
+    configured = (
+        os.getenv("TATER_BENCH_LLAMA_SERVER")
+        or os.getenv("TATER_LLAMA_CPP_SERVER_BIN")
+        or os.getenv("TATER_LLAMA_CPP_NATIVE_BIN")
+        or os.getenv("LLAMA_CPP_SERVER_BIN")
+    )
     candidates = [Path(configured).expanduser()] if configured else []
+    resources_dir = str(os.getenv("TATER_APP_RESOURCES_DIR") or "").strip()
+    if resources_dir:
+        candidates.append(Path(resources_dir).expanduser() / "Native" / "llama.cpp" / "bin" / "llama-server")
+    # Tater's macOS app ships its own llama.cpp build. Prefer it over the
+    # separately installed runtime so benchmarks use the engine Tater uses.
     candidates.extend(
         [
+            Path("/Applications/Tater.app/Contents/Resources/Native/llama.cpp/bin/llama-server"),
+            Path.home() / "Applications" / "Tater.app" / "Contents" / "Resources" / "Native" / "llama.cpp" / "bin" / "llama-server",
             home / "runtime" / "llama.cpp" / "build" / "bin" / "llama-server",
             home / "runtime" / "llama.cpp" / "build" / "bin" / "Release" / "llama-server",
             home / "runtime" / "llama.cpp" / "bin" / "llama-server",
@@ -30,7 +42,7 @@ def llama_server_candidates(home: Path) -> list[Path]:
             Path("/usr/local/bin/llama-server"),
         ]
     )
-    return candidates
+    return list(dict.fromkeys(candidates))
 
 
 def mlx_python_candidates(home: Path) -> list[Path]:

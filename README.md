@@ -19,6 +19,8 @@ Tater Bench keeps capability and performance separate:
 
 MLX models currently run a baseline pass. MTP, DFlash, and DSpark are tested on compatible llama.cpp GGUF targets because those are the speculative methods Tater exposes for that engine.
 
+Engine support and model availability are separate: Tater's bundled llama.cpp can contain a decoder even when no compatible draft GGUF is installed. Tater Bench only schedules a speculative variant when it discovers the matching MTP, DFlash, or DSpark data for that target model.
+
 ## Install
 
 Python 3.10 or newer is required. The benchmark runner itself has no third-party Python dependencies.

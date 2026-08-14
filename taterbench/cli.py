@@ -84,7 +84,7 @@ def _doctor(home_value: str | None) -> int:
         ("Model registry", registry.is_file(), str(registry)),
         ("llama.cpp engine", llama is not None, str(llama or "not found")),
         ("MLX Python", mlx_python is not None, str(mlx_python or "not found")),
-        ("llama.cpp speculation", bool(spec_methods), ", ".join(sorted(spec_methods)) or "none detected"),
+        ("llama.cpp decoders", bool(spec_methods), ", ".join(sorted(spec_methods)) or "none detected"),
         ("Benchmark targets", bool(models), f"{len(models)} discovered"),
     ]
     for label, ok, detail in checks:
