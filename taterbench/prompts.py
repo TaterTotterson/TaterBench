@@ -161,6 +161,15 @@ Rules:
 - After output gives enough information, reply with the result instead of running another command."""
 
 
+def _merge_system_messages(messages: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Keep benchmark context compatible with templates that allow one system turn."""
+    system_parts = [message["content"] for message in messages if message.get("role") == "system"]
+    non_system_messages = [message for message in messages if message.get("role") != "system"]
+    if not system_parts:
+        return non_system_messages
+    return [{"role": "system", "content": "\n\n".join(system_parts)}, *non_system_messages]
+
+
 def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
     kind = str(scenario.get("kind") or "").strip()
     user_text = str(scenario.get("user") or "")
@@ -181,14 +190,14 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
                 "all_shop_cores_running": True,
             },
         }
-        return [
+        return _merge_system_messages([
             {"role": "system", "content": ASTRAEUS_SYSTEM},
             {
                 "role": "system",
                 "content": "Astraeus stable execution catalog:\n" + json.dumps(stable_payload, sort_keys=True),
             },
             {"role": "user", "content": json.dumps(dynamic_payload, sort_keys=True)},
-        ]
+        ])
     if kind == "thanatos":
         lock = {
             "intent": scenario.get("intent") or user_text,
@@ -202,7 +211,7 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
             "next_step": lock,
             "prior_results": scenario.get("prior_results") or [],
         }
-        return [
+        return _merge_system_messages([
             {"role": "system", "content": THANATOS_SYSTEM + f"\nCurrent Date and Time: {identity.get('now', '')}"},
             {
                 "role": "system",
@@ -215,7 +224,7 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
                 "content": "Execution tool contract:\n" + json.dumps(scenario.get("tool_contract") or {}, sort_keys=True),
             },
             {"role": "user", "content": user_text},
-        ]
+        ])
     if kind == "spudex":
         payload = {
             "message": user_text,

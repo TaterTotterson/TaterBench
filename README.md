@@ -104,11 +104,21 @@ tater-bench report
 
 The HTML report is optional. GitHub can display the Markdown leaderboard and raw JSON without GitHub Pages.
 
+New benchmark runs do not overwrite earlier submissions. Repeated runs of the same model and mode are averaged within their hardware type, while the **Individual Runs** tab keeps every underlying measurement available for inspection. The dashboard provides:
+
+- **All Devices** for the overall cross-device leaderboard.
+- One tab per hardware type, such as Apple M3 Ultra, for that device's averaged results.
+- **Individual Runs** for every submitted measurement.
+- Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
+- Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
+
+Hardware types are grouped by OS family, architecture, CPU, core counts, memory, and GPU configuration. Patch-level OS, Python, and driver changes remain visible in the individual result metadata but do not split otherwise matching devices into separate leaderboard tabs.
+
 ## Fair comparisons
 
-Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware and suite.
+Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware profile and suite.
 
-The Tater Score is calculated only within matching hardware, suite, context, and prompt-profile groups. Its speed, TTFT, and memory components are normalized to the best measured value in that group. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
+The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its speed, TTFT, and memory components are normalized to the best measured value in that group. Repeated submissions are averaged by hardware type first; the main leaderboard then gives every represented hardware type equal weight, so a popular device with many submissions cannot overwhelm the others. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 

@@ -41,8 +41,8 @@ class SyntheticRuntimeTests(unittest.TestCase):
             }
         )
         prefix = "Astraeus stable execution catalog:\n"
-        stable_payload = json.loads(messages[1]["content"].removeprefix(prefix))
-        dynamic_payload = json.loads(messages[2]["content"])
+        stable_payload = json.loads(messages[0]["content"].split("\n\n" + prefix, 1)[1])
+        dynamic_payload = json.loads(messages[1]["content"])
         tool_ids = stable_payload["available_tool_ids"]
         self.assertEqual(tool_ids, enabled_tool_ids(["synthetic_lamp_control"]))
         self.assertIn("automatic_plugin", tool_ids)

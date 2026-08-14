@@ -16,6 +16,7 @@ class SuiteTests(unittest.TestCase):
             self.assertGreaterEqual(len(messages), 2)
             self.assertEqual(messages[0]["role"], "system")
             self.assertEqual(messages[-1]["role"], "user")
+            self.assertEqual(sum(message["role"] == "system" for message in messages), 1)
 
     def test_thanatos_combines_instructions_into_the_initial_system_message(self) -> None:
         messages = build_messages(
@@ -26,8 +27,11 @@ class SuiteTests(unittest.TestCase):
                 "tool_hint": "set_timer",
             }
         )
-        self.assertEqual(messages[-1]["role"], "user")
-        self.assertIn("Execution step lock", "\n".join(message["content"] for message in messages))
+        self.assertEqual([message["role"] for message in messages], ["system", "user"])
+        self.assertIn("Turn focus", messages[0]["content"])
+        self.assertIn("Current agent state JSON", messages[0]["content"])
+        self.assertIn("Execution step lock", messages[0]["content"])
+        self.assertIn("Execution tool contract", messages[0]["content"])
 
 
 if __name__ == "__main__":

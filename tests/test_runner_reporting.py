@@ -71,6 +71,61 @@ class RunnerReportingTests(unittest.TestCase):
         html_text = render_html(aggregate)
         self.assertLess(html_text.index("org/fast"), html_text.index("org/slow"))
 
+    def test_cross_device_average_weights_each_device_equally(self) -> None:
+        def run(run_id: str, accuracy: float) -> dict:
+            return {
+                "run_id": run_id,
+                "status": "complete",
+                "finished_at": f"2026-08-14T00:00:0{run_id[-1]}Z",
+                "model": {
+                    "id": "shared-model",
+                    "repo_id": "org/shared-model",
+                    "filename": "shared-Q4.gguf",
+                    "provider": "llama_cpp",
+                    "quantization": "Q4",
+                },
+                "engine": {"engine": "llama.cpp"},
+                "variant": {"name": "baseline"},
+                "suite": {"version": "suite-1"},
+                "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
+                "accuracy": {"score": accuracy, "categories": {"routing": accuracy}},
+                "performance": {
+                    "median_generation_tokens_per_second": 20.0,
+                    "median_prompt_tokens_per_second": 100.0,
+                    "median_ttft_seconds": 0.1,
+                    "median_scenario_seconds": 0.2,
+                },
+                "peak_rss_bytes": 100,
+                "load_seconds": 1.0,
+            }
+
+        aggregate = aggregate_payload(
+            [
+                {
+                    "created_at": "2026-08-14T00:00:00Z",
+                    "hardware": {"hardware_id": "device-a", "cpu": "Device A", "memory_bytes": 64},
+                    "runs": [run("run-1", 100.0)],
+                },
+                {
+                    "created_at": "2026-08-14T00:00:30Z",
+                    "hardware": {"hardware_id": "device-a-2", "cpu": "Device A", "memory_bytes": 64},
+                    "runs": [run("run-2", 50.0)],
+                },
+                {
+                    "created_at": "2026-08-14T00:01:00Z",
+                    "hardware": {"hardware_id": "device-b", "cpu": "Device B", "memory_bytes": 128},
+                    "runs": [run("run-3", 0.0)],
+                },
+            ]
+        )
+        result = aggregate["leaderboard"][0]
+        self.assertEqual(result["device_count"], 2)
+        self.assertEqual(result["sample_count"], 3)
+        self.assertEqual(result["tater_score"], 56.25)
+        self.assertEqual(len(aggregate["devices"]), 2)
+        self.assertEqual(aggregate["devices"][0]["leaderboard"][0]["sample_count"], 2)
+        self.assertEqual(aggregate["devices"][0]["hardware_profile_count"], 2)
+
     def test_batch_is_privacy_safe_and_reports_render(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -123,12 +178,16 @@ class RunnerReportingTests(unittest.TestCase):
             html_text = outputs["html"].read_text(encoding="utf-8")
             self.assertIn("Tater Bench", html_text)
             self.assertIn("Best models for Tater", html_text)
-            self.assertIn('class="score-entry is-leader"', html_text)
+            self.assertIn('class="score-entry"', html_text)
             self.assertIn("70 accuracy · 20 generation speed · 5 TTFT · 5 memory efficiency", html_text)
             self.assertIn('id="score-bars"', html_text)
-            self.assertIn("All results — best to lowest Tater Score", html_text)
+            self.assertIn("All Devices results — sorted by Tater Score", html_text)
             self.assertIn('class="detail-rank"', html_text)
             self.assertIn("scoreBars.style.setProperty('--bar-count'", html_text)
+            self.assertIn('data-scope-button="overall"', html_text)
+            self.assertIn('data-scope-button="runs"', html_text)
+            self.assertIn('id="sort-results"', html_text)
+            self.assertIn("See 1 individual run", html_text)
             self.assertNotIn('id="benchmark-chart"', html_text)
 
 
