@@ -104,11 +104,11 @@ tater-bench report
 
 The HTML report is optional. GitHub can display the Markdown leaderboard and raw JSON without GitHub Pages.
 
-New benchmark runs do not overwrite earlier submissions. Repeated runs of the same model and mode are averaged within their hardware type, while the **Individual Runs** tab keeps every underlying measurement available for inspection. The dashboard provides:
+New benchmark runs do not overwrite earlier submissions. Repeated runs of the same model and mode are averaged within their hardware type, while each result's **individual runs** dropdown keeps every underlying measurement available for inspection. The dashboard provides:
 
 - **All Devices** for the overall cross-device leaderboard.
 - One tab per hardware type, such as Apple M3 Ultra, for that device's averaged results.
-- **Individual Runs** for every submitted measurement.
+- An individual-runs dropdown on each result for every submitted measurement behind its average.
 - Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
 - Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
 
