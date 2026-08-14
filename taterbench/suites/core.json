@@ -1,0 +1,217 @@
+{
+  "name": "Tater Core",
+  "version": "tater-core-0.1",
+  "description": "Tater-style routing, tool execution, chat, synthesis, and Spudex decisions.",
+  "temperature": 0.0,
+  "max_tokens": 320,
+  "scenarios": [
+    {
+      "id": "route-greeting",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Hey Tater, how are you doing?",
+      "available_tools": ["weather_current", "homekit_control", "send_message"],
+      "expected": {"mode": "chat", "tool_sequence": []}
+    },
+    {
+      "id": "route-explanation",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "What is speculative decoding and why does it help?",
+      "available_tools": ["websearch", "inspect_webpage"],
+      "expected": {"mode": "chat", "tool_sequence": []}
+    },
+    {
+      "id": "route-weather",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "What is the weather in Chicago right now?",
+      "available_tools": ["weather_current", "websearch", "homekit_control"],
+      "expected": {"mode": "execute", "tool_sequence": ["weather_current"]}
+    },
+    {
+      "id": "route-light",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Turn the living room lights down to 30 percent.",
+      "available_tools": ["weather_current", "homekit_control", "play_music"],
+      "expected": {"mode": "execute", "tool_sequence": ["homekit_control"]}
+    },
+    {
+      "id": "route-multi-action",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Turn off the kitchen lights, then play Daft Punk in the kitchen.",
+      "available_tools": ["homekit_control", "play_music", "send_message"],
+      "expected": {"mode": "execute", "tool_sequence": ["homekit_control", "play_music"]}
+    },
+    {
+      "id": "route-download-chain",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Find the official macOS installer for Example App and download it.",
+      "available_tools": ["websearch", "inspect_webpage", "download_file", "send_message"],
+      "expected": {"mode": "execute", "tool_sequence": ["websearch", "inspect_webpage", "download_file"]}
+    },
+    {
+      "id": "route-send-message",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Send Sam a Telegram message saying dinner is ready.",
+      "available_tools": ["send_message", "homekit_control", "websearch"],
+      "expected": {"mode": "execute", "tool_sequence": ["send_message"]}
+    },
+    {
+      "id": "route-supplied-summary",
+      "category": "routing",
+      "kind": "astraeus",
+      "user": "Summarize this sentence: Local models keep private data on your own machine.",
+      "available_tools": ["websearch", "rewrite_text"],
+      "expected": {"mode": "chat", "tool_sequence": []}
+    },
+    {
+      "id": "tool-timer",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Set a pizza timer for 15 minutes.",
+      "intent": "Create a timer",
+      "instruction": "Create a 15-minute timer labeled pizza",
+      "tool_hint": "set_timer",
+      "tool_contract": {"function": "set_timer", "arguments": {"duration_seconds": "integer", "label": "string"}},
+      "expected": {"function": "set_timer", "arguments": {"duration_seconds": 900, "label": {"contains": "pizza"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-light",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Turn the living room lights down to 30 percent.",
+      "intent": "Adjust living room lights",
+      "instruction": "Turn the living room lights to 30 percent brightness",
+      "tool_hint": "homekit_control",
+      "tool_contract": {"function": "homekit_control", "arguments": {"nl": "concise action phrase"}},
+      "expected": {"function": "homekit_control", "arguments": {"nl": {"contains": "living room lights"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-weather",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "What is the weather in Chicago right now?",
+      "intent": "Get current weather",
+      "instruction": "Get the current weather for Chicago, Illinois",
+      "tool_hint": "weather_current",
+      "tool_contract": {"function": "weather_current", "arguments": {"location": "city and region"}},
+      "expected": {"function": "weather_current", "arguments": {"location": {"contains": "chicago"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-message-platform",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Send Sam a Telegram message saying dinner is ready.",
+      "intent": "Notify Sam",
+      "instruction": "Send Sam the message dinner is ready on Telegram",
+      "tool_hint": "send_message",
+      "tool_contract": {"function": "send_message", "arguments": {"platform": "telegram", "destination": "name", "message": "text"}},
+      "expected": {"function": "send_message", "arguments": {"platform": "telegram", "destination": {"contains": "sam"}, "message": {"contains": "dinner is ready"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-download-exact-url",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Download the installer from the official URL we just found.",
+      "intent": "Download installer",
+      "instruction": "Download Example App from the exact prior result URL",
+      "tool_hint": "download_file",
+      "tool_contract": {"function": "download_file", "arguments": {"url": "exact URL", "filename": "output name"}},
+      "prior_results": [{"url": "https://downloads.example.test/ExampleApp-4.2.dmg"}],
+      "expected": {"function": "download_file", "arguments": {"url": "https://downloads.example.test/ExampleApp-4.2.dmg", "filename": {"contains": "ExampleApp"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-spudex",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Create a file named hello.txt containing hello potato.",
+      "intent": "Create a workspace file",
+      "instruction": "Create hello.txt with the text hello potato",
+      "tool_hint": "spudex_loop",
+      "tool_contract": {"function": "spudex_loop", "arguments": {"nl": "complete task instruction"}},
+      "expected": {"function": "spudex_loop", "arguments": {"nl": {"contains": "hello.txt"}}},
+      "weight": 1.25
+    },
+    {
+      "id": "tool-missing-destination",
+      "category": "tool_accuracy",
+      "kind": "thanatos",
+      "user": "Send them the update.",
+      "intent": "Send an update",
+      "instruction": "Send the update to the requested destination",
+      "tool_hint": "send_message",
+      "tool_contract": {"function": "send_message", "arguments": {"platform": "platform", "destination": "name", "message": "text"}},
+      "expected": {"blocker": true, "contains": ["destination"]},
+      "weight": 1.25
+    },
+    {
+      "id": "chat-arithmetic",
+      "category": "chat",
+      "kind": "chat",
+      "user": "What is 17 multiplied by 6?",
+      "expected": {"contains": ["102"], "forbidden": ["astraeus", "thanatos", "tool call"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-no-fake-action",
+      "category": "chat",
+      "kind": "chat",
+      "user": "Explain what a smart-home scene is in two short sentences.",
+      "expected": {"any_of": ["devices", "settings", "actions"], "forbidden": ["i have activated", "i turned on", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "hermes-weather",
+      "category": "synthesis",
+      "kind": "hermes",
+      "user": "What is the weather in Chicago right now?",
+      "findings": [{"temperature_f": 72, "condition": "clear", "location": "Chicago, IL"}],
+      "expected": {"contains": ["72", "clear", "Chicago"], "forbidden": ["tool", "finding", "thanatos", "astraeus"]},
+      "weight": 0.9
+    },
+    {
+      "id": "hermes-faithful-failure",
+      "category": "synthesis",
+      "kind": "hermes",
+      "user": "Did the kitchen lights turn off?",
+      "findings": [{"ok": false, "error": "Kitchen bridge is offline"}],
+      "expected": {"contains": ["kitchen", "offline"], "any_of": ["couldn't", "could not", "did not", "failed"], "forbidden": ["successfully", "thanatos", "astraeus"]},
+      "weight": 0.9
+    },
+    {
+      "id": "spudex-write-first",
+      "category": "spudex",
+      "kind": "spudex",
+      "user": "Create notes.txt containing buy potatoes.",
+      "expected": {"type": "write_file", "path": "notes.txt"},
+      "weight": 1.1
+    },
+    {
+      "id": "spudex-use-system-info",
+      "category": "spudex",
+      "kind": "spudex",
+      "user": "How much memory is available?",
+      "system_info": {"os": "macOS", "memory_total": "64 GiB", "memory_available": "41 GiB"},
+      "expected": {"type": "reply", "outcome": "answer"},
+      "weight": 1.1
+    },
+    {
+      "id": "spudex-command-array",
+      "category": "spudex",
+      "kind": "spudex",
+      "user": "List the files in the current workspace, including hidden files.",
+      "expected": {"type": "command", "argv": ["ls", "-la"]},
+      "weight": 1.1
+    }
+  ]
+}

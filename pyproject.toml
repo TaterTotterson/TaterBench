@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taterbench"
+version = "0.1.0"
+description = "Standalone accuracy and performance benchmark for models installed by Tater"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "TaterTotterson" }]
+keywords = ["llm", "benchmark", "llama.cpp", "mlx", "tater"]
+dependencies = []
+
+[project.scripts]
+tater-bench = "taterbench.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["taterbench*"]
+
+[tool.setuptools.package-data]
+taterbench = ["suites/*.json"]
