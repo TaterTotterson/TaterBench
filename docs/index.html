@@ -2,59 +2,156 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tater Bench</title>
 <meta name="description" content="Accuracy and speed results for local models running through Tater.">
 <style>
-:root{--ink:#f7f7f5;--muted:#aaa9a2;--panel:#151515;--line:#31302c;--orange:#ff7a18;--orange2:#ffb13b;--blue:#42b8ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% 0,#2b1608 0,transparent 34%),#090909;color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,sans-serif}.shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:34px 0 70px}header{display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;border-bottom:1px solid var(--line);padding-bottom:28px}.brand{display:flex;align-items:center;gap:18px}.brand img{width:88px;height:88px;border-radius:50%;border:2px solid var(--orange);box-shadow:0 0 34px #ff7a1840}.eyebrow{margin:0 0 5px;color:var(--orange2);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:.95;letter-spacing:-.055em}.lede{max-width:620px;color:var(--muted);font-size:17px}.summary{text-align:right}.summary b{display:block;color:var(--orange);font-size:34px}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0}button{border:1px solid var(--line);border-radius:999px;background:#111;color:var(--muted);padding:9px 15px;cursor:pointer}button.active,button:hover{border-color:var(--orange);color:white;background:#271509}main{display:grid;gap:16px}.result-card{background:linear-gradient(145deg,#191919,#101010);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 60px #0006}.card-head{display:flex;justify-content:space-between;gap:18px}h2{margin:0;font-size:21px}.card-head p:not(.eyebrow){margin:4px 0;color:var(--muted)}.score{min-width:94px;text-align:center;color:var(--orange);font-size:36px;font-weight:900;line-height:1}.score small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:7px}.metrics,.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:19px}.metrics span,.categories span{background:#0c0c0c;border:1px solid #272622;border-radius:13px;padding:11px;color:var(--muted)}.metrics b,.categories b{display:block;color:var(--ink);font-size:15px}footer{margin-top:18px;color:#777;font-size:12px}.empty{padding:70px;text-align:center;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}@media(max-width:720px){header{grid-template-columns:1fr}.summary{text-align:left}.metrics,.categories{grid-template-columns:repeat(2,1fr)}.brand img{width:68px;height:68px}.card-head{align-items:flex-start}}
-</style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and real measured speed across llama.cpp, MLX, baseline, MTP, and DFlash.</p></div><div class="summary"><b>9</b>published runs</div></header><nav class="controls" aria-label="Filter results"><button class="active" data-filter="all">All</button><button data-filter="baseline">Baseline</button><button data-filter="mtp">MTP</button><button data-filter="dflash">DFlash</button><button data-filter="llama_cpp">llama.cpp</button><button data-filter="mlx_lm">MLX</button></nav><main><article class="result-card" data-engine="mlx_lm" data-mode="baseline">
+:root{--ink:#f7f7f5;--muted:#aaa9a2;--panel:#151515;--line:#31302c;--orange:#ff7a18;--orange2:#ffb13b;--blue:#42b8ff;--purple:#b38cff;--grid:#2b2a27;--tooltip:#f4efe5;--tooltip-ink:#17130f;--mode-baseline:var(--blue);--mode-mtp:var(--orange);--mode-dflash:var(--purple)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 0,#2b1608 0,transparent 34%),#090909;color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,sans-serif}.shell{width:min(1180px,calc(100% - 32px));margin:auto;padding:34px 0 70px}header{display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;border-bottom:1px solid var(--line);padding-bottom:28px}.brand{display:flex;align-items:center;gap:18px}.brand img{width:88px;height:88px;border-radius:50%;border:2px solid var(--orange);box-shadow:0 0 34px #ff7a1840}.eyebrow{margin:0 0 5px;color:var(--orange2);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:.95;letter-spacing:-.055em}.lede{max-width:620px;color:var(--muted);font-size:17px}.summary{text-align:right}.summary b{display:block;color:var(--orange);font-size:34px}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0}button{border:1px solid var(--line);border-radius:999px;background:#111;color:var(--muted);padding:9px 15px;cursor:pointer}button.active,button:hover{border-color:var(--orange);color:#fff;background:#271509}.benchmark-map{margin:10px 0 30px;padding:24px;background:linear-gradient(145deg,#171717,#0e0e0e);border:1px solid var(--line);border-radius:24px}.chart-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}.chart-heading h2{margin:0;font-size:clamp(23px,4vw,34px);letter-spacing:-.025em}.chart-heading p{margin:4px 0 0;color:var(--muted)}.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12px}.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:10px;height:10px;border-radius:50%;background:var(--swatch)}.chart-wrap{position:relative;width:100%;min-height:440px}.chart-wrap svg{display:block;width:100%;height:auto;overflow:visible}.chart-frame{fill:#0a0a0a;stroke:var(--line)}.chart-grid{stroke:var(--grid);stroke-width:1}.chart-axis{fill:var(--muted);font-size:11px}.chart-axis-title{fill:var(--ink);font-size:12px;font-weight:700}.chart-label{fill:var(--ink);font-size:11px;paint-order:stroke;stroke:#0a0a0a;stroke-width:4px;stroke-linejoin:round}.chart-point{stroke:#f7f7f5;stroke-width:1.5;filter:drop-shadow(0 2px 6px #0008)}.chart-link:focus .chart-point{stroke:var(--orange2);stroke-width:3}.chart-tooltip{position:absolute;z-index:3;pointer-events:none;width:min(280px,calc(100% - 18px));padding:12px 14px;border-radius:12px;background:var(--tooltip);color:var(--tooltip-ink);box-shadow:0 12px 35px #0008;font-size:12px}.chart-tooltip b{display:block;font-size:14px;margin-bottom:5px}.chart-tooltip dl{display:grid;grid-template-columns:1fr auto;gap:2px 14px;margin:0}.chart-tooltip dt{color:#5f554b}.chart-tooltip dd{margin:0;font-weight:700;text-align:right}.chart-note{margin:8px 0 0;color:var(--muted);font-size:12px}.results-heading{margin:8px 0 14px;font-size:25px}main{display:grid;gap:16px;min-width:0}.result-card{min-width:0;scroll-margin-top:16px;background:linear-gradient(145deg,#191919,#101010);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 60px #0006}.result-card:target{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 18px 60px #0006}.card-head{display:flex;justify-content:space-between;gap:18px;min-width:0}.card-head>div{min-width:0}.result-card h2{margin:0;font-size:21px;overflow-wrap:anywhere}.card-head p:not(.eyebrow){margin:4px 0;color:var(--muted);overflow-wrap:anywhere}.score{min-width:94px;text-align:center;color:var(--orange);font-size:36px;font-weight:900;line-height:1}.score small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:7px}.metrics,.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:19px;min-width:0}.metrics span,.categories span{min-width:0;background:#0c0c0c;border:1px solid #272622;border-radius:13px;padding:11px;color:var(--muted)}.metrics b,.categories b{display:block;color:var(--ink);font-size:15px}footer{margin-top:18px;color:#777;font-size:12px}.empty{padding:70px;text-align:center;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
+@media(max-width:720px){header{grid-template-columns:1fr}.summary{text-align:left}.benchmark-map{padding:18px}.chart-heading{align-items:flex-start;flex-direction:column}.chart-wrap{min-height:400px}.metrics,.categories{grid-template-columns:repeat(2,1fr)}.brand img{width:68px;height:68px}.card-head{align-items:flex-start}}@media(max-width:430px){.shell{width:min(100% - 20px,1180px)}.benchmark-map{padding:14px}.chart-wrap{min-height:360px}.card-head{flex-direction:column}.score{text-align:left}.metrics,.categories{grid-template-columns:1fr 1fr}}
+</style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and real measured speed across llama.cpp, MLX, baseline, MTP, and DFlash.</p></div><div class="summary"><b>9</b>published runs</div></header><nav class="controls" aria-label="Filter results"><button class="active" type="button" aria-pressed="true" data-filter="all">All</button><button type="button" aria-pressed="false" data-filter="baseline">Baseline</button><button type="button" aria-pressed="false" data-filter="mtp">MTP</button><button type="button" aria-pressed="false" data-filter="dflash">DFlash</button><button type="button" aria-pressed="false" data-filter="llama_cpp">llama.cpp</button><button type="button" aria-pressed="false" data-filter="mlx_lm">MLX</button></nav>
+<section class="benchmark-map" aria-labelledby="benchmark-map-title"><div class="chart-heading"><div><p class="eyebrow">Benchmark landscape</p><h2 id="benchmark-map-title">Accuracy × generation speed</h2><p>Every point is one measured engine and decoding configuration.</p></div><div class="legend" aria-label="Decoding mode legend"><span><i class="swatch" style="--swatch:var(--mode-baseline)"></i>Baseline</span><span><i class="swatch" style="--swatch:var(--mode-mtp)"></i>MTP</span><span><i class="swatch" style="--swatch:var(--mode-dflash)"></i>DFlash</span></div></div><div class="chart-wrap" id="chart-wrap"><svg id="benchmark-chart" role="img" aria-labelledby="benchmark-map-title benchmark-map-desc"></svg><p id="benchmark-map-desc" hidden>Scatter plot comparing Tater accuracy score with generation speed. Bubble area represents peak memory usage.</p><div class="chart-tooltip" id="chart-tooltip" role="tooltip" hidden></div></div><p class="chart-note">Higher and farther right is better. Bubble area represents peak RSS. Select a point for its full result.</p></section>
+<h2 class="results-heading">Detailed results</h2><main><article id="result-1" class="result-card" data-engine="mlx_lm" data-mode="baseline">
               <div class="card-head"><div><p class="eyebrow">mlx · BASELINE</p><h2>TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink</h2><p>674e8a504329b470c761c2e1feeb31d93d6ceeb7</p></div><div class="score">91.5<small>accuracy</small></div></div>
               <div class="metrics"><span><b>64.61</b> tok/s</span><span><b>0.13s</b> TTFT</span><span><b>8.40s</b> load</span><span><b>17.9 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>82.25%</span><span><b>Spudex</b>88.33%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>100.00%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="mtp">
+<article id="result-2" class="result-card" data-engine="llama_cpp" data-mode="mtp">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · MTP</p><h2>TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink</h2><p>Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf</p></div><div class="score">92.8<small>accuracy</small></div></div>
               <div class="metrics"><span><b>26.07</b> tok/s</span><span><b>1.17s</b> TTFT</span><span><b>3.57s</b> load</span><span><b>23.7 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>90.00%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>93.14%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="baseline">
+<article id="result-3" class="result-card" data-engine="llama_cpp" data-mode="baseline">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · BASELINE</p><h2>TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink</h2><p>Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf</p></div><div class="score">92.8<small>accuracy</small></div></div>
               <div class="metrics"><span><b>27.33</b> tok/s</span><span><b>1.16s</b> TTFT</span><span><b>2.05s</b> load</span><span><b>20.0 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>90.00%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>93.14%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="mtp">
+<article id="result-4" class="result-card" data-engine="llama_cpp" data-mode="mtp">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · MTP</p><h2>TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink</h2><p>Qwen3.6-35B-A3B-UD-Q4_K_M.gguf</p></div><div class="score">85.6<small>accuracy</small></div></div>
               <div class="metrics"><span><b>110.16</b> tok/s</span><span><b>0.24s</b> TTFT</span><span><b>2.29s</b> load</span><span><b>23.1 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>83.00%</span><span><b>Spudex</b>78.33%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>87.43%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="baseline">
+<article id="result-5" class="result-card" data-engine="llama_cpp" data-mode="baseline">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · BASELINE</p><h2>TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink</h2><p>Qwen3.6-35B-A3B-UD-Q4_K_M.gguf</p></div><div class="score">85.6<small>accuracy</small></div></div>
               <div class="metrics"><span><b>81.82</b> tok/s</span><span><b>0.24s</b> TTFT</span><span><b>11.95s</b> load</span><span><b>19.2 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>83.00%</span><span><b>Spudex</b>78.33%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>87.43%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="baseline">
+<article id="result-6" class="result-card" data-engine="llama_cpp" data-mode="baseline">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · BASELINE</p><h2>TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink</h2><p>NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf</p></div><div class="score">88.1<small>accuracy</small></div></div>
               <div class="metrics"><span><b>105.12</b> tok/s</span><span><b>0.25s</b> TTFT</span><span><b>9.69s</b> load</span><span><b>15.8 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>78.33%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>84.93%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="dflash">
+<article id="result-7" class="result-card" data-engine="llama_cpp" data-mode="dflash">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · DFLASH</p><h2>TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink</h2><p>gemma-4-26B-A4B-it-UD-Q4_K_M.gguf</p></div><div class="score">92.8<small>accuracy</small></div></div>
               <div class="metrics"><span><b>42.74</b> tok/s</span><span><b>0.23s</b> TTFT</span><span><b>2.80s</b> load</span><span><b>20.7 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>90.00%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>93.14%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="mtp">
+<article id="result-8" class="result-card" data-engine="llama_cpp" data-mode="mtp">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · MTP</p><h2>TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink</h2><p>gemma-4-26B-A4B-it-UD-Q4_K_M.gguf</p></div><div class="score">92.8<small>accuracy</small></div></div>
               <div class="metrics"><span><b>122.89</b> tok/s</span><span><b>0.23s</b> TTFT</span><span><b>2.82s</b> load</span><span><b>18.4 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>90.00%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>93.14%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article>
-<article class="result-card" data-engine="llama_cpp" data-mode="baseline">
+<article id="result-9" class="result-card" data-engine="llama_cpp" data-mode="baseline">
               <div class="card-head"><div><p class="eyebrow">llama.cpp · BASELINE</p><h2>TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink</h2><p>gemma-4-26B-A4B-it-UD-Q4_K_M.gguf</p></div><div class="score">92.8<small>accuracy</small></div></div>
               <div class="metrics"><span><b>86.80</b> tok/s</span><span><b>0.23s</b> TTFT</span><span><b>7.67s</b> load</span><span><b>17.6 GiB</b> peak RSS</span></div>
               <div class="categories"><span><b>Chat</b>100.00%</span><span><b>Routing</b>93.00%</span><span><b>Spudex</b>90.00%</span><span><b>Synthesis</b>90.00%</span><span><b>Tool Accuracy</b>93.14%</span></div>
               <footer>Apple M3 Ultra · 96.0 GiB</footer>
             </article></main></div>
-<script>document.querySelectorAll('button[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;document.querySelectorAll('.result-card').forEach(c=>{c.hidden=!(f==='all'||c.dataset.mode===f||c.dataset.engine===f)})}));</script></body></html>
+<script id="benchmark-data" type="application/json">[{"target":"result-1","label":"Gemma 4 26B MLX","model":"TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink","engine":"mlx_lm","engine_label":"mlx","mode":"baseline","accuracy":91.5,"speed":64.61,"ttft":0.13,"load":8.4,"rss":17.9,"speedup":0.0},{"target":"result-2","label":"Qwen 3.8 27B","model":"TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"mtp","accuracy":92.85,"speed":26.07,"ttft":1.17,"load":3.57,"rss":23.7,"speedup":-4.6},{"target":"result-3","label":"Qwen 3.8 27B","model":"TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"baseline","accuracy":92.85,"speed":27.33,"ttft":1.161,"load":2.05,"rss":20.0,"speedup":0.0},{"target":"result-4","label":"Qwen 3.6 35B A3B","model":"TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"mtp","accuracy":85.63,"speed":110.16,"ttft":0.24,"load":2.29,"rss":23.1,"speedup":34.6},{"target":"result-5","label":"Qwen 3.6 35B A3B","model":"TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"baseline","accuracy":85.63,"speed":81.82,"ttft":0.236,"load":11.95,"rss":19.2,"speedup":0.0},{"target":"result-6","label":"Nemotron 3.5 30B A3B","model":"TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"baseline","accuracy":88.12,"speed":105.12,"ttft":0.252,"load":9.69,"rss":15.8,"speedup":0.0},{"target":"result-7","label":"Gemma 4 26B","model":"TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"dflash","accuracy":92.85,"speed":42.74,"ttft":0.234,"load":2.8,"rss":20.7,"speedup":-50.8},{"target":"result-8","label":"Gemma 4 26B","model":"TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"mtp","accuracy":92.85,"speed":122.89,"ttft":0.229,"load":2.82,"rss":18.4,"speedup":41.6},{"target":"result-9","label":"Gemma 4 26B","model":"TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink","engine":"llama_cpp","engine_label":"llama.cpp","mode":"baseline","accuracy":92.85,"speed":86.8,"ttft":0.231,"load":7.67,"rss":17.6,"speedup":0.0}]</script>
+<script>
+(() => {
+  const data = JSON.parse(document.getElementById('benchmark-data').textContent || '[]');
+  const svg = document.getElementById('benchmark-chart');
+  const wrap = document.getElementById('chart-wrap');
+  const tooltip = document.getElementById('chart-tooltip');
+  const NS = 'http://www.w3.org/2000/svg';
+  let activeFilter = 'all';
+  const svgNode = (name, attrs = {}, text = '') => {
+    const element = document.createElementNS(NS, name);
+    Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, String(value)));
+    if (text !== '') element.textContent = text;
+    return element;
+  };
+  const matches = row => activeFilter === 'all' || row.mode === activeFilter || row.engine === activeFilter;
+  const ticks = (min, max, count) => Array.from({length: count}, (_, i) => min + (max - min) * i / (count - 1));
+  const overlaps = (a, b) => !(a.x + a.w + 4 < b.x || b.x + b.w + 4 < a.x || a.y + a.h + 3 < b.y || b.y + b.h + 3 < a.y);
+  function tooltipContent(row) {
+    tooltip.replaceChildren();
+    const title = document.createElement('b');
+    title.textContent = `${row.label} · ${row.mode.toUpperCase()}`;
+    const list = document.createElement('dl');
+    const details = [['Accuracy', `${row.accuracy.toFixed(2)}%`], ['Generation', `${row.speed.toFixed(2)} tok/s`], ['TTFT', `${row.ttft.toFixed(3)}s`], ['Load', `${row.load.toFixed(2)}s`], ['Peak RSS', `${row.rss.toFixed(1)} GiB`], ['Engine', row.engine_label]];
+    if (row.mode !== 'baseline') details.splice(2, 0, ['vs baseline', `${row.speedup >= 0 ? '+' : ''}${row.speedup.toFixed(1)}%`]);
+    details.forEach(([label, value]) => {
+      const dt = document.createElement('dt'); const dd = document.createElement('dd');
+      dt.textContent = label; dd.textContent = value; list.append(dt, dd);
+    });
+    tooltip.append(title, list);
+  }
+  function showTooltip(row, mark, event) {
+    tooltipContent(row); tooltip.hidden = false;
+    const wrapBox = wrap.getBoundingClientRect(); const markBox = mark.getBoundingClientRect();
+    const pointerX = event && Number.isFinite(event.clientX) ? event.clientX - wrapBox.left : markBox.left - wrapBox.left + markBox.width / 2;
+    const pointerY = event && Number.isFinite(event.clientY) ? event.clientY - wrapBox.top : markBox.top - wrapBox.top;
+    const maxLeft = Math.max(8, wrap.clientWidth - tooltip.offsetWidth - 8);
+    tooltip.style.left = `${Math.max(8, Math.min(maxLeft, pointerX + 14))}px`;
+    tooltip.style.top = `${Math.max(8, pointerY - tooltip.offsetHeight - 12)}px`;
+  }
+  function draw() {
+    svg.replaceChildren(); tooltip.hidden = true;
+    const width = Math.max(320, Math.round(wrap.clientWidth)); const height = width < 520 ? 390 : 500;
+    const margin = {top: 20, right: 18, bottom: 58, left: width < 520 ? 58 : 72};
+    const plotWidth = width - margin.left - margin.right; const plotHeight = height - margin.top - margin.bottom;
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.append(svgNode('title', {}, 'Tater Bench accuracy and generation speed'), svgNode('desc', {}, 'Points farther right are more accurate and points higher up generate tokens faster. Larger points use more peak memory.'));
+    if (!data.length) return;
+    const accuracies = data.map(row => row.accuracy); const speeds = data.map(row => row.speed); const memories = data.map(row => row.rss);
+    const rawMinX = Math.min(...accuracies); const rawMaxX = Math.max(...accuracies); const padX = Math.max(0.75, (rawMaxX - rawMinX) * 0.08);
+    const minX = Math.max(0, rawMinX - padX); const maxX = Math.min(100, rawMaxX + padX); const maxY = Math.max(...speeds) * 1.12;
+    const minRss = Math.min(...memories); const maxRss = Math.max(...memories);
+    const x = value => margin.left + ((value - minX) / (maxX - minX || 1)) * plotWidth;
+    const y = value => margin.top + plotHeight - (value / (maxY || 1)) * plotHeight;
+    const radius = value => 7 + ((value - minRss) / (maxRss - minRss || 1)) * 7;
+    svg.append(svgNode('rect', {x: margin.left, y: margin.top, width: plotWidth, height: plotHeight, class: 'chart-frame', 'data-chart-frame': ''}));
+    ticks(0, maxY, 5).forEach(value => {
+      const py = y(value); svg.append(svgNode('line', {x1: margin.left, x2: margin.left + plotWidth, y1: py, y2: py, class: 'chart-grid'}));
+      svg.append(svgNode('text', {x: margin.left - 10, y: py + 4, 'text-anchor': 'end', class: 'chart-axis'}, value.toFixed(0)));
+    });
+    ticks(minX, maxX, width < 520 ? 4 : 5).forEach(value => {
+      const px = x(value); svg.append(svgNode('line', {x1: px, x2: px, y1: margin.top, y2: margin.top + plotHeight, class: 'chart-grid'}));
+      svg.append(svgNode('text', {x: px, y: margin.top + plotHeight + 22, 'text-anchor': 'middle', class: 'chart-axis'}, value.toFixed(1)));
+    });
+    svg.append(svgNode('text', {x: margin.left + plotWidth / 2, y: height - 10, 'text-anchor': 'middle', class: 'chart-axis-title', 'data-axis': 'x'}, 'Accuracy score (%)'));
+    svg.append(svgNode('text', {x: 15, y: margin.top + plotHeight / 2, 'text-anchor': 'middle', class: 'chart-axis-title', transform: `rotate(-90 15 ${margin.top + plotHeight / 2})`, 'data-axis': 'y'}, 'Generation speed (tokens/s)'));
+    const placed = [];
+    data.filter(matches).forEach(row => {
+      const px = x(row.accuracy); const py = y(row.speed); const r = radius(row.rss); const color = `var(--mode-${row.mode})`;
+      const link = svgNode('a', {href: `#${row.target}`, class: 'chart-link', 'aria-label': `${row.label}, ${row.mode}, ${row.accuracy.toFixed(2)} percent accuracy, ${row.speed.toFixed(2)} tokens per second`});
+      let mark;
+      if (row.mode === 'mtp') mark = svgNode('rect', {x: px - r * .72, y: py - r * .72, width: r * 1.44, height: r * 1.44, rx: 2, transform: `rotate(45 ${px} ${py})`, fill: color, class: 'chart-point'});
+      else if (row.mode === 'dflash') mark = svgNode('rect', {x: px - r * .82, y: py - r * .82, width: r * 1.64, height: r * 1.64, rx: 3, fill: color, class: 'chart-point'});
+      else mark = svgNode('circle', {cx: px, cy: py, r, fill: color, class: 'chart-point'});
+      const hit = svgNode('circle', {cx: px, cy: py, r: Math.max(16, r + 5), fill: 'transparent'});
+      link.append(mark, hit);
+      link.addEventListener('pointerenter', event => showTooltip(row, mark, event)); link.addEventListener('pointermove', event => showTooltip(row, mark, event)); link.addEventListener('pointerleave', () => { tooltip.hidden = true; });
+      link.addEventListener('focus', () => showTooltip(row, mark)); link.addEventListener('blur', () => { tooltip.hidden = true; }); svg.append(link);
+      if (width >= 520) {
+        const text = `${row.label}${row.mode === 'baseline' ? '' : ` · ${row.mode.toUpperCase()}`}`; const w = Math.min(190, text.length * 6.25); const h = 15;
+        const candidates = [{x: px + r + 6, y: py - 8}, {x: px - w / 2, y: py - r - 20}, {x: px + r + 6, y: py + 7}, {x: px - w / 2, y: py + r + 8}, {x: px - r - w - 6, y: py - 8}];
+        const box = candidates.map(item => ({...item, w, h})).find(item => item.x >= margin.left + 3 && item.x + item.w <= margin.left + plotWidth - 3 && item.y >= margin.top + 3 && item.y + item.h <= margin.top + plotHeight - 3 && !placed.some(other => overlaps(item, other)));
+        if (box) { placed.push(box); svg.append(svgNode('text', {x: box.x, y: box.y + 11, class: 'chart-label'}, text)); }
+      }
+    });
+  }
+  document.querySelectorAll('button[data-filter]').forEach(button => button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+    document.querySelectorAll('button[data-filter]').forEach(item => { const selected = item === button; item.classList.toggle('active', selected); item.setAttribute('aria-pressed', selected ? 'true' : 'false'); });
+    document.querySelectorAll('.result-card').forEach(card => { card.hidden = !(activeFilter === 'all' || card.dataset.mode === activeFilter || card.dataset.engine === activeFilter); }); draw();
+  }));
+  new ResizeObserver(draw).observe(wrap); draw();
+})();
+</script></body></html>

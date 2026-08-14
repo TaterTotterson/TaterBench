@@ -83,7 +83,12 @@ class RunnerReportingTests(unittest.TestCase):
                 docs_dir=root / "docs",
             )
             self.assertIn("org/model", outputs["markdown"].read_text(encoding="utf-8"))
-            self.assertIn("Tater Bench", outputs["html"].read_text(encoding="utf-8"))
+            html_text = outputs["html"].read_text(encoding="utf-8")
+            self.assertIn("Tater Bench", html_text)
+            self.assertIn('id="benchmark-chart"', html_text)
+            self.assertIn("Accuracy score (%)", html_text)
+            self.assertIn("Generation speed (tokens/s)", html_text)
+            self.assertIn('type="application/json"', html_text)
 
 
 if __name__ == "__main__":
