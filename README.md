@@ -13,7 +13,7 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
 - **Tater Score:** 70 points for task accuracy, 20 for generation speed, 5 for time to first token, and 5 for peak-memory efficiency.
-- **Accuracy:** Astraeus routing, ordered planning, Thanatos tool selection and arguments, normal chat, Hermes result synthesis, and Spudex action decisions.
+- **Accuracy:** Astraeus routing against the complete tool catalog, ordered planning, Thanatos tool selection and arguments, normal chat with full system awareness, Hermes result synthesis, and Spudex action decisions.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
 - **Speculation:** llama.cpp targets run once without speculative decoding and again with every compatible MTP, DFlash, or DSpark draft found beside the target GGUF.
 - **Hardware:** OS, CPU, architecture, core count, memory, GPU/backend, engine version, and an anonymous hardware fingerprint.
@@ -50,7 +50,19 @@ Discovery starts from:
 
 If that registry is unavailable, Tater Bench safely scans Tater's llama.cpp and MLX model caches. Vision projectors and speculative draft GGUFs are attached to their target model and are not listed as independent benchmark targets.
 
-When a matching projector is installed, llama.cpp loads it with the target just as Tater does. The core v0.1 score remains text/tool focused; a separately scored vision suite can be added without changing existing scores.
+When a matching projector is installed, llama.cpp loads it with the target just as Tater does. The core v0.2 score remains text/tool focused; a separately scored vision suite can be added without changing existing scores.
+
+## Frozen synthetic Tater runtime
+
+The core v0.2 suite uses a fixed synthetic runtime profile rather than importing prompts or state from the live Tater installation. Every model receives the same Tater identity, date, platform, fake filesystem and hardware state, tool results, and conversation context.
+
+The profile includes every Verba and Core present in the Tater Shop snapshot dated August 14, 2026. All 63 Verbas, 18 built-in/kernel tools, 12 synthetic Portals, and 10 Cores are marked enabled; every Core is also marked running. This gives Astraeus realistic routing pressure and gives chat the same type of system-awareness context Tater provides, without exposing personal data or letting a Shop update silently change scores.
+
+The catalog is stored in `taterbench/fixtures/tater-shop-2026-08-14.json`. Updating it requires a new dated prompt profile and suite version so results produced under different prompt conditions never share a comparison cohort. Maintainers can create a future snapshot with:
+
+~~~bash
+python scripts/snapshot_tater_shop.py --snapshot-date YYYY-MM-DD --output taterbench/fixtures/tater-shop-YYYY-MM-DD.json
+~~~
 
 ## Run benchmarks
 

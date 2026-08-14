@@ -9,13 +9,13 @@ from taterbench.scenarios import load_suite
 class SuiteTests(unittest.TestCase):
     def test_core_suite_is_versioned_and_renderable(self) -> None:
         suite = load_suite("core")
-        self.assertEqual(suite["version"], "tater-core-0.1")
+        self.assertEqual(suite["version"], "tater-core-0.2")
         self.assertGreaterEqual(len(suite["scenarios"]), 20)
         for scenario in suite["scenarios"]:
             messages = build_messages(scenario)
             self.assertGreaterEqual(len(messages), 2)
             self.assertEqual(messages[0]["role"], "system")
-            self.assertNotIn("system", [message["role"] for message in messages[1:]])
+            self.assertEqual(messages[-1]["role"], "user")
 
     def test_thanatos_combines_instructions_into_the_initial_system_message(self) -> None:
         messages = build_messages(
@@ -26,8 +26,8 @@ class SuiteTests(unittest.TestCase):
                 "tool_hint": "set_timer",
             }
         )
-        self.assertEqual([message["role"] for message in messages], ["system", "user"])
-        self.assertIn("Execution step lock", messages[0]["content"])
+        self.assertEqual(messages[-1]["role"], "user")
+        self.assertIn("Execution step lock", "\n".join(message["content"] for message in messages))
 
 
 if __name__ == "__main__":

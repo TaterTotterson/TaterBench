@@ -1,7 +1,7 @@
 {
   "name": "Tater Core",
-  "version": "tater-core-0.1",
-  "description": "Tater-style routing, tool execution, chat, synthesis, and Spudex decisions.",
+  "version": "tater-core-0.2",
+  "description": "Frozen full-runtime Tater routing, tool execution, chat, synthesis, and Spudex decisions with every cataloged Verba and Core enabled.",
   "temperature": 0.0,
   "max_tokens": 320,
   "scenarios": [
@@ -10,7 +10,7 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "Hey Tater, how are you doing?",
-      "available_tools": ["weather_current", "homekit_control", "send_message"],
+      "available_tools": ["weather_forecast", "device_control", "send_message"],
       "expected": {"mode": "chat", "tool_sequence": []}
     },
     {
@@ -26,24 +26,24 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "What is the weather in Chicago right now?",
-      "available_tools": ["weather_current", "websearch", "homekit_control"],
-      "expected": {"mode": "execute", "tool_sequence": ["weather_current"]}
+      "available_tools": ["weather_forecast", "websearch", "device_control"],
+      "expected": {"mode": "execute", "tool_sequence": ["weather_forecast"]}
     },
     {
       "id": "route-light",
       "category": "routing",
       "kind": "astraeus",
       "user": "Turn the living room lights down to 30 percent.",
-      "available_tools": ["weather_current", "homekit_control", "play_music"],
-      "expected": {"mode": "execute", "tool_sequence": ["homekit_control"]}
+      "available_tools": ["weather_forecast", "device_control", "music_assistant"],
+      "expected": {"mode": "execute", "tool_sequence": ["device_control"]}
     },
     {
       "id": "route-multi-action",
       "category": "routing",
       "kind": "astraeus",
       "user": "Turn off the kitchen lights, then play Daft Punk in the kitchen.",
-      "available_tools": ["homekit_control", "play_music", "send_message"],
-      "expected": {"mode": "execute", "tool_sequence": ["homekit_control", "play_music"]}
+      "available_tools": ["device_control", "music_assistant", "send_message"],
+      "expected": {"mode": "execute", "tool_sequence": ["device_control", "music_assistant"]}
     },
     {
       "id": "route-download-chain",
@@ -58,7 +58,7 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "Send Sam a Telegram message saying dinner is ready.",
-      "available_tools": ["send_message", "homekit_control", "websearch"],
+      "available_tools": ["send_message", "device_control", "websearch"],
       "expected": {"mode": "execute", "tool_sequence": ["send_message"]}
     },
     {
@@ -76,9 +76,9 @@
       "user": "Set a pizza timer for 15 minutes.",
       "intent": "Create a timer",
       "instruction": "Create a 15-minute timer labeled pizza",
-      "tool_hint": "set_timer",
-      "tool_contract": {"function": "set_timer", "arguments": {"duration_seconds": "integer", "label": "string"}},
-      "expected": {"function": "set_timer", "arguments": {"duration_seconds": 900, "label": {"contains": "pizza"}}},
+      "tool_hint": "voicepe_remote_timer",
+      "tool_contract": {"function": "voicepe_remote_timer", "arguments": {"nl": "complete timer action phrase"}},
+      "expected": {"function": "voicepe_remote_timer", "arguments": {"nl": {"contains": "pizza"}}},
       "weight": 1.25
     },
     {
@@ -88,9 +88,9 @@
       "user": "Turn the living room lights down to 30 percent.",
       "intent": "Adjust living room lights",
       "instruction": "Turn the living room lights to 30 percent brightness",
-      "tool_hint": "homekit_control",
-      "tool_contract": {"function": "homekit_control", "arguments": {"nl": "concise action phrase"}},
-      "expected": {"function": "homekit_control", "arguments": {"nl": {"contains": "living room lights"}}},
+      "tool_hint": "device_control",
+      "tool_contract": {"function": "device_control", "arguments": {"nl": "concise action phrase"}},
+      "expected": {"function": "device_control", "arguments": {"nl": {"contains": "living room lights"}}},
       "weight": 1.25
     },
     {
@@ -100,9 +100,9 @@
       "user": "What is the weather in Chicago right now?",
       "intent": "Get current weather",
       "instruction": "Get the current weather for Chicago, Illinois",
-      "tool_hint": "weather_current",
-      "tool_contract": {"function": "weather_current", "arguments": {"location": "city and region"}},
-      "expected": {"function": "weather_current", "arguments": {"location": {"contains": "chicago"}}},
+      "tool_hint": "weather_forecast",
+      "tool_contract": {"function": "weather_forecast", "arguments": {"nl": "complete weather question"}},
+      "expected": {"function": "weather_forecast", "arguments": {"nl": {"contains": "chicago"}}},
       "weight": 1.25
     },
     {
@@ -137,9 +137,9 @@
       "user": "Create a file named hello.txt containing hello potato.",
       "intent": "Create a workspace file",
       "instruction": "Create hello.txt with the text hello potato",
-      "tool_hint": "spudex_loop",
-      "tool_contract": {"function": "spudex_loop", "arguments": {"nl": "complete task instruction"}},
-      "expected": {"function": "spudex_loop", "arguments": {"nl": {"contains": "hello.txt"}}},
+      "tool_hint": "run_terminal_task",
+      "tool_contract": {"function": "run_terminal_task", "arguments": {"request": "complete terminal task instruction"}},
+      "expected": {"function": "run_terminal_task", "arguments": {"request": {"contains": "hello.txt"}}},
       "weight": 1.25
     },
     {

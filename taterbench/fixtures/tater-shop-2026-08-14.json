@@ -1,0 +1,1405 @@
+{
+  "cores": [
+    {
+      "description": "AI Task Scheduler Core integration core for Tater.",
+      "enabled": true,
+      "id": "ai_task",
+      "module_key": "ai_task_core",
+      "name": "AI Task Scheduler Core",
+      "running": true,
+      "version": "1.2.0"
+    },
+    {
+      "description": "Build simple event-to-action automations from Tater's shared integration categories, device actions, notifications, and announcement targets.",
+      "enabled": true,
+      "id": "automation",
+      "module_key": "automation_core",
+      "name": "Automation Core",
+      "running": true,
+      "version": "1.4.0"
+    },
+    {
+      "description": "Choose which cameras and sensors Tater should observe, retain their bounded event history and snapshots, and answer questions about past activity. Use Automation Core for triggers, notifications, announcements, and device actions.",
+      "enabled": true,
+      "id": "awareness",
+      "module_key": "awareness_core",
+      "name": "Awareness Core",
+      "running": true,
+      "version": "4.4.2"
+    },
+    {
+      "description": "Local environment telemetry receiver for weather stations and configured sensor integrations.",
+      "enabled": true,
+      "id": "environment",
+      "module_key": "environment_core",
+      "name": "Environment Core",
+      "running": true,
+      "version": "1.4.19"
+    },
+    {
+      "description": "Network guardian core for device inventory, change detection, security analysis, and health monitoring.",
+      "enabled": true,
+      "id": "guardian",
+      "module_key": "guardian_core",
+      "name": "Guardian Core",
+      "running": true,
+      "version": "1.3.12"
+    },
+    {
+      "description": "Memory Core integration core for Tater.",
+      "enabled": true,
+      "id": "memory",
+      "module_key": "memory_core",
+      "name": "Memory Core",
+      "running": true,
+      "version": "1.0.30"
+    },
+    {
+      "description": "Connect Tater Tube Server to Tater; browse music, build AI-named recommendations from listening history, and keep voice-controlled queues playing with a smart continuous-radio refill across clock-synchronized satellites, native Sonos groups, stereo pairs, and media players.",
+      "enabled": true,
+      "id": "music",
+      "module_key": "music_core",
+      "name": "Music Core",
+      "running": true,
+      "version": "3.4.1"
+    },
+    {
+      "description": "Personal Core integration core for Tater.",
+      "enabled": true,
+      "id": "personal",
+      "module_key": "personal_core",
+      "name": "Personal Core",
+      "running": true,
+      "version": "1.0.56"
+    },
+    {
+      "description": "RSS Core integration core for Tater.",
+      "enabled": true,
+      "id": "rss",
+      "module_key": "rss_core",
+      "name": "RSS Core",
+      "running": true,
+      "version": "1.0.12"
+    },
+    {
+      "description": "Connect Tater to Tater Tube Server, keep Tater's Picks focused on the server catalog, create a separate global Main Menu Message from cross-module activity, and voice both with the user's TTS settings.",
+      "enabled": true,
+      "id": "tater_tube",
+      "module_key": "tater_tube_core",
+      "name": "Tater Tube Core",
+      "running": true,
+      "version": "1.4.0"
+    }
+  ],
+  "identity": {
+    "first_name": "Tater",
+    "last_name": "Bench",
+    "now": "Friday, August 14, 2026 at 12:00 PM UTC",
+    "personality": "Friendly, capable, concise, and direct.",
+    "platform": "webui",
+    "platform_label": "Tater Web UI"
+  },
+  "kernel_tools": [
+    {
+      "description": "Attach an available artifact or local file.",
+      "enabled": true,
+      "id": "attach_file",
+      "name": "attach_file"
+    },
+    {
+      "description": "Delete a local file.",
+      "enabled": true,
+      "id": "delete_file",
+      "name": "delete_file"
+    },
+    {
+      "description": "Download a file from a concrete file URL.",
+      "enabled": true,
+      "id": "download_file",
+      "name": "download_file"
+    },
+    {
+      "description": "Extract an archive into a target directory.",
+      "enabled": true,
+      "id": "extract_archive",
+      "name": "extract_archive"
+    },
+    {
+      "description": "Show usage and guidance for a Verba.",
+      "enabled": true,
+      "id": "get_verba_help",
+      "name": "get_verba_help"
+    },
+    {
+      "description": "Describe an explicit image artifact, URL, blob, or local path.",
+      "enabled": true,
+      "id": "image_describe",
+      "name": "image_describe"
+    },
+    {
+      "description": "Inspect and extract content from a specific webpage URL.",
+      "enabled": true,
+      "id": "inspect_webpage",
+      "name": "inspect_webpage"
+    },
+    {
+      "description": "Manage a room-to-room Voice Core intercom handoff.",
+      "enabled": true,
+      "id": "intercom",
+      "name": "intercom"
+    },
+    {
+      "description": "Inspect archive entries.",
+      "enabled": true,
+      "id": "list_archive",
+      "name": "list_archive"
+    },
+    {
+      "description": "List files and folders.",
+      "enabled": true,
+      "id": "list_directory",
+      "name": "list_directory"
+    },
+    {
+      "description": "List kernel and enabled Verba tools.",
+      "enabled": true,
+      "id": "list_tools",
+      "name": "list_tools"
+    },
+    {
+      "description": "Read local file contents.",
+      "enabled": true,
+      "id": "read_file",
+      "name": "read_file"
+    },
+    {
+      "description": "Rewrite supplied text for a downstream action.",
+      "enabled": true,
+      "id": "rewrite_text",
+      "name": "rewrite_text"
+    },
+    {
+      "description": "Run policy-controlled terminal work through Spudex.",
+      "enabled": true,
+      "id": "run_terminal_task",
+      "name": "run_terminal_task"
+    },
+    {
+      "description": "Search text across local files.",
+      "enabled": true,
+      "id": "search_files",
+      "name": "search_files"
+    },
+    {
+      "description": "Send an explicitly requested cross-portal message.",
+      "enabled": true,
+      "id": "send_message",
+      "name": "send_message"
+    },
+    {
+      "description": "Search the web, inspect sources, and synthesize an answer.",
+      "enabled": true,
+      "id": "websearch",
+      "name": "websearch"
+    },
+    {
+      "description": "Write content to a local file.",
+      "enabled": true,
+      "id": "write_file",
+      "name": "write_file"
+    }
+  ],
+  "portals": [
+    {
+      "connected": true,
+      "description": "Interact through Tater Web UI.",
+      "enabled": true,
+      "id": "webui",
+      "name": "Tater Web UI"
+    },
+    {
+      "connected": true,
+      "description": "Interact through macOS.",
+      "enabled": true,
+      "id": "macos",
+      "name": "macOS"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Discord.",
+      "enabled": true,
+      "id": "discord",
+      "name": "Discord"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Home Assistant.",
+      "enabled": true,
+      "id": "homeassistant",
+      "name": "Home Assistant"
+    },
+    {
+      "connected": true,
+      "description": "Interact through HomeKit / Siri.",
+      "enabled": true,
+      "id": "homekit",
+      "name": "HomeKit / Siri"
+    },
+    {
+      "connected": true,
+      "description": "Interact through IRC.",
+      "enabled": true,
+      "id": "irc",
+      "name": "IRC"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Matrix.",
+      "enabled": true,
+      "id": "matrix",
+      "name": "Matrix"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Meshtastic.",
+      "enabled": true,
+      "id": "meshtastic",
+      "name": "Meshtastic"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Telegram.",
+      "enabled": true,
+      "id": "telegram",
+      "name": "Telegram"
+    },
+    {
+      "connected": true,
+      "description": "Interact through XBMC / Original Xbox.",
+      "enabled": true,
+      "id": "xbmc",
+      "name": "XBMC / Original Xbox"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Little Spud.",
+      "enabled": true,
+      "id": "little_spud",
+      "name": "Little Spud"
+    },
+    {
+      "connected": true,
+      "description": "Interact through Voice Core.",
+      "enabled": true,
+      "id": "voice_core",
+      "name": "Voice Core"
+    }
+  ],
+  "profile": "tater-full-synthetic-2026-08-14",
+  "schema": 1,
+  "snapshot_date": "2026-08-14",
+  "sources": {
+    "cores": {
+      "sha256": "61daf1b34d44eca00ee1a335a2f55ad41478b222e198cdb696ee84360151d54d",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater_Shop/main/core_manifest.json"
+    },
+    "verbas": {
+      "sha256": "5aab23135cc2906d2679c37505b748beb7513ca1e9b32d425ddc4eeee01b1ae8",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater_Shop/main/manifest.json"
+    }
+  },
+  "verbas": [
+    {
+      "description": "Create one image from a natural-language image request.",
+      "enabled": true,
+      "id": "automatic_plugin",
+      "name": "Automatic1111 Image",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "telegram"
+      ],
+      "version": "1.2.2"
+    },
+    {
+      "description": "Read battery status from Hue, Ecobee/HomeKit, Aladdin, UniFi Protect, Home Assistant, and other integrations.",
+      "enabled": true,
+      "id": "battery_status",
+      "name": "Battery Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Send a one-time spoken announcement to all satellites or one specified room.",
+      "enabled": true,
+      "id": "broadcast",
+      "name": "Broadcast",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "webui",
+        "little_spud",
+        "macos",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.3.0"
+    },
+    {
+      "description": "Use for requests about cameras, doorbells, snapshots, camera images, or current visible activity in a named camera-covered area, including questions like 'what's happening in the front yard?', 'who is at the door?', or 'is anyone on the porch?'",
+      "enabled": true,
+      "id": "camera_control",
+      "name": "Camera Control",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "description": "Compose a music track from a prompt with ComfyUI Audio Ace.",
+      "enabled": true,
+      "id": "comfyui_audio_ace",
+      "name": "ComfyUI Audio Ace",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.27"
+    },
+    {
+      "description": "Edit or transform the latest/referenced image in chat with ComfyUI image-to-image.",
+      "enabled": true,
+      "id": "comfyui_image_edit",
+      "name": "ComfyUI Image Edit",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.2"
+    },
+    {
+      "description": "Generate a still image from a text prompt using your ComfyUI workflow.",
+      "enabled": true,
+      "id": "comfyui_image_plugin",
+      "name": "ComfyUI Image",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.7"
+    },
+    {
+      "description": "Animate the most recent image in chat into a looping WebP or MP4 via ComfyUI.",
+      "enabled": true,
+      "id": "comfyui_image_video",
+      "name": "ComfyUI Animate Image",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "1.0.6"
+    },
+    {
+      "description": "Build a full AI music video\u2014lyrics, music, and animated visuals\u2014using ComfyUI.",
+      "enabled": true,
+      "id": "comfyui_music_video",
+      "name": "ComfyUI Music Video",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "1.0.7"
+    },
+    {
+      "description": "Create a short video from a text prompt by stitching ComfyUI-generated clips.",
+      "enabled": true,
+      "id": "comfyui_video_plugin",
+      "name": "ComfyUI Video",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "1.0.6"
+    },
+    {
+      "description": "Natural-language device comparison with spec tables and optional per-game FPS benchmarks.",
+      "enabled": true,
+      "id": "device_compare",
+      "name": "Device Compare",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "description": "Use for any request to control or check smart-home devices across integrations, including lights, switches, plugs, fans, covers, garage doors, locks, thermostats, media players, remotes, scenes, and scripts. Use Camera Control for cameras and snapshots.",
+      "enabled": true,
+      "id": "device_control",
+      "name": "Device Control",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "description": "Toggle always-respond mode for the current Discord channel only.",
+      "enabled": true,
+      "id": "discord_admin_response_mode",
+      "name": "Discord Admin Response Mode",
+      "portals": [
+        "discord"
+      ],
+      "version": "1.1.1"
+    },
+    {
+      "description": "Discord role listing and role assignment commands.",
+      "enabled": true,
+      "id": "discord_admin_roles",
+      "name": "Discord Admin Roles",
+      "portals": [
+        "discord"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Discord server setup and structural admin changes.",
+      "enabled": true,
+      "id": "discord_admin_setup",
+      "name": "Discord Admin Setup",
+      "portals": [
+        "discord"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Read energy and power data from Shelly, Home Assistant, and other integrations.",
+      "enabled": true,
+      "id": "energy_status",
+      "name": "Energy Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Read entry sensor status from Home Assistant, Hue, UniFi Protect, Ecobee/HomeKit, and other integrations.",
+      "enabled": true,
+      "id": "entry_sensor_status",
+      "name": "Door & Window Sensor Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Ping or ring your phone through Home Assistant so you can locate it.",
+      "enabled": true,
+      "id": "find_my_phone",
+      "name": "Find My Phone",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.11"
+    },
+    {
+      "description": "Browse and download files from the configured FTP server.",
+      "enabled": true,
+      "id": "ftp_browser",
+      "name": "FTP Browser",
+      "portals": [
+        "discord"
+      ],
+      "version": "1.1.1"
+    },
+    {
+      "description": "Find cameras in a Home Assistant area and describe what they see.",
+      "enabled": true,
+      "id": "ha_camera_area",
+      "name": "Home Assistant Camera Area",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.8"
+    },
+    {
+      "description": "Read humidity from Ecobee/HomeKit, Home Assistant, Hue, Shelly, UniFi Protect, and other integrations.",
+      "enabled": true,
+      "id": "humidity_status",
+      "name": "Humidity Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Read lux and light-level sensors from Hue, Shelly, Home Assistant, UniFi Protect, and other integrations.",
+      "enabled": true,
+      "id": "illuminance_status",
+      "name": "Light Sensor Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Gives the user op or voice in the current IRC channel.",
+      "enabled": true,
+      "id": "irc_admin_op",
+      "name": "IRC Admin OP",
+      "portals": [
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.3.2"
+    },
+    {
+      "description": "Slaps the requested user in the current IRC channel.",
+      "enabled": true,
+      "id": "irc_admin_slap",
+      "name": "IRC Admin Slap",
+      "portals": [
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.2"
+    },
+    {
+      "description": "Sets the current IRC channel topic to the requested text.",
+      "enabled": true,
+      "id": "irc_admin_topic",
+      "name": "IRC Admin Topic",
+      "portals": [
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.2"
+    },
+    {
+      "description": "List and rank recent Jackett uploads across selected indexers.",
+      "enabled": true,
+      "id": "jackett_recent_uploads",
+      "name": "Jackett Recent Uploads",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "matrix",
+        "telegram",
+        "xbmc"
+      ],
+      "version": "1.0.5"
+    },
+    {
+      "description": "Run Jackett torrent searches with filters and ranked results.",
+      "enabled": true,
+      "id": "jackett_search_torrents",
+      "name": "Jackett Search Torrents",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "matrix",
+        "telegram",
+        "xbmc"
+      ],
+      "version": "1.0.6"
+    },
+    {
+      "description": "Fetch one joke from JokeAPI.",
+      "enabled": true,
+      "id": "joke_api",
+      "name": "Joke API",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic",
+        "xbmc"
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "description": "Read leak sensor status from UniFi Protect, Home Assistant, and other integrations.",
+      "enabled": true,
+      "id": "leak_status",
+      "name": "Leak Sensor Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Create a cozy ComfyUI lofi video by generating music and looping a matching animation.",
+      "enabled": true,
+      "id": "lowfi_video",
+      "name": "ComfyUI Lofi Video",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "1.1.7"
+    },
+    {
+      "description": "Change or suggest the local microWakeWord wake word on a Tater Voice Core satellite.",
+      "enabled": true,
+      "id": "microwakeword",
+      "name": "microWakeWord",
+      "portals": [
+        "voice_core",
+        "homekit",
+        "xbmc",
+        "webui",
+        "little_spud",
+        "macos",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.5"
+    },
+    {
+      "description": "Control your MiSTer FPGA setup\u2014launch games, check status, or take screenshots.",
+      "enabled": true,
+      "id": "mister_remote",
+      "name": "MiSTer Remote",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "matrix",
+        "homekit",
+        "telegram"
+      ],
+      "version": "1.1.10"
+    },
+    {
+      "description": "Moltbook account/profile summary, profile URL, following/fellow agents, and target agent profiles.",
+      "enabled": true,
+      "id": "moltbook_account_summary",
+      "name": "Moltbook Account Summary",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.5"
+    },
+    {
+      "description": "Moltbook dashboard overview plus latest posts, announcements, post activity, subscriptions, and monitored submolts.",
+      "enabled": true,
+      "id": "moltbook_home_overview",
+      "name": "Moltbook Home Overview",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.5"
+    },
+    {
+      "description": "Read motion status from Home Assistant, Hue, UniFi Protect, Ecobee/HomeKit, and other integrations.",
+      "enabled": true,
+      "id": "motion_status",
+      "name": "Motion Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Play music and control playback via Music Assistant in Home Assistant.",
+      "enabled": true,
+      "id": "music_assistant",
+      "name": "Music Assistant",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.32"
+    },
+    {
+      "description": "Read network device status from UniFi Network and any integration that exposes network devices.",
+      "enabled": true,
+      "id": "network_device_status",
+      "name": "Network Device Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Save markdown content to Obsidian with predictable note naming, append/overwrite controls, and tags.",
+      "enabled": true,
+      "id": "obsidian_note",
+      "name": "Obsidian Note",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "3.0.3"
+    },
+    {
+      "description": "Search your Obsidian vault quickly and return relevant snippets with optional AI synthesis.",
+      "enabled": true,
+      "id": "obsidian_search",
+      "name": "Obsidian Search",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos"
+      ],
+      "version": "2.0.3"
+    },
+    {
+      "description": "Fetch details for a specific movie or TV show from Overseerr.",
+      "enabled": true,
+      "id": "overseerr_details",
+      "name": "Overseerr Details",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "matrix",
+        "homekit",
+        "telegram"
+      ],
+      "version": "1.2.4"
+    },
+    {
+      "description": "Request a movie or TV show in Overseerr by title.",
+      "enabled": true,
+      "id": "overseerr_request",
+      "name": "Overseerr Request",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "description": "List trending or upcoming movies/TV from Overseerr.",
+      "enabled": true,
+      "id": "overseerr_trending",
+      "name": "Overseerr Trending",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "matrix",
+        "homekit",
+        "telegram"
+      ],
+      "version": "1.2.4"
+    },
+    {
+      "description": "Create Premiumize transfers from explicit magnet links, remote HTTP(S) .torrent URLs, attached .torrent files, or local/downloaded .torrent files.",
+      "enabled": true,
+      "id": "premiumize_add_transfer",
+      "name": "Premiumize Add Transfer",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "description": "Inspect a Premiumize transfer and report status, progress, and related files.",
+      "enabled": true,
+      "id": "premiumize_check_transfer",
+      "name": "Premiumize Check Transfer",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.9"
+    },
+    {
+      "description": "Get Premiumize stream/download links by magnet links, remote HTTP(S) .torrent URLs, attached .torrent files, or local/downloaded .torrent files.",
+      "enabled": true,
+      "id": "premiumize_get_links",
+      "name": "Premiumize Get Links",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.1.4"
+    },
+    {
+      "description": "List Premiumize cloud folder contents with file/folder counts.",
+      "enabled": true,
+      "id": "premiumize_list_files",
+      "name": "Premiumize List Files",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.9"
+    },
+    {
+      "description": "Show Premiumize transfer queue/status with active, finished, and failed counts.",
+      "enabled": true,
+      "id": "premiumize_list_transfers",
+      "name": "Premiumize List Transfers",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.9"
+    },
+    {
+      "description": "Read presence from UniFi Network clients, Ecobee/HomeKit occupancy sensors, and other integrations.",
+      "enabled": true,
+      "id": "presence_status",
+      "name": "Presence Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Use only when someone explicitly tells you to go to sleep, go to bed, or take a nap. Do not use merely because the user says they are going to sleep, asks a question about sleep, or asks Reachy to be quiet",
+      "enabled": true,
+      "id": "reachy_sleep",
+      "name": "Reachy Sleep",
+      "portals": [
+        "voice_core"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Use when someone asks Tater to look at them or something in front of Reachy, including 'how do I look?', 'do you like what I'm wearing?', 'what am I wearing?', 'look at this', or 'what do you see?'. Do not use for named home-security cameras; use Camera Control for those.",
+      "enabled": true,
+      "id": "reachy_vision",
+      "name": "Reachy Vision",
+      "portals": [
+        "voice_core"
+      ],
+      "version": "1.0.0"
+    },
+    {
+      "description": "Play existing music through Roon in a room or zone: songs, artists, albums, genres, playlists, radio, shuffle/random playback, and playback controls. Do not use for generating new songs or audio.",
+      "enabled": true,
+      "id": "roon_music",
+      "name": "Roon Music",
+      "portals": [
+        "voice_core",
+        "webui",
+        "little_spud",
+        "macos",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Read other sensor status from all enabled integrations through the shared device registry.",
+      "enabled": true,
+      "id": "sensor_status",
+      "name": "Sensor Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Create an SFTPGo account for the user and return login details.",
+      "enabled": true,
+      "id": "sftpgo_account",
+      "name": "SFTPGo Account",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "description": "Show current connection activity on the SFTPGo server.",
+      "enabled": true,
+      "id": "sftpgo_activity",
+      "name": "SFTPGo Activity",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "description": "Add a GitHub releases feed to the tater-gits watcher with smart naming.",
+      "enabled": true,
+      "id": "tater_gits_add_feed",
+      "name": "Tater Gits Add Feed",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "discord",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.3"
+    },
+    {
+      "description": "Read temperature from Ecobee/HomeKit, Home Assistant, Hue, Shelly, UniFi Protect, and other integrations.",
+      "enabled": true,
+      "id": "temperature_status",
+      "name": "Temperature Status",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "webui",
+        "little_spud",
+        "macos",
+        "xbmc",
+        "homekit",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Get UniFi network health summary including client/device totals and offline device signals.",
+      "enabled": true,
+      "id": "unifi_network_health",
+      "name": "UniFi Network Health",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.6"
+    },
+    {
+      "description": "Look up a UniFi client/device and return matching identity and network details.",
+      "enabled": true,
+      "id": "unifi_network_lookup",
+      "name": "UniFi Network Lookup",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.6"
+    },
+    {
+      "description": "Describe activity across multiple cameras in a named area.",
+      "enabled": true,
+      "id": "unifi_protect_area",
+      "name": "UniFi Protect Area",
+      "portals": [
+        "webui",
+        "little_spud",
+        "macos",
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.0.7"
+    },
+    {
+      "description": "Set, cancel, snooze, silence, or check a timer.",
+      "enabled": true,
+      "id": "voicepe_remote_timer",
+      "name": "Timer",
+      "portals": [
+        "voice_core",
+        "homeassistant",
+        "homekit",
+        "xbmc",
+        "webui",
+        "little_spud",
+        "macos",
+        "discord",
+        "telegram",
+        "matrix",
+        "irc",
+        "meshtastic"
+      ],
+      "version": "1.4.0"
+    },
+    {
+      "description": "Fetch WeatherAPI.com weather through Tater integrations and answer only what the user asked (LLM-guided).",
+      "enabled": true,
+      "id": "weather_forecast",
+      "name": "Weather Forecast",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "voice_core",
+        "homeassistant",
+        "matrix",
+        "homekit",
+        "xbmc",
+        "telegram"
+      ],
+      "version": "1.1.11"
+    },
+    {
+      "description": "Browse and download files from the configured WebDAV server.",
+      "enabled": true,
+      "id": "webdav_browser",
+      "name": "WebDAV Browser",
+      "portals": [
+        "discord"
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "description": "Summarize a YouTube video using its transcript.",
+      "enabled": true,
+      "id": "youtube_summary",
+      "name": "YouTube Summary",
+      "portals": [
+        "discord",
+        "webui",
+        "little_spud",
+        "macos",
+        "irc",
+        "meshtastic",
+        "matrix",
+        "telegram"
+      ],
+      "version": "1.0.3"
+    }
+  ]
+}

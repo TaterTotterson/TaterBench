@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "taterbench"
-version = "0.1.0"
+version = "0.2.0"
 description = "Standalone accuracy and performance benchmark for models installed by Tater"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -23,4 +23,4 @@ include-package-data = true
 include = ["taterbench*"]
 
 [tool.setuptools.package-data]
-taterbench = ["suites/*.json"]
+taterbench = ["suites/*.json", "fixtures/*.json"]
