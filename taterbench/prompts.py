@@ -5,9 +5,11 @@ from typing import Any
 
 from .synthetic_runtime import (
     enabled_tool_ids,
+    render_core_context,
     render_system_status,
     render_tool_index,
     synthetic_identity,
+    synthetic_memory_context,
 )
 
 
@@ -172,6 +174,7 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
         dynamic_payload = {
             "current_user_message": user_text,
             "recent_history": scenario.get("recent_history") or [],
+            "memory_context": synthetic_memory_context(),
             "synthetic_runtime": {
                 "platform": identity.get("platform"),
                 "all_shop_verbas_enabled": True,
@@ -253,10 +256,13 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
             "mode": scenario.get("mode") or "direct",
         }
         return [
-            {"role": "system", "content": HERMES_SYSTEM},
+            {"role": "system", "content": HERMES_SYSTEM + "\n\n" + render_core_context("hermes")},
             {"role": "user", "content": json.dumps(payload, sort_keys=True)},
         ]
     return [
-        {"role": "system", "content": CHAT_SYSTEM + "\n\n" + render_system_status()},
+        {
+            "role": "system",
+            "content": CHAT_SYSTEM + "\n\n" + render_core_context("chat") + "\n\n" + render_system_status(),
+        },
         {"role": "user", "content": user_text},
     ]

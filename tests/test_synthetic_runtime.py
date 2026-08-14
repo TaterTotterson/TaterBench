@@ -5,7 +5,12 @@ import unittest
 
 from taterbench.prompts import build_messages
 from taterbench.scenarios import load_suite
-from taterbench.synthetic_runtime import enabled_tool_ids, load_runtime_fixture, render_system_status
+from taterbench.synthetic_runtime import (
+    enabled_tool_ids,
+    load_runtime_fixture,
+    render_core_context,
+    render_system_status,
+)
 from taterbench.version import PROMPT_PROFILE_VERSION
 
 
@@ -21,6 +26,11 @@ class SyntheticRuntimeTests(unittest.TestCase):
         self.assertEqual(len(cores), 10)
         self.assertEqual(len({row["id"] for row in cores}), 10)
         self.assertTrue(all(row["enabled"] is True and row["running"] is True for row in cores))
+        self.assertEqual(len(fixture["kernel_tools"]), 45)
+        self.assertEqual(sum(row["source"] == "builtin" for row in fixture["kernel_tools"]), 18)
+        self.assertEqual(sum(row["source"] == "core" for row in fixture["kernel_tools"]), 27)
+        self.assertEqual(len(fixture["portals"]), 12)
+        self.assertEqual(len(fixture["core_contexts"]), 5)
 
     def test_full_tool_catalog_reaches_astraeus_payload(self) -> None:
         messages = build_messages(
@@ -37,6 +47,8 @@ class SyntheticRuntimeTests(unittest.TestCase):
         self.assertEqual(tool_ids, enabled_tool_ids(["synthetic_lamp_control"]))
         self.assertIn("automatic_plugin", tool_ids)
         self.assertIn("run_terminal_task", tool_ids)
+        self.assertIn("guardian_status", tool_ids)
+        self.assertIn("personal_plans", tool_ids)
         self.assertIn("synthetic_lamp_control", tool_ids)
         self.assertTrue(dynamic_payload["synthetic_runtime"]["all_shop_verbas_enabled"])
         self.assertTrue(dynamic_payload["synthetic_runtime"]["all_shop_cores_running"])
@@ -60,6 +72,13 @@ class SyntheticRuntimeTests(unittest.TestCase):
         self.assertIn("Tater Tube Core", status)
         self.assertNotIn("/Users/", status)
         self.assertNotIn(".taterassistant", status)
+
+    def test_fake_core_context_is_available_to_chat_and_hermes(self) -> None:
+        chat_context = render_core_context("chat")
+        self.assertIn("Riley Example", chat_context)
+        self.assertIn("Guardian Core network context", chat_context)
+        self.assertIn("Private Tater Tube activity context", chat_context)
+        self.assertEqual(chat_context, render_core_context("hermes"))
 
     def test_chat_receives_system_status_and_spudex_uses_fake_paths(self) -> None:
         chat = build_messages({"kind": "chat", "user": "What can you do?"})

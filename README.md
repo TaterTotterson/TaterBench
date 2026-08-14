@@ -56,7 +56,7 @@ When a matching projector is installed, llama.cpp loads it with the target just 
 
 The core v0.2 suite uses a fixed synthetic runtime profile rather than importing prompts or state from the live Tater installation. Every model receives the same Tater identity, date, platform, fake filesystem and hardware state, tool results, and conversation context.
 
-The profile includes every Verba and Core present in the Tater Shop snapshot dated August 14, 2026. All 63 Verbas, 18 built-in/kernel tools, 12 synthetic Portals, and 10 Cores are marked enabled; every Core is also marked running. This gives Astraeus realistic routing pressure and gives chat the same type of system-awareness context Tater provides, without exposing personal data or letting a Shop update silently change scores.
+The profile includes every Verba and Core present in the Tater Shop snapshot dated August 14, 2026. All 63 Verbas, 18 built-in tools, 27 Core-provided kernel tools, 12 synthetic Portals, and 10 Cores are marked enabled; every Core is also marked running. Memory, Personal, Guardian, Music, and Tater Tube receive frozen fake context in the roles where those Cores normally extend Hydra. This gives Astraeus realistic routing pressure and gives chat the same type of system-awareness context Tater provides, without exposing personal data or letting a Shop update silently change scores.
 
 The catalog is stored in `taterbench/fixtures/tater-shop-2026-08-14.json`. Updating it requires a new dated prompt profile and suite version so results produced under different prompt conditions never share a comparison cohort. Maintainers can create a future snapshot with:
 

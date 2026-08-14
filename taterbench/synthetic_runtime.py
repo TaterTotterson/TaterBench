@@ -139,5 +139,20 @@ def render_system_status() -> str:
     return "\n".join(lines)
 
 
+def render_core_context(role: str) -> str:
+    normalized = str(role or "").strip().lower()
+    parts = [
+        str(row.get("content") or "").strip()
+        for row in load_runtime_fixture().get("core_contexts") or []
+        if normalized in {str(value or "").strip().lower() for value in row.get("roles") or []}
+        and str(row.get("content") or "").strip()
+    ]
+    return "\n\n".join(parts)
+
+
+def synthetic_memory_context() -> dict[str, str]:
+    return dict(load_runtime_fixture().get("memory_context") or {})
+
+
 def synthetic_identity() -> dict[str, str]:
     return dict(load_runtime_fixture().get("identity") or {})
