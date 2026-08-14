@@ -187,7 +187,12 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn('data-scope-button="overall"', html_text)
             self.assertIn('data-scope-button="runs"', html_text)
             self.assertIn('id="sort-results"', html_text)
-            self.assertIn("See 1 individual run", html_text)
+            self.assertIn('class="run-meta"', html_text)
+            self.assertIn("Completed", html_text)
+            self.assertNotIn('<details class="run-details"', html_text)
+            self.assertNotIn("See 1 individual run", html_text)
+            self.assertIn("@media(max-width:560px)", html_text)
+            self.assertIn(".score-bars{width:100%;min-width:0", html_text)
             self.assertNotIn('id="benchmark-chart"', html_text)
 
 
