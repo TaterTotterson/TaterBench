@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from taterbench.engines.base import EngineSession
-from taterbench.reporting import aggregate_payload, write_reports
+from taterbench.reporting import aggregate_payload, render_html, write_reports
 from taterbench.runner import BenchmarkRunner, save_batch
 from taterbench.types import GenerationResult, ModelCandidate, RunVariant
 
@@ -41,7 +41,8 @@ class RunnerReportingTests(unittest.TestCase):
         def run(label: str, accuracy: float, speed: float, ttft: float, memory: int) -> dict:
             return {
                 "status": "complete",
-                "model": {"id": label},
+                "model": {"id": label, "repo_id": f"org/{label}", "provider": "llama_cpp"},
+                "engine": {"engine": "llama.cpp"},
                 "variant": {"name": "baseline"},
                 "suite": {"version": "suite-1"},
                 "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
@@ -67,6 +68,8 @@ class RunnerReportingTests(unittest.TestCase):
         )
         scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
         self.assertEqual(scores, {"fast": 100.0, "slow": 50.0})
+        html_text = render_html(aggregate)
+        self.assertLess(html_text.index("org/fast"), html_text.index("org/slow"))
 
     def test_batch_is_privacy_safe_and_reports_render(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -122,10 +125,11 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn("Best models for Tater", html_text)
             self.assertIn('class="score-entry is-leader"', html_text)
             self.assertIn("70 accuracy · 20 generation speed · 5 TTFT · 5 memory efficiency", html_text)
-            self.assertIn('id="benchmark-chart"', html_text)
-            self.assertIn("Accuracy score (%)", html_text)
-            self.assertIn("Generation speed (tokens/s)", html_text)
-            self.assertIn('type="application/json"', html_text)
+            self.assertIn('id="score-bars"', html_text)
+            self.assertIn("All results — best to lowest Tater Score", html_text)
+            self.assertIn('class="detail-rank"', html_text)
+            self.assertIn("scoreBars.style.setProperty('--bar-count'", html_text)
+            self.assertNotIn('id="benchmark-chart"', html_text)
 
 
 if __name__ == "__main__":
