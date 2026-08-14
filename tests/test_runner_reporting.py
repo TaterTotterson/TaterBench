@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from taterbench.engines.base import EngineSession
-from taterbench.reporting import write_reports
+from taterbench.reporting import aggregate_payload, write_reports
 from taterbench.runner import BenchmarkRunner, save_batch
 from taterbench.types import GenerationResult, ModelCandidate, RunVariant
 
@@ -37,6 +37,37 @@ class FakeSession(EngineSession):
 
 
 class RunnerReportingTests(unittest.TestCase):
+    def test_tater_score_weights_accuracy_speed_ttft_and_memory(self) -> None:
+        def run(label: str, accuracy: float, speed: float, ttft: float, memory: int) -> dict:
+            return {
+                "status": "complete",
+                "model": {"id": label},
+                "variant": {"name": "baseline"},
+                "suite": {"version": "suite-1"},
+                "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
+                "accuracy": {"score": accuracy},
+                "performance": {
+                    "median_generation_tokens_per_second": speed,
+                    "median_ttft_seconds": ttft,
+                },
+                "peak_rss_bytes": memory,
+            }
+
+        aggregate = aggregate_payload(
+            [
+                {
+                    "created_at": "2026-08-14T00:00:00Z",
+                    "hardware": {"hardware_id": "same-machine"},
+                    "runs": [
+                        run("fast", 100.0, 20.0, 0.1, 100),
+                        run("slow", 50.0, 10.0, 0.2, 200),
+                    ],
+                }
+            ]
+        )
+        scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
+        self.assertEqual(scores, {"fast": 100.0, "slow": 50.0})
+
     def test_batch_is_privacy_safe_and_reports_render(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -83,8 +114,14 @@ class RunnerReportingTests(unittest.TestCase):
                 docs_dir=root / "docs",
             )
             self.assertIn("org/model", outputs["markdown"].read_text(encoding="utf-8"))
+            report_payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
+            self.assertEqual(report_payload["runs"][0]["tater_score"], 100.0)
+            self.assertEqual(report_payload["runs"][0]["tater_score_components"]["accuracy"], 70.0)
             html_text = outputs["html"].read_text(encoding="utf-8")
             self.assertIn("Tater Bench", html_text)
+            self.assertIn("Best models for Tater", html_text)
+            self.assertIn('class="score-entry is-leader"', html_text)
+            self.assertIn("70 accuracy · 20 generation speed · 5 TTFT · 5 memory efficiency", html_text)
             self.assertIn('id="benchmark-chart"', html_text)
             self.assertIn("Accuracy score (%)", html_text)
             self.assertIn("Generation speed (tokens/s)", html_text)

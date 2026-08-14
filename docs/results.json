@@ -954,6 +954,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 84.0,
+      "tater_score_components": {
+        "accuracy": 64.05,
+        "generation_speed": 10.51,
+        "memory": 4.43,
+        "ttft": 5.0
+      },
       "variant": {
         "draft_bytes": 0,
         "draft_filename": "",
@@ -2383,6 +2390,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 73.14,
+      "tater_score_components": {
+        "accuracy": 65.0,
+        "generation_speed": 4.24,
+        "memory": 3.34,
+        "ttft": 0.56
+      },
       "variant": {
         "draft_bytes": 3164006688,
         "draft_filename": "mtp-Qwen3.8-27B-Q8_0.gguf",
@@ -3767,6 +3781,13 @@
         "repeats": 1,
         "scenario_count": 22,
         "version": "tater-core-0.1"
+      },
+      "tater_score": 73.97,
+      "tater_score_components": {
+        "accuracy": 65.0,
+        "generation_speed": 4.45,
+        "memory": 3.97,
+        "ttft": 0.56
       },
       "variant": {
         "draft_bytes": 0,
@@ -5199,6 +5220,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 84.01,
+      "tater_score_components": {
+        "accuracy": 59.94,
+        "generation_speed": 17.93,
+        "memory": 3.43,
+        "ttft": 2.71
+      },
       "variant": {
         "draft_bytes": 0,
         "draft_filename": "",
@@ -6586,6 +6614,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 80.15,
+      "tater_score_components": {
+        "accuracy": 59.94,
+        "generation_speed": 13.32,
+        "memory": 4.13,
+        "ttft": 2.76
+      },
       "variant": {
         "draft_bytes": 0,
         "draft_filename": "",
@@ -7970,6 +8005,13 @@
         "repeats": 1,
         "scenario_count": 22,
         "version": "tater-core-0.1"
+      },
+      "tater_score": 86.38,
+      "tater_score_components": {
+        "accuracy": 61.68,
+        "generation_speed": 17.11,
+        "memory": 5.0,
+        "ttft": 2.59
       },
       "variant": {
         "draft_bytes": 0,
@@ -9400,6 +9442,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 78.56,
+      "tater_score_components": {
+        "accuracy": 65.0,
+        "generation_speed": 6.96,
+        "memory": 3.83,
+        "ttft": 2.78
+      },
       "variant": {
         "draft_bytes": 472432704,
         "draft_filename": "gemma-4-26B-A4B-it-DFlash-Q8_0.gguf",
@@ -10829,6 +10878,13 @@
         "scenario_count": 22,
         "version": "tater-core-0.1"
       },
+      "tater_score": 92.14,
+      "tater_score_components": {
+        "accuracy": 65.0,
+        "generation_speed": 20.0,
+        "memory": 4.31,
+        "ttft": 2.84
+      },
       "variant": {
         "draft_bytes": 461766592,
         "draft_filename": "gemma-4-26B-A4B-it-MTP-Q8_0.gguf",
@@ -12213,6 +12269,13 @@
         "repeats": 1,
         "scenario_count": 22,
         "version": "tater-core-0.1"
+      },
+      "tater_score": 86.44,
+      "tater_score_components": {
+        "accuracy": 65.0,
+        "generation_speed": 14.13,
+        "memory": 4.5,
+        "ttft": 2.82
       },
       "variant": {
         "draft_bytes": 0,

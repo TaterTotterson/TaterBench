@@ -10,8 +10,9 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 
 ## What it measures
 
-Tater Bench keeps capability and performance separate:
+Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
+- **Tater Score:** 70 points for task accuracy, 20 for generation speed, 5 for time to first token, and 5 for peak-memory efficiency.
 - **Accuracy:** Astraeus routing, ordered planning, Thanatos tool selection and arguments, normal chat, Hermes result synthesis, and Spudex action decisions.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
 - **Speculation:** llama.cpp targets run once without speculative decoding and again with every compatible MTP, DFlash, or DSpark draft found beside the target GGUF.
@@ -79,9 +80,9 @@ Close Tater before an official run. A second loaded model or active generation p
 
 Each batch is saved as a versioned JSON file under `results/`. After a run, Tater Bench automatically regenerates:
 
-- `RESULTS.md` — the primary leaderboard rendered directly by GitHub.
+- `RESULTS.md` — a compact leaderboard rendered directly by GitHub.
 - `docs/results.json` — aggregated machine-readable results.
-- `docs/index.html` — an optional Tater-themed static dashboard.
+- `docs/index.html` — the Tater-themed ranked dashboard for GitHub Pages.
 
 Regenerate reports at any time:
 
@@ -95,7 +96,9 @@ The HTML report is optional. GitHub can display the Markdown leaderboard and raw
 
 Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware and suite.
 
-Accuracy is reported as a separate 0–100 score. Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
+The Tater Score is calculated only within matching hardware, suite, context, and prompt-profile groups. Its speed, TTFT, and memory components are normalized to the best measured value in that group. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
+
+Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 
 ## Privacy
 
