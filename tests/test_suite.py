@@ -15,6 +15,19 @@ class SuiteTests(unittest.TestCase):
             messages = build_messages(scenario)
             self.assertGreaterEqual(len(messages), 2)
             self.assertEqual(messages[0]["role"], "system")
+            self.assertNotIn("system", [message["role"] for message in messages[1:]])
+
+    def test_thanatos_combines_instructions_into_the_initial_system_message(self) -> None:
+        messages = build_messages(
+            {
+                "kind": "thanatos",
+                "user": "Set a timer",
+                "instruction": "Set a timer for 15 minutes",
+                "tool_hint": "set_timer",
+            }
+        )
+        self.assertEqual([message["role"] for message in messages], ["system", "user"])
+        self.assertIn("Execution step lock", messages[0]["content"])
 
 
 if __name__ == "__main__":

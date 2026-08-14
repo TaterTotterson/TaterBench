@@ -92,8 +92,10 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
             "prior_results": scenario.get("prior_results") or [],
         }
         return [
-            {"role": "system", "content": THANATOS_SYSTEM},
-            {"role": "system", "content": "Execution step lock:\n" + json.dumps(lock, sort_keys=True)},
+            {
+                "role": "system",
+                "content": THANATOS_SYSTEM + "\n\nExecution step lock:\n" + json.dumps(lock, sort_keys=True),
+            },
             {"role": "user", "content": "Current agent state JSON:\n" + json.dumps(state, sort_keys=True)},
         ]
     if kind == "spudex":
