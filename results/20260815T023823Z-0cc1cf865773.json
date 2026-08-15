@@ -22,7 +22,7 @@
     ],
     "hardware_id": "0cc1cf865773",
     "logical_cores": 32,
-    "memory_bytes": 15841746944,
+    "memory_bytes": 68719476736,
     "os": "Linux",
     "os_release": "7.0.0-22-generic",
     "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",

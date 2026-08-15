@@ -2,7 +2,7 @@
   "device_count": 2,
   "devices": [
     {
-      "device_id": "629e9ecd99a2",
+      "device_id": "0f7914e5a05e",
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -25,7 +25,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -36,7 +36,7 @@
         "0cc1cf865773"
       ],
       "hardware_profile_count": 1,
-      "label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+      "label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
       "leaderboard": [
         {
           "accuracy": {
@@ -58,7 +58,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -89,7 +89,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -99,7 +99,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 24.115338,
           "model": {
             "filename": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
@@ -169,7 +169,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -200,7 +200,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -210,7 +210,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 31.005742,
           "model": {
             "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
@@ -280,7 +280,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -311,7 +311,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -321,7 +321,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 23.296707,
           "model": {
             "filename": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
@@ -391,7 +391,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -422,7 +422,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -432,7 +432,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 32.2761,
           "model": {
             "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
@@ -502,7 +502,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -533,7 +533,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -543,7 +543,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 21.47304,
           "model": {
             "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
@@ -613,7 +613,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -644,7 +644,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -654,7 +654,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 29.436088,
           "model": {
             "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
@@ -724,7 +724,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -755,7 +755,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -765,7 +765,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 19.232235,
           "model": {
             "filename": "NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf",
@@ -835,7 +835,7 @@
             "temperature": 0.0
           },
           "device_count": 1,
-          "device_id": "629e9ecd99a2",
+          "device_id": "0f7914e5a05e",
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
@@ -866,7 +866,7 @@
             ],
             "hardware_id": "0cc1cf865773",
             "logical_cores": 32,
-            "memory_bytes": 15841746944,
+            "memory_bytes": 68719476736,
             "os": "Linux",
             "os_release": "7.0.0-22-generic",
             "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -876,7 +876,7 @@
           "hardware_ids": [
             "0cc1cf865773"
           ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 14.8 GiB",
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
           "load_seconds": 25.25467,
           "model": {
             "filename": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
@@ -2678,7 +2678,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -4121,7 +4121,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -5521,7 +5521,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -6965,7 +6965,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -8365,7 +8365,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -9675,7 +9675,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -11119,7 +11119,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
@@ -12563,7 +12563,7 @@
         ],
         "hardware_id": "0cc1cf865773",
         "logical_cores": 32,
-        "memory_bytes": 15841746944,
+        "memory_bytes": 68719476736,
         "os": "Linux",
         "os_release": "7.0.0-22-generic",
         "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",

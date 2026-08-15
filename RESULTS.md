@@ -20,7 +20,7 @@ Cross-device average accuracy and real-world speed for models running through Ta
 
 | Device | Submitted runs |
 |---|---:|
-| AMD RYZEN AI MAX+ 395 w/ Radeon 8060S · 14.8 GiB | 8 |
+| AMD RYZEN AI MAX+ 395 w/ Radeon 8060S · 64.0 GiB | 8 |
 | Apple M3 Ultra · 96.0 GiB | 9 |
 
 ## Method
