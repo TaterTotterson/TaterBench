@@ -88,6 +88,15 @@ tater-bench run --model Gemma-4 --limit 3 --yes
 
 Close Tater before an official run. A second loaded model or active generation process can distort memory, model-load, and throughput measurements.
 
+On Linux AMD Ryzen AI Max / Strix Halo systems, Tater Bench mirrors Tater's ROCm defaults by launching the target with `--n-gpu-layers all` and speculative drafts with `--spec-draft-ngl all`. Other systems retain llama.cpp automatic placement. Every result records both settings so the execution path remains auditable. Explicit overrides are available when needed:
+
+~~~bash
+export TATER_BENCH_LLAMA_N_GPU_LAYERS=auto
+export TATER_BENCH_LLAMA_DRAFT_N_GPU_LAYERS=auto
+~~~
+
+Tater's existing `TATER_LLAMA_CPP_N_GPU_LAYERS`, `TATER_LLAMA_CPP_DRAFT_N_GPU_LAYERS`, and `TATER_LLAMA_CPP_STRIX_HALO_FULL_OFFLOAD` settings are also honored. Linux source installations under `~/Tater` and their `.runtime/llama.cpp` engine are discovered automatically.
+
 ## Results
 
 Each batch is saved as a versioned JSON file under `results/`. After a run, Tater Bench automatically regenerates:

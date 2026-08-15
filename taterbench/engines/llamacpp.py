@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import queue
 import socket
 import subprocess
@@ -12,7 +13,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from ..hardware import parse_llama_version
+from ..hardware import is_strix_halo, parse_llama_version
 from ..paths import first_executable, llama_server_candidates, llama_supported_speculative_methods, tater_home
 from ..types import GenerationResult, ModelCandidate, RunVariant
 from .base import EngineSession, ProcessMemorySampler, terminate_process
@@ -22,6 +23,61 @@ def _free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.bind(("127.0.0.1", 0))
         return int(sock.getsockname()[1])
+
+
+def _first_env(*names: str) -> str:
+    for name in names:
+        value = str(os.getenv(name) or "").strip()
+        if value:
+            return value
+    return ""
+
+
+def _gpu_layers_argument(raw: str, *, default: str) -> str:
+    token = str(raw or "").strip().lower()
+    if not token:
+        return default
+    if token == "auto":
+        return "auto"
+    if token in {"all", "gpu"}:
+        return "all"
+    if token in {"none", "off", "false", "cpu"}:
+        return "0"
+    try:
+        parsed = int(token)
+    except ValueError:
+        return default
+    if parsed == -1:
+        return "auto"
+    if parsed <= -2:
+        return "all"
+    return str(parsed)
+
+
+def _strix_halo_full_offload_default() -> bool:
+    override = _first_env(
+        "TATER_BENCH_STRIX_HALO_FULL_OFFLOAD",
+        "TATER_LLAMA_CPP_STRIX_HALO_FULL_OFFLOAD",
+    ).lower()
+    if override in {"1", "true", "yes", "y", "on", "enabled"}:
+        return True
+    if override in {"0", "false", "no", "n", "off", "disabled"}:
+        return False
+    return is_strix_halo()
+
+
+def _target_gpu_layers() -> str:
+    raw = _first_env("TATER_BENCH_LLAMA_N_GPU_LAYERS", "TATER_LLAMA_CPP_N_GPU_LAYERS")
+    default = "all" if _strix_halo_full_offload_default() else "auto"
+    return _gpu_layers_argument(raw, default=default)
+
+
+def _draft_gpu_layers(target: str) -> str:
+    raw = _first_env(
+        "TATER_BENCH_LLAMA_DRAFT_N_GPU_LAYERS",
+        "TATER_LLAMA_CPP_DRAFT_N_GPU_LAYERS",
+    )
+    return _gpu_layers_argument(raw, default=target)
 
 
 def _json_request(url: str, payload: dict[str, Any] | None = None, timeout: float = 10.0) -> Any:
@@ -57,10 +113,14 @@ class LlamaCppSession(EngineSession):
         self.load_seconds = 0.0
         self.peak_rss_bytes = 0
         self.metadata: dict[str, Any] = {}
+        self.target_gpu_layers = "auto"
+        self.draft_gpu_layers = "auto"
 
     def _command(self, server: Path) -> list[str]:
         self.port = _free_port()
         self.base_url = f"http://127.0.0.1:{self.port}"
+        self.target_gpu_layers = _target_gpu_layers()
+        self.draft_gpu_layers = _draft_gpu_layers(self.target_gpu_layers)
         command = [
             str(server),
             "--model",
@@ -74,7 +134,7 @@ class LlamaCppSession(EngineSession):
             "--batch-size",
             "512",
             "--n-gpu-layers",
-            "auto",
+            self.target_gpu_layers,
             "--alias",
             "tater-bench",
             "--parallel",
@@ -106,6 +166,8 @@ class LlamaCppSession(EngineSession):
                     self.variant.speculative_method,
                     "--spec-draft-n-max",
                     str(self.variant.draft_tokens),
+                    "--spec-draft-ngl",
+                    self.draft_gpu_layers,
                 ]
             )
             if self.variant.draft_path:
@@ -182,6 +244,8 @@ class LlamaCppSession(EngineSession):
             "server_system_info": str(props.get("system_info") or version_text)[:1200],
             "context_size": self.context_size,
             "variant": self.variant.to_dict(),
+            "target_gpu_layers": self.target_gpu_layers,
+            "draft_gpu_layers": self.draft_gpu_layers if self.variant.speculative else "",
             "command_flags": command[1:],
         }
 

@@ -26,12 +26,7 @@ def _sysctl(name: str) -> str:
     return _command(["sysctl", "-n", name]) if platform.system() == "Darwin" else ""
 
 
-def _memory_bytes() -> int:
-    if platform.system() == "Darwin":
-        try:
-            return int(_sysctl("hw.memsize"))
-        except ValueError:
-            return 0
+def _visible_memory_bytes() -> int:
     try:
         for line in Path("/proc/meminfo").read_text(encoding="utf-8").splitlines():
             if line.startswith("MemTotal:"):
@@ -46,6 +41,49 @@ def _memory_bytes() -> int:
         return 0
 
 
+def _strix_reserved_vram_bytes() -> int:
+    values: list[int] = []
+    try:
+        paths = Path("/sys/class/drm").glob("card*/device/mem_info_vram_total")
+        for path in paths:
+            try:
+                value = int(path.read_text(encoding="utf-8").strip())
+            except (OSError, ValueError):
+                continue
+            if value > 0:
+                values.append(value)
+    except OSError:
+        pass
+    return max(values, default=0)
+
+
+def _strix_installed_memory_bytes(visible_bytes: int, reserved_vram_bytes: int) -> int:
+    combined = max(0, int(visible_bytes)) + max(0, int(reserved_vram_bytes))
+    if not combined:
+        return max(0, int(visible_bytes))
+    next_power_of_two = 1 << (combined - 1).bit_length()
+    # Firmware and the kernel retain a small amount outside MemTotal and the
+    # UMA reservation. Round only when the combined value is already close to
+    # a conventional power-of-two installed capacity.
+    if next_power_of_two <= int(combined * 1.10):
+        return next_power_of_two
+    return combined
+
+
+def _memory_bytes() -> int:
+    if platform.system() == "Darwin":
+        try:
+            return int(_sysctl("hw.memsize"))
+        except ValueError:
+            return 0
+    visible = _visible_memory_bytes()
+    if is_strix_halo():
+        reserved_vram = _strix_reserved_vram_bytes()
+        if reserved_vram:
+            return _strix_installed_memory_bytes(visible, reserved_vram)
+    return visible
+
+
 def _cpu_name() -> str:
     if platform.system() == "Darwin":
         return _sysctl("machdep.cpu.brand_string") or _sysctl("hw.model")
@@ -56,6 +94,19 @@ def _cpu_name() -> str:
     except (OSError, IndexError):
         pass
     return platform.processor() or platform.machine()
+
+
+def is_strix_halo() -> bool:
+    if platform.system() != "Linux":
+        return False
+    identity = [_cpu_name()]
+    try:
+        identity.append(
+            Path("/sys/devices/virtual/dmi/id/product_name").read_text(encoding="utf-8", errors="ignore")
+        )
+    except OSError:
+        pass
+    return bool(re.search(r"\bAMD\s+RYZEN\s+AI\s+MAX", " ".join(identity), flags=re.IGNORECASE))
 
 
 def _gpu_rows() -> list[dict[str, Any]]:

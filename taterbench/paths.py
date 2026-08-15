@@ -11,7 +11,13 @@ def tater_home(explicit: str | Path | None = None) -> Path:
     configured = os.getenv("TATER_HOME") or os.getenv("TATER_ASSISTANT_HOME")
     if configured:
         return Path(configured).expanduser().resolve()
-    return (Path.home() / ".taterassistant").resolve()
+    installed_home = (Path.home() / ".taterassistant").resolve()
+    if installed_home.exists():
+        return installed_home
+    source_home = (Path.home() / "Tater").resolve()
+    if (source_home / "agent_lab" / "models").is_dir():
+        return source_home
+    return installed_home
 
 
 def model_registry_path(home: Path) -> Path:
@@ -35,6 +41,9 @@ def llama_server_candidates(home: Path) -> list[Path]:
         [
             Path("/Applications/Tater.app/Contents/Resources/Native/llama.cpp/bin/llama-server"),
             Path.home() / "Applications" / "Tater.app" / "Contents" / "Resources" / "Native" / "llama.cpp" / "bin" / "llama-server",
+            home / ".runtime" / "llama.cpp" / "build" / "bin" / "llama-server",
+            home / ".runtime" / "llama.cpp" / "build" / "bin" / "Release" / "llama-server",
+            home / ".runtime" / "llama.cpp" / "bin" / "llama-server",
             home / "runtime" / "llama.cpp" / "build" / "bin" / "llama-server",
             home / "runtime" / "llama.cpp" / "build" / "bin" / "Release" / "llama-server",
             home / "runtime" / "llama.cpp" / "bin" / "llama-server",

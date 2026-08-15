@@ -67,6 +67,8 @@ def _public_engine_metadata(metadata: dict[str, Any]) -> dict[str, Any]:
         "engine",
         "server_version",
         "server_system_info",
+        "target_gpu_layers",
+        "draft_gpu_layers",
         "python_version",
         "mlx_version",
         "context_size",
