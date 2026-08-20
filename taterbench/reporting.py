@@ -12,10 +12,18 @@ from .hardware import bytes_label
 
 
 TATER_SCORE_WEIGHTS = {
-    "accuracy": 70.0,
-    "generation_speed": 20.0,
-    "ttft": 5.0,
-    "memory": 5.0,
+    "accuracy": 90.0,
+    "generation_speed": 7.0,
+    "ttft": 2.0,
+    "memory": 1.0,
+}
+
+TATER_ACCURACY_WEIGHTS = {
+    "tool_accuracy": 35.0,
+    "routing": 25.0,
+    "spudex": 15.0,
+    "synthesis": 10.0,
+    "chat": 5.0,
 }
 
 
@@ -93,6 +101,25 @@ def _positive_metric(run: dict[str, Any], name: str) -> float:
     return number if number > 0 else 0.0
 
 
+def _bounded_percent(value: Any) -> float:
+    try:
+        number = float(value or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+    return max(0.0, min(100.0, number))
+
+
+def _accuracy_component(run: dict[str, Any]) -> float:
+    accuracy = run.get("accuracy") if isinstance(run.get("accuracy"), dict) else {}
+    categories = accuracy.get("categories")
+    if isinstance(categories, dict) and all(name in categories for name in TATER_ACCURACY_WEIGHTS):
+        return sum(
+            (_bounded_percent(categories.get(name)) / 100.0) * weight
+            for name, weight in TATER_ACCURACY_WEIGHTS.items()
+        )
+    return (_bounded_percent(accuracy.get("score")) / 100.0) * TATER_SCORE_WEIGHTS["accuracy"]
+
+
 def _tater_score(run: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, float]:
     cohort = [
         candidate
@@ -100,7 +127,6 @@ def _tater_score(run: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, f
         if str(candidate.get("status") or "complete") == "complete"
         and _comparison_key(candidate) == _comparison_key(run)
     ]
-    accuracy = max(0.0, min(100.0, float((run.get("accuracy") or {}).get("score") or 0.0)))
     speed = _positive_metric(run, "median_generation_tokens_per_second")
     ttft = _positive_metric(run, "median_ttft_seconds")
     memory = _positive_metric(run, "memory")
@@ -111,7 +137,7 @@ def _tater_score(run: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, f
     min_ttft = min((value for value in cohort_ttfts if value > 0), default=0.0)
     min_memory = min((value for value in cohort_memory if value > 0), default=0.0)
     components = {
-        "accuracy": (accuracy / 100.0) * TATER_SCORE_WEIGHTS["accuracy"],
+        "accuracy": _accuracy_component(run),
         "generation_speed": (speed / max_speed) * TATER_SCORE_WEIGHTS["generation_speed"] if max_speed else 0.0,
         "ttft": (min_ttft / ttft) * TATER_SCORE_WEIGHTS["ttft"] if ttft and min_ttft else 0.0,
         "memory": (min_memory / memory) * TATER_SCORE_WEIGHTS["memory"] if memory and min_memory else 0.0,
@@ -438,7 +464,7 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             "",
             "## Method",
             "",
-            "Tater Score is a 100-point composite: 70 points for task accuracy, 20 for generation speed, 5 for time to first token, and 5 for peak-memory efficiency. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
+            "Tater Score is a 100-point composite: 90 points for category-weighted accuracy (35 tool accuracy, 25 routing, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
             "",
             "Tater Bench uses a versioned, frozen synthetic Tater runtime for routing, strict tool-call, synthesis, chat, and Spudex scenarios. Repeated runs are averaged by hardware type before every represented hardware type receives equal weight. Each result records the model, engine, speculative mode, suite version, prompt profile, hardware fingerprint, context, and raw per-scenario response.",
             "",
@@ -601,7 +627,7 @@ body{overflow-x:hidden}
 </style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and measured speed averaged fairly across devices, engines, and speculative decoding configurations.</p></div><div class="summary"><b>__MODEL_COUNT__</b>model configurations<span>__DEVICE_COUNT__ devices · __RUN_COUNT__ individual runs</span></div></header>
 <div class="control-block"><span class="control-label">Hardware view</span><nav class="controls" aria-label="Choose hardware view">__SCOPES__</nav></div>
 <div class="toolbar"><div class="control-block"><span class="control-label">Filter</span><nav class="controls" aria-label="Filter results">__FILTERS__</nav></div><label class="sort-label">Sort results<select id="sort-results"><option value="score-desc">Tater Score — high to low</option><option value="accuracy-desc">Accuracy — high to low</option><option value="speed-desc">Generation speed — high to low</option><option value="ttft-asc">TTFT — low to high</option><option value="memory-asc">Memory — low to high</option><option value="samples-desc">Most tested</option><option value="model-asc">Model name — A to Z</option></select></label></div>
-<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — all devices</h2><p id="leaderboard-subtitle">Hardware-type averages receive equal weight in the overall score.</p></div><p class="score-formula"><b>100 points:</b> 70 accuracy · 20 generation speed · 5 TTFT · 5 memory efficiency</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Higher is better. Select a bar to jump to its score breakdown; open a result's dropdown to inspect its individual runs.</p></section>
+<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — all devices</h2><p id="leaderboard-subtitle">Hardware-type averages receive equal weight in the overall score.</p></div><p class="score-formula"><b>100 points:</b> 90 category-weighted accuracy (35 tool · 25 routing · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory efficiency</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Higher is better. Select a bar to jump to its score breakdown; open a result's dropdown to inspect its individual runs.</p></section>
 <h2 class="results-heading" id="results-heading">All Devices results — sorted by Tater Score</h2><main id="results-list">__CARDS__</main></div>
 <script>
 (() => {

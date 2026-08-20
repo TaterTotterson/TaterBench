@@ -43,121 +43,6 @@
             "categories": {
               "chat": 100.0,
               "routing": 89.88,
-              "spudex": 78.33,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 88.76
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0f7914e5a05e",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "all",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
-            "server_version": "0.1.0-dev",
-            "target_gpu_layers": "all"
-          },
-          "finished_at": "2026-08-20T00:48:25.786706+00:00",
-          "hardware": {
-            "architecture": "x86_64",
-            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-            "gpus": [
-              {
-                "backend": "rocm",
-                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "AMD Radeon Graphics",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "RyzenAI-npu5",
-                "vendor": "AMD"
-              }
-            ],
-            "hardware_id": "dc8e7ab7d654",
-            "logical_cores": 32,
-            "memory_bytes": 68719476736,
-            "os": "Linux",
-            "os_release": "7.0.0-22-generic",
-            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
-            "physical_cores": 0,
-            "python": "3.14.4"
-          },
-          "hardware_ids": [
-            "dc8e7ab7d654"
-          ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
-          "load_seconds": 21.724581,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:e7595fa22b52",
-            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 1761120256,
-          "performance": {
-            "median_generation_tokens_per_second": 78.6613,
-            "median_prompt_tokens_per_second": 1005.6498,
-            "median_scenario_seconds": 1.386925,
-            "median_ttft_seconds": 0.847503
-          },
-          "result_sources": [
-            "20260820T005528Z-dc8e7ab7d654.json",
-            "20260815T122918Z-dc8e7ab7d654.json"
-          ],
-          "run_ids": [
-            "ae32949da0e84d2cad248937039804c1",
-            "4d4bb97c804f49fb920416da84cedc26"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 49.91,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 89.06,
-          "tater_score_components": {
-            "accuracy": 62.13,
-            "generation_speed": 19.94,
-            "memory": 3.29,
-            "ttft": 3.71
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 3,
-            "name": "mtp",
-            "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 89.88,
               "spudex": 90.0,
               "synthesis": 90.0,
               "tool_accuracy": 88.14
@@ -253,16 +138,131 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 88.3,
+          "tater_score": 89.62,
           "tater_score_components": {
-            "accuracy": 62.93,
-            "generation_speed": 18.58,
-            "memory": 2.12,
-            "ttft": 4.67
+            "accuracy": 80.82,
+            "generation_speed": 6.5,
+            "memory": 0.42,
+            "ttft": 1.87
           },
           "variant": {
             "draft_bytes": 461766592,
             "draft_filename": "gemma-4-26B-A4B-it-MTP-Q8_0.gguf",
+            "draft_tokens": 3,
+            "name": "mtp",
+            "speculative_method": "draft-mtp"
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 89.88,
+              "spudex": 78.33,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 88.76
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0f7914e5a05e",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "all",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
+            "server_version": "0.1.0-dev",
+            "target_gpu_layers": "all"
+          },
+          "finished_at": "2026-08-20T00:48:25.786706+00:00",
+          "hardware": {
+            "architecture": "x86_64",
+            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+            "gpus": [
+              {
+                "backend": "rocm",
+                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "AMD Radeon Graphics",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "RyzenAI-npu5",
+                "vendor": "AMD"
+              }
+            ],
+            "hardware_id": "dc8e7ab7d654",
+            "logical_cores": 32,
+            "memory_bytes": 68719476736,
+            "os": "Linux",
+            "os_release": "7.0.0-22-generic",
+            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
+            "physical_cores": 0,
+            "python": "3.14.4"
+          },
+          "hardware_ids": [
+            "dc8e7ab7d654"
+          ],
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
+          "load_seconds": 21.724581,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:e7595fa22b52",
+            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 1761120256,
+          "performance": {
+            "median_generation_tokens_per_second": 78.6613,
+            "median_prompt_tokens_per_second": 1005.6498,
+            "median_scenario_seconds": 1.386925,
+            "median_ttft_seconds": 0.847503
+          },
+          "result_sources": [
+            "20260820T005528Z-dc8e7ab7d654.json",
+            "20260815T122918Z-dc8e7ab7d654.json"
+          ],
+          "run_ids": [
+            "ae32949da0e84d2cad248937039804c1",
+            "4d4bb97c804f49fb920416da84cedc26"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 49.91,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 88.94,
+          "tater_score_components": {
+            "accuracy": 79.82,
+            "generation_speed": 6.98,
+            "memory": 0.66,
+            "ttft": 1.48
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
             "draft_tokens": 3,
             "name": "mtp",
             "speculative_method": "draft-mtp"
@@ -368,12 +368,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 79.44,
+          "tater_score": 86.64,
           "tater_score_components": {
-            "accuracy": 62.93,
-            "generation_speed": 10.96,
-            "memory": 1.19,
-            "ttft": 4.36
+            "accuracy": 80.82,
+            "generation_speed": 3.84,
+            "memory": 0.24,
+            "ttft": 1.75
           },
           "variant": {
             "draft_bytes": 472432704,
@@ -483,12 +483,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 70.25,
+          "tater_score": 83.11,
           "tater_score_components": {
-            "accuracy": 62.19,
-            "generation_speed": 5.37,
-            "memory": 1.36,
-            "ttft": 1.34
+            "accuracy": 80.42,
+            "generation_speed": 1.88,
+            "memory": 0.27,
+            "ttft": 0.54
           },
           "variant": {
             "draft_bytes": 3164006688,
@@ -496,121 +496,6 @@
             "draft_tokens": 3,
             "name": "mtp",
             "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 66.54,
-              "spudex": 0.0,
-              "synthesis": 35.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 64.68
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0f7914e5a05e",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
-            "server_version": "0.1.0-dev",
-            "target_gpu_layers": "all"
-          },
-          "finished_at": "2026-08-20T00:47:02.097192+00:00",
-          "hardware": {
-            "architecture": "x86_64",
-            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-            "gpus": [
-              {
-                "backend": "rocm",
-                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "AMD Radeon Graphics",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "RyzenAI-npu5",
-                "vendor": "AMD"
-              }
-            ],
-            "hardware_id": "dc8e7ab7d654",
-            "logical_cores": 32,
-            "memory_bytes": 68719476736,
-            "os": "Linux",
-            "os_release": "7.0.0-22-generic",
-            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
-            "physical_cores": 0,
-            "python": "3.14.4"
-          },
-          "hardware_ids": [
-            "dc8e7ab7d654"
-          ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
-          "load_seconds": 21.222651,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:e7595fa22b52",
-            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 1675728896,
-          "performance": {
-            "median_generation_tokens_per_second": 52.5267,
-            "median_prompt_tokens_per_second": 1047.7589,
-            "median_scenario_seconds": 1.785228,
-            "median_ttft_seconds": 0.818711
-          },
-          "result_sources": [
-            "20260820T005528Z-dc8e7ab7d654.json",
-            "20260815T122918Z-dc8e7ab7d654.json"
-          ],
-          "run_ids": [
-            "64bdef9d9c644298a6cea02099da7a16",
-            "24f1a57d9a944cc5905a1cb496b4f29f"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 0.0,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 65.88,
-          "tater_score_components": {
-            "accuracy": 45.28,
-            "generation_speed": 13.32,
-            "memory": 3.46,
-            "ttft": 3.83
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 0,
-            "name": "baseline",
-            "speculative_method": ""
           }
         },
         {
@@ -713,12 +598,127 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 57.53,
+          "tater_score": 66.11,
           "tater_score_components": {
-            "accuracy": 51.27,
-            "generation_speed": 2.78,
-            "memory": 2.13,
-            "ttft": 1.35
+            "accuracy": 64.16,
+            "generation_speed": 0.97,
+            "memory": 0.43,
+            "ttft": 0.54
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 0,
+            "name": "baseline",
+            "speculative_method": ""
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 66.54,
+              "spudex": 0.0,
+              "synthesis": 35.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 64.68
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0f7914e5a05e",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
+            "server_version": "0.1.0-dev",
+            "target_gpu_layers": "all"
+          },
+          "finished_at": "2026-08-20T00:47:02.097192+00:00",
+          "hardware": {
+            "architecture": "x86_64",
+            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+            "gpus": [
+              {
+                "backend": "rocm",
+                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "AMD Radeon Graphics",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "RyzenAI-npu5",
+                "vendor": "AMD"
+              }
+            ],
+            "hardware_id": "dc8e7ab7d654",
+            "logical_cores": 32,
+            "memory_bytes": 68719476736,
+            "os": "Linux",
+            "os_release": "7.0.0-22-generic",
+            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
+            "physical_cores": 0,
+            "python": "3.14.4"
+          },
+          "hardware_ids": [
+            "dc8e7ab7d654"
+          ],
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
+          "load_seconds": 21.222651,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:e7595fa22b52",
+            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 1675728896,
+          "performance": {
+            "median_generation_tokens_per_second": 52.5267,
+            "median_prompt_tokens_per_second": 1047.7589,
+            "median_scenario_seconds": 1.785228,
+            "median_ttft_seconds": 0.818711
+          },
+          "result_sources": [
+            "20260820T005528Z-dc8e7ab7d654.json",
+            "20260815T122918Z-dc8e7ab7d654.json"
+          ],
+          "run_ids": [
+            "64bdef9d9c644298a6cea02099da7a16",
+            "24f1a57d9a944cc5905a1cb496b4f29f"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 0.0,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 62.62,
+          "tater_score_components": {
+            "accuracy": 55.74,
+            "generation_speed": 4.66,
+            "memory": 0.69,
+            "ttft": 1.54
           },
           "variant": {
             "draft_bytes": 0,
@@ -828,12 +828,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 49.87,
+          "tater_score": 44.45,
           "tater_score_components": {
-            "accuracy": 26.18,
-            "generation_speed": 15.09,
-            "memory": 5.0,
-            "ttft": 3.6
+            "accuracy": 36.73,
+            "generation_speed": 5.28,
+            "memory": 1.0,
+            "ttft": 1.44
           },
           "variant": {
             "draft_bytes": 0,
@@ -943,12 +943,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 39.54,
+          "tater_score": 35.89,
           "tater_score_components": {
-            "accuracy": 21.07,
-            "generation_speed": 10.96,
-            "memory": 2.52,
-            "ttft": 5.0
+            "accuracy": 29.55,
+            "generation_speed": 3.83,
+            "memory": 0.5,
+            "ttft": 2.0
           },
           "variant": {
             "draft_bytes": 0,
@@ -989,6 +989,110 @@
       "hardware_profile_count": 1,
       "label": "Apple M3 Ultra \u00b7 96.0 GiB",
       "leaderboard": [
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 90.0,
+              "routing": 91.88,
+              "spudex": 96.67,
+              "synthesis": 90.0,
+              "tool_accuracy": 100.0
+            },
+            "score": 95.33
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "engine": "mlx",
+            "mlx_version": "",
+            "python_version": "3.11.11"
+          },
+          "finished_at": "2026-08-20T01:14:59.452371+00:00",
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 8.549373,
+          "model": {
+            "filename": "674e8a504329b470c761c2e1feeb31d93d6ceeb7",
+            "id": "mlx_lm:be27deb133e8",
+            "label": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
+            "max_context_tokens": 262144,
+            "model_bytes": 17288975724,
+            "provider": "mlx_lm",
+            "quantization": "UD-Q4_K_XL",
+            "repo_id": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
+            "supports_vision": false
+          },
+          "peak_rss_bytes": 19891511296,
+          "performance": {
+            "median_generation_tokens_per_second": 49.7737,
+            "median_prompt_tokens_per_second": 0.0,
+            "median_scenario_seconds": 0.765737,
+            "median_ttft_seconds": 0.264571
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "48dd8fa7b6ef4e279ed85c7a84f870c2",
+            "2ed76a38baea4afba3336493f6c951aa"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 0.0,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 88.43,
+          "tater_score_components": {
+            "accuracy": 85.97,
+            "generation_speed": 1.62,
+            "memory": 0.07,
+            "ttft": 0.77
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 0,
+            "name": "baseline",
+            "speculative_method": ""
+          }
+        },
         {
           "accuracy": {
             "categories": {
@@ -1080,12 +1184,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 75.69,
+          "tater_score": 86.58,
           "tater_score_components": {
-            "accuracy": 64.25,
-            "generation_speed": 10.14,
-            "memory": 0.32,
-            "ttft": 0.98
+            "accuracy": 82.57,
+            "generation_speed": 3.55,
+            "memory": 0.06,
+            "ttft": 0.39
           },
           "variant": {
             "draft_bytes": 461766592,
@@ -1093,110 +1197,6 @@
             "draft_tokens": 3,
             "name": "mtp",
             "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 90.0,
-              "routing": 91.88,
-              "spudex": 96.67,
-              "synthesis": 90.0,
-              "tool_accuracy": 100.0
-            },
-            "score": 95.33
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "engine": "mlx",
-            "mlx_version": "",
-            "python_version": "3.11.11"
-          },
-          "finished_at": "2026-08-20T01:14:59.452371+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 8.549373,
-          "model": {
-            "filename": "674e8a504329b470c761c2e1feeb31d93d6ceeb7",
-            "id": "mlx_lm:be27deb133e8",
-            "label": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
-            "max_context_tokens": 262144,
-            "model_bytes": 17288975724,
-            "provider": "mlx_lm",
-            "quantization": "UD-Q4_K_XL",
-            "repo_id": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
-            "supports_vision": false
-          },
-          "peak_rss_bytes": 19891511296,
-          "performance": {
-            "median_generation_tokens_per_second": 49.7737,
-            "median_prompt_tokens_per_second": 0.0,
-            "median_scenario_seconds": 0.765737,
-            "median_ttft_seconds": 0.264571
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "48dd8fa7b6ef4e279ed85c7a84f870c2",
-            "2ed76a38baea4afba3336493f6c951aa"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 0.0,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 73.63,
-          "tater_score_components": {
-            "accuracy": 66.73,
-            "generation_speed": 4.64,
-            "memory": 0.33,
-            "ttft": 1.92
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 0,
-            "name": "baseline",
-            "speculative_method": ""
           }
         },
         {
@@ -1290,330 +1290,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 73.35,
+          "tater_score": 85.76,
           "tater_score_components": {
-            "accuracy": 64.25,
-            "generation_speed": 7.78,
-            "memory": 0.33,
-            "ttft": 1.0
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 0,
-            "name": "baseline",
-            "speculative_method": ""
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 79.88,
-              "spudex": 90.0,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 86.98
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "auto",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:07:29.363767+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 2.311217,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:beafc0d4dad4",
-            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 24862949376,
-          "performance": {
-            "median_generation_tokens_per_second": 98.9372,
-            "median_prompt_tokens_per_second": 1517.5976,
-            "median_scenario_seconds": 0.879545,
-            "median_ttft_seconds": 0.551187
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "d6ed4e955da94f9cad68484e884bda81",
-            "eefbe0866d3949b7b6f493df9d324325"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 26.49,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 71.31,
-          "tater_score_components": {
-            "accuracy": 60.89,
-            "generation_speed": 9.24,
-            "memory": 0.26,
-            "ttft": 0.93
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 3,
-            "name": "mtp",
-            "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 81.54,
-              "spudex": 78.33,
-              "synthesis": 90.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 85.13
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:05:48.227024+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 8.57312,
-          "model": {
-            "filename": "NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf",
-            "id": "llama_cpp:2160a5bdb215",
-            "label": "TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink::NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 18898091520,
-            "provider": "llama_cpp",
-            "quantization": "Q4_0",
-            "repo_id": "TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 18677170176,
-          "performance": {
-            "median_generation_tokens_per_second": 101.0989,
-            "median_prompt_tokens_per_second": 1434.624,
-            "median_scenario_seconds": 0.928408,
-            "median_ttft_seconds": 0.564357
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "6786792c709942919e7deac8048a80c7",
-            "2fc3530c0da7481eb663874622ed1f66"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 0.0,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 70.28,
-          "tater_score_components": {
-            "accuracy": 59.59,
-            "generation_speed": 9.43,
-            "memory": 0.35,
-            "ttft": 0.91
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 0,
-            "name": "baseline",
-            "speculative_method": ""
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 79.88,
-              "spudex": 90.0,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 86.98
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:06:44.120075+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 11.28875,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:beafc0d4dad4",
-            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 22283894784,
-          "performance": {
-            "median_generation_tokens_per_second": 78.7654,
-            "median_prompt_tokens_per_second": 1573.2423,
-            "median_scenario_seconds": 0.958117,
-            "median_ttft_seconds": 0.530136
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "1d360f8a966e408c86e1190f16d6967d",
-            "9c8ef70ced554f05947f5c50ac7c44a3"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 0.0,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 69.5,
-          "tater_score_components": {
-            "accuracy": 60.89,
-            "generation_speed": 7.36,
-            "memory": 0.29,
-            "ttft": 0.96
+            "accuracy": 82.57,
+            "generation_speed": 2.73,
+            "memory": 0.07,
+            "ttft": 0.4
           },
           "variant": {
             "draft_bytes": 0,
@@ -1714,12 +1396,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 68.89,
+          "tater_score": 84.2,
           "tater_score_components": {
-            "accuracy": 64.25,
-            "generation_speed": 3.39,
-            "memory": 0.28,
-            "ttft": 0.97
+            "accuracy": 82.57,
+            "generation_speed": 1.19,
+            "memory": 0.06,
+            "ttft": 0.39
           },
           "variant": {
             "draft_bytes": 472432704,
@@ -1733,12 +1415,12 @@
           "accuracy": {
             "categories": {
               "chat": 100.0,
-              "routing": 35.12,
-              "spudex": 36.67,
-              "synthesis": 90.83,
-              "tool_accuracy": 60.05
+              "routing": 79.88,
+              "spudex": 90.0,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
             },
-            "score": 53.14
+            "score": 86.98
           },
           "aggregate": true,
           "configuration": {
@@ -1753,13 +1435,13 @@
           "device_weighted": false,
           "engine": {
             "context_size": 8192,
-            "draft_gpu_layers": "",
+            "draft_gpu_layers": "auto",
             "engine": "llama.cpp",
             "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
             "server_version": "0.1.2-dev",
             "target_gpu_layers": "auto"
           },
-          "finished_at": "2026-08-20T01:14:21.901105+00:00",
+          "finished_at": "2026-08-20T01:07:29.363767+00:00",
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1784,32 +1466,140 @@
             "92797310f99b"
           ],
           "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 1.033468,
+          "load_seconds": 2.311217,
           "model": {
-            "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
-            "id": "llama_cpp:2a08caac649a",
-            "label": "unsloth/Qwen3.5-0.8B-GGUF::Qwen3.5-0.8B-Q4_K_M.gguf",
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:beafc0d4dad4",
+            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
             "max_context_tokens": 0,
-            "model_bytes": 532517120,
+            "model_bytes": 22663387424,
             "provider": "llama_cpp",
-            "quantization": "Q4_K_M",
-            "repo_id": "unsloth/Qwen3.5-0.8B-GGUF",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
             "supports_vision": true
           },
-          "peak_rss_bytes": 1299791872,
+          "peak_rss_bytes": 24862949376,
           "performance": {
-            "median_generation_tokens_per_second": 214.2127,
-            "median_prompt_tokens_per_second": 8513.6751,
-            "median_scenario_seconds": 0.291918,
-            "median_ttft_seconds": 0.10192
+            "median_generation_tokens_per_second": 98.9372,
+            "median_prompt_tokens_per_second": 1517.5976,
+            "median_scenario_seconds": 0.879545,
+            "median_ttft_seconds": 0.551187
           },
           "result_sources": [
-            "20260820T011459Z-92797310f99b.json"
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
           ],
           "run_ids": [
-            "18a8d84e3421461491518cc7d3348754"
+            "d6ed4e955da94f9cad68484e884bda81",
+            "eefbe0866d3949b7b6f493df9d324325"
           ],
-          "sample_count": 1,
+          "sample_count": 2,
+          "speedup_percent": 26.49,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 82.72,
+          "tater_score_components": {
+            "accuracy": 79.07,
+            "generation_speed": 3.23,
+            "memory": 0.05,
+            "ttft": 0.37
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 3,
+            "name": "mtp",
+            "speculative_method": "draft-mtp"
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 79.88,
+              "spudex": 90.0,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 86.98
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:06:44.120075+00:00",
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 11.28875,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:beafc0d4dad4",
+            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 22283894784,
+          "performance": {
+            "median_generation_tokens_per_second": 78.7654,
+            "median_prompt_tokens_per_second": 1573.2423,
+            "median_scenario_seconds": 0.958117,
+            "median_ttft_seconds": 0.530136
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "1d360f8a966e408c86e1190f16d6967d",
+            "9c8ef70ced554f05947f5c50ac7c44a3"
+          ],
+          "sample_count": 2,
           "speedup_percent": 0.0,
           "status": "complete",
           "suite": {
@@ -1818,12 +1608,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 67.2,
+          "tater_score": 82.09,
           "tater_score_components": {
-            "accuracy": 37.2,
-            "generation_speed": 20.0,
-            "memory": 5.0,
-            "ttft": 5.0
+            "accuracy": 79.07,
+            "generation_speed": 2.58,
+            "memory": 0.06,
+            "ttft": 0.39
           },
           "variant": {
             "draft_bytes": 0,
@@ -1924,12 +1714,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 65.2,
+          "tater_score": 81.44,
           "tater_score_components": {
-            "accuracy": 62.19,
-            "generation_speed": 2.5,
-            "memory": 0.32,
-            "ttft": 0.18
+            "accuracy": 80.42,
+            "generation_speed": 0.88,
+            "memory": 0.07,
+            "ttft": 0.07
           },
           "variant": {
             "draft_bytes": 0,
@@ -2030,12 +1820,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 64.91,
+          "tater_score": 81.34,
           "tater_score_components": {
-            "accuracy": 62.19,
-            "generation_speed": 2.29,
-            "memory": 0.25,
-            "ttft": 0.18
+            "accuracy": 80.42,
+            "generation_speed": 0.8,
+            "memory": 0.05,
+            "ttft": 0.07
           },
           "variant": {
             "draft_bytes": 3164006688,
@@ -2044,6 +1834,216 @@
             "name": "mtp",
             "speculative_method": "draft-mtp"
           }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 81.54,
+              "spudex": 78.33,
+              "synthesis": 90.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 85.13
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:05:48.227024+00:00",
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 8.57312,
+          "model": {
+            "filename": "NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf",
+            "id": "llama_cpp:2160a5bdb215",
+            "label": "TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink::NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Tater-NoThink-Q4_0.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 18898091520,
+            "provider": "llama_cpp",
+            "quantization": "Q4_0",
+            "repo_id": "TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 18677170176,
+          "performance": {
+            "median_generation_tokens_per_second": 101.0989,
+            "median_prompt_tokens_per_second": 1434.624,
+            "median_scenario_seconds": 0.928408,
+            "median_ttft_seconds": 0.564357
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "6786792c709942919e7deac8048a80c7",
+            "2fc3530c0da7481eb663874622ed1f66"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 0.0,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 80.47,
+          "tater_score_components": {
+            "accuracy": 76.73,
+            "generation_speed": 3.3,
+            "memory": 0.07,
+            "ttft": 0.36
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 0,
+            "name": "baseline",
+            "speculative_method": ""
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 35.12,
+              "spudex": 36.67,
+              "synthesis": 90.83,
+              "tool_accuracy": 60.05
+            },
+            "score": 53.14
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:14:21.901105+00:00",
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 1.033468,
+          "model": {
+            "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
+            "id": "llama_cpp:2a08caac649a",
+            "label": "unsloth/Qwen3.5-0.8B-GGUF::Qwen3.5-0.8B-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 532517120,
+            "provider": "llama_cpp",
+            "quantization": "Q4_K_M",
+            "repo_id": "unsloth/Qwen3.5-0.8B-GGUF",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 1299791872,
+          "performance": {
+            "median_generation_tokens_per_second": 214.2127,
+            "median_prompt_tokens_per_second": 8513.6751,
+            "median_scenario_seconds": 0.291918,
+            "median_ttft_seconds": 0.10192
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "18a8d84e3421461491518cc7d3348754"
+          ],
+          "sample_count": 1,
+          "speedup_percent": 0.0,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 59.38,
+          "tater_score_components": {
+            "accuracy": 49.38,
+            "generation_speed": 7.0,
+            "memory": 1.0,
+            "ttft": 2.0
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 0,
+            "name": "baseline",
+            "speculative_method": ""
+          }
         }
       ],
       "run_count": 19
@@ -2051,6 +2051,88 @@
   ],
   "generated_at": "2026-08-20T01:03:15.025650+00:00",
   "leaderboard": [
+    {
+      "accuracy": {
+        "categories": {
+          "chat": 90.0,
+          "routing": 91.88,
+          "spudex": 96.67,
+          "synthesis": 90.0,
+          "tool_accuracy": 100.0
+        },
+        "score": 95.33
+      },
+      "aggregate": true,
+      "configuration": {
+        "context_size": 8192,
+        "max_tokens": 320,
+        "prompt_profile": "tater-full-synthetic-2026-08-14",
+        "seed": 42,
+        "temperature": 0.0
+      },
+      "device_count": 1,
+      "device_weighted": true,
+      "engine": {
+        "context_size": 8192,
+        "engine": "mlx",
+        "mlx_version": "",
+        "python_version": "3.11.11"
+      },
+      "finished_at": "2026-08-20T01:14:59.452371+00:00",
+      "hardware_ids": [
+        "92797310f99b"
+      ],
+      "load_seconds": 8.549373,
+      "model": {
+        "filename": "674e8a504329b470c761c2e1feeb31d93d6ceeb7",
+        "id": "mlx_lm:be27deb133e8",
+        "label": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
+        "max_context_tokens": 262144,
+        "model_bytes": 17288975724,
+        "provider": "mlx_lm",
+        "quantization": "UD-Q4_K_XL",
+        "repo_id": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
+        "supports_vision": false
+      },
+      "peak_rss_bytes": 19891511296,
+      "performance": {
+        "median_generation_tokens_per_second": 49.7737,
+        "median_prompt_tokens_per_second": 0.0,
+        "median_scenario_seconds": 0.765737,
+        "median_ttft_seconds": 0.264571
+      },
+      "result_sources": [
+        "20260820T011459Z-92797310f99b.json",
+        "20260814T213345Z-92797310f99b.json"
+      ],
+      "run_ids": [
+        "48dd8fa7b6ef4e279ed85c7a84f870c2",
+        "2ed76a38baea4afba3336493f6c951aa"
+      ],
+      "sample_count": 2,
+      "speedup_percent": 0.0,
+      "status": "complete",
+      "suite": {
+        "name": "Tater Core",
+        "repeats": 1,
+        "scenario_count": 22,
+        "version": "tater-core-0.2"
+      },
+      "tater_score": 88.43,
+      "tater_score_components": {
+        "accuracy": 85.97,
+        "generation_speed": 1.62,
+        "memory": 0.07,
+        "ttft": 0.77
+      },
+      "variant": {
+        "draft_bytes": 0,
+        "draft_filename": "",
+        "draft_tokens": 0,
+        "name": "baseline",
+        "speculative_method": ""
+      }
+    },
     {
       "accuracy": {
         "categories": {
@@ -2125,12 +2207,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 82.0,
+      "tater_score": 88.1,
       "tater_score_components": {
-        "accuracy": 63.59,
-        "generation_speed": 14.36,
-        "memory": 1.22,
-        "ttft": 2.83
+        "accuracy": 81.69,
+        "generation_speed": 5.03,
+        "memory": 0.24,
+        "ttft": 1.13
       },
       "variant": {
         "draft_bytes": 461766592,
@@ -2214,12 +2296,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 80.19,
+      "tater_score": 85.83,
       "tater_score_components": {
-        "accuracy": 61.51,
-        "generation_speed": 14.59,
-        "memory": 1.77,
-        "ttft": 2.32
+        "accuracy": 79.44,
+        "generation_speed": 5.11,
+        "memory": 0.36,
+        "ttft": 0.93
       },
       "variant": {
         "draft_bytes": 0,
@@ -2303,12 +2385,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 74.16,
+      "tater_score": 85.42,
       "tater_score_components": {
-        "accuracy": 63.59,
-        "generation_speed": 7.18,
-        "memory": 0.73,
-        "ttft": 2.67
+        "accuracy": 81.69,
+        "generation_speed": 2.51,
+        "memory": 0.15,
+        "ttft": 1.07
       },
       "variant": {
         "draft_bytes": 472432704,
@@ -2321,13 +2403,13 @@
     {
       "accuracy": {
         "categories": {
-          "chat": 90.0,
-          "routing": 91.88,
-          "spudex": 96.67,
-          "synthesis": 90.0,
-          "tool_accuracy": 100.0
+          "chat": 100.0,
+          "routing": 85.29,
+          "spudex": 90.0,
+          "synthesis": 100.0,
+          "tool_accuracy": 87.43
         },
-        "score": 95.33
+        "score": 88.84
       },
       "aggregate": true,
       "configuration": {
@@ -2337,46 +2419,142 @@
         "seed": 42,
         "temperature": 0.0
       },
-      "device_count": 1,
+      "device_count": 2,
       "device_weighted": true,
       "engine": {
         "context_size": 8192,
-        "engine": "mlx",
-        "mlx_version": "",
-        "python_version": "3.11.11"
+        "draft_gpu_layers": "auto",
+        "engine": "llama.cpp",
+        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+        "server_version": "0.1.2-dev",
+        "target_gpu_layers": "auto"
       },
-      "finished_at": "2026-08-20T01:14:59.452371+00:00",
+      "finished_at": "2026-08-20T01:14:11.796656+00:00",
       "hardware_ids": [
-        "92797310f99b"
+        "92797310f99b",
+        "dc8e7ab7d654"
       ],
-      "load_seconds": 8.549373,
+      "load_seconds": 13.775495,
       "model": {
-        "filename": "674e8a504329b470c761c2e1feeb31d93d6ceeb7",
-        "id": "mlx_lm:be27deb133e8",
-        "label": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
-        "max_context_tokens": 262144,
-        "model_bytes": 17288975724,
-        "provider": "mlx_lm",
-        "quantization": "UD-Q4_K_XL",
-        "repo_id": "TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink",
-        "supports_vision": false
+        "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
+        "id": "llama_cpp:2143d6f65bbe",
+        "label": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink::Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
+        "max_context_tokens": 0,
+        "model_bytes": 18973870656,
+        "provider": "llama_cpp",
+        "quantization": "Q4_K_M",
+        "repo_id": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink",
+        "supports_vision": true
       },
-      "peak_rss_bytes": 19891511296,
+      "peak_rss_bytes": 15013870592,
       "performance": {
-        "median_generation_tokens_per_second": 49.7737,
-        "median_prompt_tokens_per_second": 0.0,
-        "median_scenario_seconds": 0.765737,
-        "median_ttft_seconds": 0.264571
+        "median_generation_tokens_per_second": 22.8246,
+        "median_prompt_tokens_per_second": 325.3242,
+        "median_scenario_seconds": 3.807529,
+        "median_ttft_seconds": 2.576859
       },
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
-        "20260814T213345Z-92797310f99b.json"
+        "20260814T213345Z-92797310f99b.json",
+        "20260820T005528Z-dc8e7ab7d654.json",
+        "20260815T122918Z-dc8e7ab7d654.json"
       ],
       "run_ids": [
-        "48dd8fa7b6ef4e279ed85c7a84f870c2",
-        "2ed76a38baea4afba3336493f6c951aa"
+        "77657c0972674b53946900a0425f06ec",
+        "3b4d961afa9e464e80d77235b74cd469",
+        "dd94572f7a8c4f32a2e1f4ef7330cc7f",
+        "092b959f74cf42ba9b6bf1e24690d82b"
       ],
-      "sample_count": 2,
+      "sample_count": 4,
+      "speedup_percent": 42.59,
+      "status": "complete",
+      "suite": {
+        "name": "Tater Core",
+        "repeats": 1,
+        "scenario_count": 22,
+        "version": "tater-core-0.2"
+      },
+      "tater_score": 82.22,
+      "tater_score_components": {
+        "accuracy": 80.42,
+        "generation_speed": 1.34,
+        "memory": 0.16,
+        "ttft": 0.31
+      },
+      "variant": {
+        "draft_bytes": 3164006688,
+        "draft_filename": "mtp-Qwen3.8-27B-Q8_0.gguf",
+        "draft_tokens": 3,
+        "name": "mtp",
+        "speculative_method": "draft-mtp"
+      }
+    },
+    {
+      "accuracy": {
+        "categories": {
+          "chat": 100.0,
+          "routing": 83.78,
+          "spudex": 45.0,
+          "synthesis": 95.0,
+          "tool_accuracy": 86.0
+        },
+        "score": 81.04
+      },
+      "aggregate": true,
+      "configuration": {
+        "context_size": 8192,
+        "max_tokens": 320,
+        "prompt_profile": "tater-full-synthetic-2026-08-14",
+        "seed": 42,
+        "temperature": 0.0
+      },
+      "device_count": 2,
+      "device_weighted": true,
+      "engine": {
+        "context_size": 8192,
+        "draft_gpu_layers": "",
+        "engine": "llama.cpp",
+        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+        "server_version": "0.1.2-dev",
+        "target_gpu_layers": "auto"
+      },
+      "finished_at": "2026-08-20T01:10:50.330144+00:00",
+      "hardware_ids": [
+        "92797310f99b",
+        "dc8e7ab7d654"
+      ],
+      "load_seconds": 14.892428,
+      "model": {
+        "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
+        "id": "llama_cpp:2143d6f65bbe",
+        "label": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink::Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
+        "max_context_tokens": 0,
+        "model_bytes": 18973870656,
+        "provider": "llama_cpp",
+        "quantization": "Q4_K_M",
+        "repo_id": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink",
+        "supports_vision": true
+      },
+      "peak_rss_bytes": 11473492992,
+      "performance": {
+        "median_generation_tokens_per_second": 18.9062,
+        "median_prompt_tokens_per_second": 332.0493,
+        "median_scenario_seconds": 5.438343,
+        "median_ttft_seconds": 2.540745
+      },
+      "result_sources": [
+        "20260820T011459Z-92797310f99b.json",
+        "20260814T213345Z-92797310f99b.json",
+        "20260820T005528Z-dc8e7ab7d654.json",
+        "20260815T122918Z-dc8e7ab7d654.json"
+      ],
+      "run_ids": [
+        "d436f0f5f881420d907d046bea99be89",
+        "ff4ffad343614037ac5d1dc19325cddd",
+        "97735676dc6649298e20dfa7ed852650",
+        "f9ed1713c7c942a49f9330f12ef153c5"
+      ],
+      "sample_count": 4,
       "speedup_percent": 0.0,
       "status": "complete",
       "suite": {
@@ -2385,12 +2563,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 73.63,
+      "tater_score": 73.78,
       "tater_score_components": {
-        "accuracy": 66.73,
-        "generation_speed": 4.64,
-        "memory": 0.33,
-        "ttft": 1.92
+        "accuracy": 72.29,
+        "generation_speed": 0.93,
+        "memory": 0.25,
+        "ttft": 0.31
       },
       "variant": {
         "draft_bytes": 0,
@@ -2474,272 +2652,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 67.69,
+      "tater_score": 72.36,
       "tater_score_components": {
-        "accuracy": 53.09,
-        "generation_speed": 10.34,
-        "memory": 1.88,
-        "ttft": 2.4
-      },
-      "variant": {
-        "draft_bytes": 0,
-        "draft_filename": "",
-        "draft_tokens": 0,
-        "name": "baseline",
-        "speculative_method": ""
-      }
-    },
-    {
-      "accuracy": {
-        "categories": {
-          "chat": 100.0,
-          "routing": 85.29,
-          "spudex": 90.0,
-          "synthesis": 100.0,
-          "tool_accuracy": 87.43
-        },
-        "score": 88.84
-      },
-      "aggregate": true,
-      "configuration": {
-        "context_size": 8192,
-        "max_tokens": 320,
-        "prompt_profile": "tater-full-synthetic-2026-08-14",
-        "seed": 42,
-        "temperature": 0.0
-      },
-      "device_count": 2,
-      "device_weighted": true,
-      "engine": {
-        "context_size": 8192,
-        "draft_gpu_layers": "auto",
-        "engine": "llama.cpp",
-        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-        "server_version": "0.1.2-dev",
-        "target_gpu_layers": "auto"
-      },
-      "finished_at": "2026-08-20T01:14:11.796656+00:00",
-      "hardware_ids": [
-        "92797310f99b",
-        "dc8e7ab7d654"
-      ],
-      "load_seconds": 13.775495,
-      "model": {
-        "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
-        "id": "llama_cpp:2143d6f65bbe",
-        "label": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink::Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
-        "max_context_tokens": 0,
-        "model_bytes": 18973870656,
-        "provider": "llama_cpp",
-        "quantization": "Q4_K_M",
-        "repo_id": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink",
-        "supports_vision": true
-      },
-      "peak_rss_bytes": 15013870592,
-      "performance": {
-        "median_generation_tokens_per_second": 22.8246,
-        "median_prompt_tokens_per_second": 325.3242,
-        "median_scenario_seconds": 3.807529,
-        "median_ttft_seconds": 2.576859
-      },
-      "result_sources": [
-        "20260820T011459Z-92797310f99b.json",
-        "20260814T213345Z-92797310f99b.json",
-        "20260820T005528Z-dc8e7ab7d654.json",
-        "20260815T122918Z-dc8e7ab7d654.json"
-      ],
-      "run_ids": [
-        "77657c0972674b53946900a0425f06ec",
-        "3b4d961afa9e464e80d77235b74cd469",
-        "dd94572f7a8c4f32a2e1f4ef7330cc7f",
-        "092b959f74cf42ba9b6bf1e24690d82b"
-      ],
-      "sample_count": 4,
-      "speedup_percent": 42.59,
-      "status": "complete",
-      "suite": {
-        "name": "Tater Core",
-        "repeats": 1,
-        "scenario_count": 22,
-        "version": "tater-core-0.2"
-      },
-      "tater_score": 67.58,
-      "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 3.83,
-        "memory": 0.81,
-        "ttft": 0.76
-      },
-      "variant": {
-        "draft_bytes": 3164006688,
-        "draft_filename": "mtp-Qwen3.8-27B-Q8_0.gguf",
-        "draft_tokens": 3,
-        "name": "mtp",
-        "speculative_method": "draft-mtp"
-      }
-    },
-    {
-      "accuracy": {
-        "categories": {
-          "chat": 100.0,
-          "routing": 35.12,
-          "spudex": 36.67,
-          "synthesis": 90.83,
-          "tool_accuracy": 60.05
-        },
-        "score": 53.14
-      },
-      "aggregate": true,
-      "configuration": {
-        "context_size": 8192,
-        "max_tokens": 320,
-        "prompt_profile": "tater-full-synthetic-2026-08-14",
-        "seed": 42,
-        "temperature": 0.0
-      },
-      "device_count": 1,
-      "device_weighted": true,
-      "engine": {
-        "context_size": 8192,
-        "draft_gpu_layers": "",
-        "engine": "llama.cpp",
-        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-        "server_version": "0.1.2-dev",
-        "target_gpu_layers": "auto"
-      },
-      "finished_at": "2026-08-20T01:14:21.901105+00:00",
-      "hardware_ids": [
-        "92797310f99b"
-      ],
-      "load_seconds": 1.033468,
-      "model": {
-        "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
-        "id": "llama_cpp:2a08caac649a",
-        "label": "unsloth/Qwen3.5-0.8B-GGUF::Qwen3.5-0.8B-Q4_K_M.gguf",
-        "max_context_tokens": 0,
-        "model_bytes": 532517120,
-        "provider": "llama_cpp",
-        "quantization": "Q4_K_M",
-        "repo_id": "unsloth/Qwen3.5-0.8B-GGUF",
-        "supports_vision": true
-      },
-      "peak_rss_bytes": 1299791872,
-      "performance": {
-        "median_generation_tokens_per_second": 214.2127,
-        "median_prompt_tokens_per_second": 8513.6751,
-        "median_scenario_seconds": 0.291918,
-        "median_ttft_seconds": 0.10192
-      },
-      "result_sources": [
-        "20260820T011459Z-92797310f99b.json"
-      ],
-      "run_ids": [
-        "18a8d84e3421461491518cc7d3348754"
-      ],
-      "sample_count": 1,
-      "speedup_percent": 0.0,
-      "status": "complete",
-      "suite": {
-        "name": "Tater Core",
-        "repeats": 1,
-        "scenario_count": 22,
-        "version": "tater-core-0.2"
-      },
-      "tater_score": 67.2,
-      "tater_score_components": {
-        "accuracy": 37.2,
-        "generation_speed": 20.0,
-        "memory": 5.0,
-        "ttft": 5.0
-      },
-      "variant": {
-        "draft_bytes": 0,
-        "draft_filename": "",
-        "draft_tokens": 0,
-        "name": "baseline",
-        "speculative_method": ""
-      }
-    },
-    {
-      "accuracy": {
-        "categories": {
-          "chat": 100.0,
-          "routing": 83.78,
-          "spudex": 45.0,
-          "synthesis": 95.0,
-          "tool_accuracy": 86.0
-        },
-        "score": 81.04
-      },
-      "aggregate": true,
-      "configuration": {
-        "context_size": 8192,
-        "max_tokens": 320,
-        "prompt_profile": "tater-full-synthetic-2026-08-14",
-        "seed": 42,
-        "temperature": 0.0
-      },
-      "device_count": 2,
-      "device_weighted": true,
-      "engine": {
-        "context_size": 8192,
-        "draft_gpu_layers": "",
-        "engine": "llama.cpp",
-        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-        "server_version": "0.1.2-dev",
-        "target_gpu_layers": "auto"
-      },
-      "finished_at": "2026-08-20T01:10:50.330144+00:00",
-      "hardware_ids": [
-        "92797310f99b",
-        "dc8e7ab7d654"
-      ],
-      "load_seconds": 14.892428,
-      "model": {
-        "filename": "Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
-        "id": "llama_cpp:2143d6f65bbe",
-        "label": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink::Qwen3.8-27B-Tater-NoThink-Q4_K_M.gguf",
-        "max_context_tokens": 0,
-        "model_bytes": 18973870656,
-        "provider": "llama_cpp",
-        "quantization": "Q4_K_M",
-        "repo_id": "TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink",
-        "supports_vision": true
-      },
-      "peak_rss_bytes": 11473492992,
-      "performance": {
-        "median_generation_tokens_per_second": 18.9062,
-        "median_prompt_tokens_per_second": 332.0493,
-        "median_scenario_seconds": 5.438343,
-        "median_ttft_seconds": 2.540745
-      },
-      "result_sources": [
-        "20260820T011459Z-92797310f99b.json",
-        "20260814T213345Z-92797310f99b.json",
-        "20260820T005528Z-dc8e7ab7d654.json",
-        "20260815T122918Z-dc8e7ab7d654.json"
-      ],
-      "run_ids": [
-        "d436f0f5f881420d907d046bea99be89",
-        "ff4ffad343614037ac5d1dc19325cddd",
-        "97735676dc6649298e20dfa7ed852650",
-        "f9ed1713c7c942a49f9330f12ef153c5"
-      ],
-      "sample_count": 4,
-      "speedup_percent": 0.0,
-      "status": "complete",
-      "suite": {
-        "name": "Tater Core",
-        "repeats": 1,
-        "scenario_count": 22,
-        "version": "tater-core-0.2"
-      },
-      "tater_score": 61.37,
-      "tater_score_components": {
-        "accuracy": 56.73,
-        "generation_speed": 2.64,
-        "memory": 1.22,
-        "ttft": 0.77
+        "accuracy": 67.41,
+        "generation_speed": 3.62,
+        "memory": 0.38,
+        "ttft": 0.97
       },
       "variant": {
         "draft_bytes": 0,
@@ -2823,12 +2741,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 60.08,
+      "tater_score": 62.46,
       "tater_score_components": {
-        "accuracy": 42.89,
-        "generation_speed": 12.26,
-        "memory": 2.67,
-        "ttft": 2.25
+        "accuracy": 56.73,
+        "generation_speed": 4.29,
+        "memory": 0.54,
+        "ttft": 0.9
       },
       "variant": {
         "draft_bytes": 0,
@@ -2912,12 +2830,94 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 56.44,
+      "tater_score": 60.83,
       "tater_score_components": {
-        "accuracy": 42.66,
-        "generation_speed": 9.37,
-        "memory": 1.43,
-        "ttft": 3.0
+        "accuracy": 56.06,
+        "generation_speed": 3.28,
+        "memory": 0.29,
+        "ttft": 1.2
+      },
+      "variant": {
+        "draft_bytes": 0,
+        "draft_filename": "",
+        "draft_tokens": 0,
+        "name": "baseline",
+        "speculative_method": ""
+      }
+    },
+    {
+      "accuracy": {
+        "categories": {
+          "chat": 100.0,
+          "routing": 35.12,
+          "spudex": 36.67,
+          "synthesis": 90.83,
+          "tool_accuracy": 60.05
+        },
+        "score": 53.14
+      },
+      "aggregate": true,
+      "configuration": {
+        "context_size": 8192,
+        "max_tokens": 320,
+        "prompt_profile": "tater-full-synthetic-2026-08-14",
+        "seed": 42,
+        "temperature": 0.0
+      },
+      "device_count": 1,
+      "device_weighted": true,
+      "engine": {
+        "context_size": 8192,
+        "draft_gpu_layers": "",
+        "engine": "llama.cpp",
+        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+        "server_version": "0.1.2-dev",
+        "target_gpu_layers": "auto"
+      },
+      "finished_at": "2026-08-20T01:14:21.901105+00:00",
+      "hardware_ids": [
+        "92797310f99b"
+      ],
+      "load_seconds": 1.033468,
+      "model": {
+        "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
+        "id": "llama_cpp:2a08caac649a",
+        "label": "unsloth/Qwen3.5-0.8B-GGUF::Qwen3.5-0.8B-Q4_K_M.gguf",
+        "max_context_tokens": 0,
+        "model_bytes": 532517120,
+        "provider": "llama_cpp",
+        "quantization": "Q4_K_M",
+        "repo_id": "unsloth/Qwen3.5-0.8B-GGUF",
+        "supports_vision": true
+      },
+      "peak_rss_bytes": 1299791872,
+      "performance": {
+        "median_generation_tokens_per_second": 214.2127,
+        "median_prompt_tokens_per_second": 8513.6751,
+        "median_scenario_seconds": 0.291918,
+        "median_ttft_seconds": 0.10192
+      },
+      "result_sources": [
+        "20260820T011459Z-92797310f99b.json"
+      ],
+      "run_ids": [
+        "18a8d84e3421461491518cc7d3348754"
+      ],
+      "sample_count": 1,
+      "speedup_percent": 0.0,
+      "status": "complete",
+      "suite": {
+        "name": "Tater Core",
+        "repeats": 1,
+        "scenario_count": 22,
+        "version": "tater-core-0.2"
+      },
+      "tater_score": 59.38,
+      "tater_score_components": {
+        "accuracy": 49.38,
+        "generation_speed": 7.0,
+        "memory": 1.0,
+        "ttft": 2.0
       },
       "variant": {
         "draft_bytes": 0,
@@ -3888,12 +3888,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 73.63,
+      "tater_score": 88.43,
       "tater_score_components": {
-        "accuracy": 66.73,
-        "generation_speed": 4.62,
-        "memory": 0.33,
-        "ttft": 1.95
+        "accuracy": 85.97,
+        "generation_speed": 1.62,
+        "memory": 0.07,
+        "ttft": 0.78
       },
       "variant": {
         "draft_bytes": 0,
@@ -5256,12 +5256,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 67.2,
+      "tater_score": 59.38,
       "tater_score_components": {
-        "accuracy": 37.2,
-        "generation_speed": 20.0,
-        "memory": 5.0,
-        "ttft": 5.0
+        "accuracy": 49.38,
+        "generation_speed": 7.0,
+        "memory": 1.0,
+        "ttft": 2.0
       },
       "variant": {
         "draft_bytes": 0,
@@ -6692,12 +6692,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 64.93,
+      "tater_score": 81.35,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 2.31,
-        "memory": 0.25,
-        "ttft": 0.18
+        "accuracy": 80.42,
+        "generation_speed": 0.81,
+        "memory": 0.05,
+        "ttft": 0.07
       },
       "variant": {
         "draft_bytes": 3164006688,
@@ -8084,12 +8084,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 65.17,
+      "tater_score": 81.43,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 2.48,
-        "memory": 0.31,
-        "ttft": 0.18
+        "accuracy": 80.42,
+        "generation_speed": 0.87,
+        "memory": 0.06,
+        "ttft": 0.07
       },
       "variant": {
         "draft_bytes": 0,
@@ -9523,12 +9523,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 71.11,
+      "tater_score": 82.65,
       "tater_score_components": {
-        "accuracy": 60.89,
-        "generation_speed": 9.04,
-        "memory": 0.26,
-        "ttft": 0.92
+        "accuracy": 79.07,
+        "generation_speed": 3.16,
+        "memory": 0.05,
+        "ttft": 0.37
       },
       "variant": {
         "draft_bytes": 0,
@@ -10918,12 +10918,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 69.44,
+      "tater_score": 82.07,
       "tater_score_components": {
-        "accuracy": 60.89,
-        "generation_speed": 7.3,
-        "memory": 0.29,
-        "ttft": 0.96
+        "accuracy": 79.07,
+        "generation_speed": 2.56,
+        "memory": 0.06,
+        "ttft": 0.38
       },
       "variant": {
         "draft_bytes": 0,
@@ -12311,12 +12311,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 70.19,
+      "tater_score": 80.44,
       "tater_score_components": {
-        "accuracy": 59.59,
-        "generation_speed": 9.34,
-        "memory": 0.36,
-        "ttft": 0.9
+        "accuracy": 76.73,
+        "generation_speed": 3.27,
+        "memory": 0.07,
+        "ttft": 0.36
       },
       "variant": {
         "draft_bytes": 0,
@@ -13748,12 +13748,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 68.88,
+      "tater_score": 84.2,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 3.38,
-        "memory": 0.28,
-        "ttft": 0.97
+        "accuracy": 82.57,
+        "generation_speed": 1.18,
+        "memory": 0.06,
+        "ttft": 0.39
       },
       "variant": {
         "draft_bytes": 472432704,
@@ -15185,12 +15185,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 75.69,
+      "tater_score": 86.58,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 10.14,
-        "memory": 0.32,
-        "ttft": 0.99
+        "accuracy": 82.57,
+        "generation_speed": 3.55,
+        "memory": 0.06,
+        "ttft": 0.39
       },
       "variant": {
         "draft_bytes": 461766592,
@@ -16578,12 +16578,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 73.33,
+      "tater_score": 85.75,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 7.76,
-        "memory": 0.33,
-        "ttft": 0.99
+        "accuracy": 82.57,
+        "generation_speed": 2.72,
+        "memory": 0.07,
+        "ttft": 0.4
       },
       "variant": {
         "draft_bytes": 0,
@@ -16657,11 +16657,11 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 1.23,
+      "tater_score": 0.25,
       "tater_score_components": {
         "accuracy": 0.0,
         "generation_speed": 0.0,
-        "memory": 1.23,
+        "memory": 0.25,
         "ttft": 0.0
       },
       "variant": {
@@ -18102,12 +18102,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 70.26,
+      "tater_score": 83.11,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 5.37,
-        "memory": 1.36,
-        "ttft": 1.34
+        "accuracy": 80.42,
+        "generation_speed": 1.88,
+        "memory": 0.27,
+        "ttft": 0.53
       },
       "variant": {
         "draft_bytes": 3164006688,
@@ -19492,12 +19492,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 57.45,
+      "tater_score": 66.03,
       "tater_score_components": {
-        "accuracy": 51.19,
-        "generation_speed": 2.78,
-        "memory": 2.13,
-        "ttft": 1.35
+        "accuracy": 64.09,
+        "generation_speed": 0.97,
+        "memory": 0.43,
+        "ttft": 0.54
       },
       "variant": {
         "draft_bytes": 0,
@@ -20938,12 +20938,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 89.0,
+      "tater_score": 88.92,
       "tater_score_components": {
-        "accuracy": 62.13,
-        "generation_speed": 19.88,
-        "memory": 3.29,
-        "ttft": 3.7
+        "accuracy": 79.82,
+        "generation_speed": 6.96,
+        "memory": 0.66,
+        "ttft": 1.48
       },
       "variant": {
         "draft_bytes": 0,
@@ -22331,12 +22331,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 65.86,
+      "tater_score": 62.61,
       "tater_score_components": {
-        "accuracy": 45.28,
-        "generation_speed": 13.3,
-        "memory": 3.46,
-        "ttft": 3.83
+        "accuracy": 55.74,
+        "generation_speed": 4.66,
+        "memory": 0.69,
+        "ttft": 1.53
       },
       "variant": {
         "draft_bytes": 0,
@@ -23643,12 +23643,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 49.8,
+      "tater_score": 44.42,
       "tater_score_components": {
-        "accuracy": 26.18,
-        "generation_speed": 15.02,
-        "memory": 5.0,
-        "ttft": 3.6
+        "accuracy": 36.73,
+        "generation_speed": 5.26,
+        "memory": 1.0,
+        "ttft": 1.44
       },
       "variant": {
         "draft_bytes": 0,
@@ -25089,12 +25089,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 79.41,
+      "tater_score": 86.62,
       "tater_score_components": {
-        "accuracy": 62.93,
-        "generation_speed": 10.93,
-        "memory": 1.19,
-        "ttft": 4.35
+        "accuracy": 80.82,
+        "generation_speed": 3.83,
+        "memory": 0.24,
+        "ttft": 1.74
       },
       "variant": {
         "draft_bytes": 472432704,
@@ -26535,12 +26535,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 88.3,
+      "tater_score": 89.61,
       "tater_score_components": {
-        "accuracy": 62.93,
-        "generation_speed": 18.59,
-        "memory": 2.12,
-        "ttft": 4.66
+        "accuracy": 80.82,
+        "generation_speed": 6.51,
+        "memory": 0.42,
+        "ttft": 1.86
       },
       "variant": {
         "draft_bytes": 461766592,
@@ -27861,12 +27861,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 39.53,
+      "tater_score": 35.88,
       "tater_score_components": {
-        "accuracy": 21.07,
-        "generation_speed": 10.96,
-        "memory": 2.52,
-        "ttft": 4.99
+        "accuracy": 29.55,
+        "generation_speed": 3.84,
+        "memory": 0.5,
+        "ttft": 1.99
       },
       "variant": {
         "draft_bytes": 0,
@@ -27949,11 +27949,11 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 12.56,
+      "tater_score": 2.51,
       "tater_score_components": {
         "accuracy": 0.0,
         "generation_speed": 0.0,
-        "memory": 12.56,
+        "memory": 2.51,
         "ttft": 0.0
       },
       "variant": {
@@ -29394,12 +29394,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 70.25,
+      "tater_score": 83.11,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 5.37,
-        "memory": 1.36,
-        "ttft": 1.34
+        "accuracy": 80.42,
+        "generation_speed": 1.88,
+        "memory": 0.27,
+        "ttft": 0.54
       },
       "variant": {
         "draft_bytes": 3164006688,
@@ -30784,12 +30784,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 57.61,
+      "tater_score": 66.18,
       "tater_score_components": {
-        "accuracy": 51.34,
-        "generation_speed": 2.78,
-        "memory": 2.13,
-        "ttft": 1.35
+        "accuracy": 64.24,
+        "generation_speed": 0.97,
+        "memory": 0.43,
+        "ttft": 0.54
       },
       "variant": {
         "draft_bytes": 0,
@@ -32230,12 +32230,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 89.13,
+      "tater_score": 88.96,
       "tater_score_components": {
-        "accuracy": 62.13,
-        "generation_speed": 20.0,
-        "memory": 3.29,
-        "ttft": 3.71
+        "accuracy": 79.82,
+        "generation_speed": 7.0,
+        "memory": 0.66,
+        "ttft": 1.48
       },
       "variant": {
         "draft_bytes": 0,
@@ -33623,12 +33623,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 65.91,
+      "tater_score": 62.63,
       "tater_score_components": {
-        "accuracy": 45.28,
-        "generation_speed": 13.33,
-        "memory": 3.46,
-        "ttft": 3.84
+        "accuracy": 55.74,
+        "generation_speed": 4.66,
+        "memory": 0.69,
+        "ttft": 1.54
       },
       "variant": {
         "draft_bytes": 0,
@@ -34935,12 +34935,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 49.94,
+      "tater_score": 44.47,
       "tater_score_components": {
-        "accuracy": 26.18,
-        "generation_speed": 15.15,
-        "memory": 5.0,
-        "ttft": 3.61
+        "accuracy": 36.73,
+        "generation_speed": 5.3,
+        "memory": 1.0,
+        "ttft": 1.45
       },
       "variant": {
         "draft_bytes": 0,
@@ -36381,12 +36381,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 79.48,
+      "tater_score": 86.65,
       "tater_score_components": {
-        "accuracy": 62.93,
-        "generation_speed": 10.99,
-        "memory": 1.19,
-        "ttft": 4.37
+        "accuracy": 80.82,
+        "generation_speed": 3.85,
+        "memory": 0.24,
+        "ttft": 1.75
       },
       "variant": {
         "draft_bytes": 472432704,
@@ -37827,12 +37827,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 88.3,
+      "tater_score": 89.62,
       "tater_score_components": {
-        "accuracy": 62.93,
-        "generation_speed": 18.57,
-        "memory": 2.12,
-        "ttft": 4.68
+        "accuracy": 80.82,
+        "generation_speed": 6.5,
+        "memory": 0.42,
+        "ttft": 1.87
       },
       "variant": {
         "draft_bytes": 461766592,
@@ -39153,12 +39153,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 39.55,
+      "tater_score": 35.89,
       "tater_score_components": {
-        "accuracy": 21.07,
-        "generation_speed": 10.95,
-        "memory": 2.52,
-        "ttft": 5.0
+        "accuracy": 29.55,
+        "generation_speed": 3.83,
+        "memory": 0.5,
+        "ttft": 2.0
       },
       "variant": {
         "draft_bytes": 0,
@@ -40126,12 +40126,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 73.63,
+      "tater_score": 88.43,
       "tater_score_components": {
-        "accuracy": 66.73,
-        "generation_speed": 4.67,
-        "memory": 0.33,
-        "ttft": 1.9
+        "accuracy": 85.97,
+        "generation_speed": 1.63,
+        "memory": 0.07,
+        "ttft": 0.76
       },
       "variant": {
         "draft_bytes": 0,
@@ -41560,12 +41560,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 64.88,
+      "tater_score": 81.34,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 2.26,
-        "memory": 0.25,
-        "ttft": 0.18
+        "accuracy": 80.42,
+        "generation_speed": 0.79,
+        "memory": 0.05,
+        "ttft": 0.07
       },
       "variant": {
         "draft_bytes": 3164006688,
@@ -42950,12 +42950,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 65.23,
+      "tater_score": 81.45,
       "tater_score_components": {
-        "accuracy": 62.19,
-        "generation_speed": 2.53,
-        "memory": 0.33,
-        "ttft": 0.19
+        "accuracy": 80.42,
+        "generation_speed": 0.89,
+        "memory": 0.07,
+        "ttft": 0.07
       },
       "variant": {
         "draft_bytes": 0,
@@ -44387,12 +44387,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 71.51,
+      "tater_score": 82.8,
       "tater_score_components": {
-        "accuracy": 60.89,
-        "generation_speed": 9.44,
-        "memory": 0.26,
-        "ttft": 0.93
+        "accuracy": 79.07,
+        "generation_speed": 3.3,
+        "memory": 0.05,
+        "ttft": 0.37
       },
       "variant": {
         "draft_bytes": 0,
@@ -45780,12 +45780,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 69.55,
+      "tater_score": 82.11,
       "tater_score_components": {
-        "accuracy": 60.89,
-        "generation_speed": 7.41,
-        "memory": 0.29,
-        "ttft": 0.97
+        "accuracy": 79.07,
+        "generation_speed": 2.59,
+        "memory": 0.06,
+        "ttft": 0.39
       },
       "variant": {
         "draft_bytes": 0,
@@ -47171,12 +47171,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 70.37,
+      "tater_score": 80.5,
       "tater_score_components": {
-        "accuracy": 59.59,
-        "generation_speed": 9.53,
-        "memory": 0.34,
-        "ttft": 0.91
+        "accuracy": 76.73,
+        "generation_speed": 3.34,
+        "memory": 0.07,
+        "ttft": 0.36
       },
       "variant": {
         "draft_bytes": 0,
@@ -48606,12 +48606,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 68.9,
+      "tater_score": 84.2,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 3.4,
-        "memory": 0.28,
-        "ttft": 0.97
+        "accuracy": 82.57,
+        "generation_speed": 1.19,
+        "memory": 0.06,
+        "ttft": 0.39
       },
       "variant": {
         "draft_bytes": 472432704,
@@ -50041,12 +50041,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 75.7,
+      "tater_score": 86.58,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 10.15,
-        "memory": 0.32,
-        "ttft": 0.98
+        "accuracy": 82.57,
+        "generation_speed": 3.55,
+        "memory": 0.06,
+        "ttft": 0.39
       },
       "variant": {
         "draft_bytes": 461766592,
@@ -51432,12 +51432,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 73.38,
+      "tater_score": 85.77,
       "tater_score_components": {
-        "accuracy": 64.25,
-        "generation_speed": 7.8,
-        "memory": 0.33,
-        "ttft": 1.01
+        "accuracy": 82.57,
+        "generation_speed": 2.73,
+        "memory": 0.07,
+        "ttft": 0.4
       },
       "variant": {
         "draft_bytes": 0,

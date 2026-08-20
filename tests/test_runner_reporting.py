@@ -68,8 +68,71 @@ class RunnerReportingTests(unittest.TestCase):
         )
         scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
         self.assertEqual(scores, {"fast": 100.0, "slow": 50.0})
+        components = {item["model"]["id"]: item["tater_score_components"] for item in aggregate["runs"]}
+        self.assertEqual(
+            components["fast"],
+            {"accuracy": 90.0, "generation_speed": 7.0, "ttft": 2.0, "memory": 1.0},
+        )
         html_text = render_html(aggregate)
         self.assertLess(html_text.index("org/fast"), html_text.index("org/slow"))
+
+    def test_tater_critical_accuracy_outranks_raw_performance(self) -> None:
+        def run(label: str, categories: dict[str, float], speed: float, ttft: float, memory: int) -> dict:
+            return {
+                "status": "complete",
+                "model": {"id": label, "repo_id": f"org/{label}", "provider": "llama_cpp"},
+                "engine": {"engine": "llama.cpp"},
+                "variant": {"name": "baseline"},
+                "suite": {"version": "suite-1"},
+                "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
+                "accuracy": {"score": sum(categories.values()) / len(categories), "categories": categories},
+                "performance": {
+                    "median_generation_tokens_per_second": speed,
+                    "median_ttft_seconds": ttft,
+                },
+                "peak_rss_bytes": memory,
+            }
+
+        aggregate = aggregate_payload(
+            [
+                {
+                    "created_at": "2026-08-14T00:00:00Z",
+                    "hardware": {"hardware_id": "same-machine"},
+                    "runs": [
+                        run(
+                            "ultra-fast-unreliable",
+                            {
+                                "tool_accuracy": 60.05,
+                                "routing": 35.12,
+                                "spudex": 36.67,
+                                "synthesis": 90.83,
+                                "chat": 100.0,
+                            },
+                            100.0,
+                            0.1,
+                            100,
+                        ),
+                        run(
+                            "slower-reliable",
+                            {
+                                "tool_accuracy": 87.43,
+                                "routing": 85.29,
+                                "spudex": 90.0,
+                                "synthesis": 100.0,
+                                "chat": 100.0,
+                            },
+                            20.0,
+                            0.5,
+                            500,
+                        ),
+                    ],
+                }
+            ]
+        )
+        scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
+        self.assertEqual(scores["ultra-fast-unreliable"], 59.38)
+        self.assertEqual(scores["slower-reliable"], 82.42)
+        self.assertGreater(scores["slower-reliable"], scores["ultra-fast-unreliable"])
 
     def test_cross_device_average_weights_each_device_equally(self) -> None:
         def run(run_id: str, accuracy: float) -> dict:
@@ -121,7 +184,7 @@ class RunnerReportingTests(unittest.TestCase):
         result = aggregate["leaderboard"][0]
         self.assertEqual(result["device_count"], 2)
         self.assertEqual(result["sample_count"], 3)
-        self.assertEqual(result["tater_score"], 56.25)
+        self.assertEqual(result["tater_score"], 43.75)
         self.assertEqual(len(aggregate["devices"]), 2)
         self.assertEqual(aggregate["devices"][0]["leaderboard"][0]["sample_count"], 2)
         self.assertEqual(aggregate["devices"][0]["hardware_profile_count"], 2)
@@ -174,12 +237,15 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn("org/model", outputs["markdown"].read_text(encoding="utf-8"))
             report_payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
             self.assertEqual(report_payload["runs"][0]["tater_score"], 100.0)
-            self.assertEqual(report_payload["runs"][0]["tater_score_components"]["accuracy"], 70.0)
+            self.assertEqual(report_payload["runs"][0]["tater_score_components"]["accuracy"], 90.0)
             html_text = outputs["html"].read_text(encoding="utf-8")
             self.assertIn("Tater Bench", html_text)
             self.assertIn("Best models for Tater", html_text)
             self.assertIn('class="score-entry"', html_text)
-            self.assertIn("70 accuracy · 20 generation speed · 5 TTFT · 5 memory efficiency", html_text)
+            self.assertIn(
+                "90 category-weighted accuracy (35 tool · 25 routing · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory efficiency",
+                html_text,
+            )
             self.assertIn('id="score-bars"', html_text)
             self.assertIn("All Devices results — sorted by Tater Score", html_text)
             self.assertIn('class="detail-rank"', html_text)
