@@ -66,6 +66,8 @@ def _paths_in_snapshot(directory: Path) -> Iterable[Path]:
 
 def _matching_sidecars(main_path: Path, row: dict[str, Any]) -> tuple[Path | None, list[DraftModel]]:
     mmproj = _existing_path(row.get("mmproj_path"))
+    if mmproj is not None and (not mmproj.is_file() or classify_gguf(mmproj) != "projector"):
+        mmproj = None
     drafts: list[DraftModel] = []
     seen: set[tuple[str, str]] = set()
     for candidate in _paths_in_snapshot(main_path.parent):

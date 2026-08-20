@@ -6,22 +6,23 @@ Cross-device average accuracy and real-world speed for models running through Ta
 
 | Model | Engine | Mode | Avg Tater Score | Avg Accuracy | Avg Gen tok/s | Avg TTFT | Devices | Runs | Suite |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | MTP (+49.9%) | 89.91 | 90.84% | 91.01 | 0.59s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink | llama.cpp | MTP (+38.8%) | 87.44 | 87.87% | 89.99 | 0.70s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink | mlx | BASELINE | 85.75 | 95.33% | 50.01 | 0.27s | 1 | 1 | tater-core-0.2 |
-| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | DFLASH (-28.0%) | 78.57 | 90.84% | 39.89 | 0.62s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink | llama.cpp | BASELINE | 74.09 | 75.83% | 65.95 | 0.67s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink | llama.cpp | MTP (+41.1%) | 70.54 | 88.84% | 22.67 | 2.57s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink | llama.cpp | BASELINE | 67.85 | 61.27% | 80.94 | 0.71s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink | llama.cpp | BASELINE | 65.05 | 81.09% | 19.03 | 2.53s | 2 | 2 | tater-core-0.2 |
-| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | BASELINE | 63.34 | 60.94% | 63.37 | 0.57s | 2 | 2 | tater-core-0.2 |
+| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | MTP (+50.1%) | 82.00 | 90.84% | 91.00 | 0.59s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink | llama.cpp | MTP (+38.2%) | 80.19 | 87.87% | 88.80 | 0.70s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | DFLASH (-28.1%) | 74.16 | 90.84% | 39.78 | 0.62s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/Gemma-4-26B-A4B-IT-UD-Q4_K_XL-mlx-Tater-NoThink | mlx | BASELINE | 73.63 | 95.33% | 49.77 | 0.26s | 1 | 2 | tater-core-0.2 |
+| TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink | llama.cpp | BASELINE | 67.69 | 75.83% | 65.65 | 0.67s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink | llama.cpp | MTP (+42.6%) | 67.58 | 88.84% | 22.82 | 2.58s | 2 | 4 | tater-core-0.2 |
+| unsloth/Qwen3.5-0.8B-GGUF | llama.cpp | BASELINE | 67.20 | 53.14% | 214.21 | 0.10s | 1 | 1 | tater-core-0.2 |
+| TaterTotterson/Qwen3.8-27B-GGUF-Tater-NoThink | llama.cpp | BASELINE | 61.37 | 81.04% | 18.91 | 2.54s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF-Tater-NoThink | llama.cpp | BASELINE | 60.08 | 61.27% | 80.31 | 0.72s | 2 | 4 | tater-core-0.2 |
+| TaterTotterson/gemma-4-26B-A4B-it-GGUF-Tater-NoThink | llama.cpp | BASELINE | 56.44 | 60.94% | 63.28 | 0.57s | 2 | 4 | tater-core-0.2 |
 
 ## Devices
 
 | Device | Submitted runs |
 |---|---:|
-| AMD RYZEN AI MAX+ 395 w/ Radeon 8060S · 64.0 GiB | 8 |
-| Apple M3 Ultra · 96.0 GiB | 9 |
+| AMD RYZEN AI MAX+ 395 w/ Radeon 8060S · 64.0 GiB | 16 |
+| Apple M3 Ultra · 96.0 GiB | 19 |
 
 ## Method
 

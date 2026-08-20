@@ -65,6 +65,38 @@ class DiscoveryTests(unittest.TestCase):
             draft.symlink_to(blob)
             self.assertEqual(classify_gguf(draft.absolute()), "mtp")
 
+    def test_registry_directory_is_not_used_as_projector(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            home = Path(temp)
+            snapshot = home / "agent_lab/models/llm/llama-cpp/models--org--model/snapshots/abc"
+            snapshot.mkdir(parents=True)
+            main = snapshot / "Model-Q4_K_M.gguf"
+            main.write_bytes(b"test")
+            registry = home / "agent_lab/models/llm/downloaded_models.json"
+            registry.parent.mkdir(parents=True, exist_ok=True)
+            registry.write_text(
+                json.dumps(
+                    {
+                        "models": [
+                            {
+                                "provider": "llama_cpp",
+                                "model_path": str(main),
+                                "filename": main.name,
+                                "repo_id": "org/model",
+                                "supports_vision": True,
+                                "mmproj_path": str(home),
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            models = discover_models(home)
+
+            self.assertEqual(len(models), 1)
+            self.assertIsNone(models[0].mmproj_path)
+
     def test_repo_marked_mtp_gets_embedded_variant(self) -> None:
         from taterbench.types import ModelCandidate
 
