@@ -69,6 +69,15 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:43:16.924204+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -158,121 +167,6 @@
             "categories": {
               "chat": 100.0,
               "routing": 89.88,
-              "spudex": 78.33,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 88.76
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0f7914e5a05e",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "all",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
-            "server_version": "0.1.0-dev",
-            "target_gpu_layers": "all"
-          },
-          "finished_at": "2026-08-20T00:48:25.786706+00:00",
-          "hardware": {
-            "architecture": "x86_64",
-            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-            "gpus": [
-              {
-                "backend": "rocm",
-                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "AMD Radeon Graphics",
-                "vendor": "AMD"
-              },
-              {
-                "backend": "rocm",
-                "name": "RyzenAI-npu5",
-                "vendor": "AMD"
-              }
-            ],
-            "hardware_id": "dc8e7ab7d654",
-            "logical_cores": 32,
-            "memory_bytes": 68719476736,
-            "os": "Linux",
-            "os_release": "7.0.0-22-generic",
-            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
-            "physical_cores": 0,
-            "python": "3.14.4"
-          },
-          "hardware_ids": [
-            "dc8e7ab7d654"
-          ],
-          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
-          "load_seconds": 21.724581,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:e7595fa22b52",
-            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 1761120256,
-          "performance": {
-            "median_generation_tokens_per_second": 78.6613,
-            "median_prompt_tokens_per_second": 1005.6498,
-            "median_scenario_seconds": 1.386925,
-            "median_ttft_seconds": 0.847503
-          },
-          "result_sources": [
-            "20260820T005528Z-dc8e7ab7d654.json",
-            "20260815T122918Z-dc8e7ab7d654.json"
-          ],
-          "run_ids": [
-            "ae32949da0e84d2cad248937039804c1",
-            "4d4bb97c804f49fb920416da84cedc26"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 49.91,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 88.94,
-          "tater_score_components": {
-            "accuracy": 79.82,
-            "generation_speed": 6.98,
-            "memory": 0.66,
-            "ttft": 1.48
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 3,
-            "name": "mtp",
-            "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 89.88,
               "spudex": 90.0,
               "synthesis": 90.0,
               "tool_accuracy": 88.14
@@ -299,6 +193,15 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:44:15.074009+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -414,6 +317,15 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:55:28.279842+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -502,6 +414,130 @@
           "accuracy": {
             "categories": {
               "chat": 100.0,
+              "routing": 89.88,
+              "spudex": 78.33,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 88.76
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0f7914e5a05e",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "all",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.0-dev (build 1, commit 9d57ce4) built with GNU 15.2.0 for Linux x86_64",
+            "server_version": "0.1.0-dev",
+            "target_gpu_layers": "all"
+          },
+          "finished_at": "2026-08-20T00:48:25.786706+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Spudex 78.3% is below 80%."
+            ],
+            "status": "limited"
+          },
+          "hardware": {
+            "architecture": "x86_64",
+            "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+            "gpus": [
+              {
+                "backend": "rocm",
+                "name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "AMD Radeon Graphics",
+                "vendor": "AMD"
+              },
+              {
+                "backend": "rocm",
+                "name": "RyzenAI-npu5",
+                "vendor": "AMD"
+              }
+            ],
+            "hardware_id": "dc8e7ab7d654",
+            "logical_cores": 32,
+            "memory_bytes": 68719476736,
+            "os": "Linux",
+            "os_release": "7.0.0-22-generic",
+            "os_version": "#22-Ubuntu SMP PREEMPT_DYNAMIC Mon May 25 15:54:34 UTC 2026",
+            "physical_cores": 0,
+            "python": "3.14.4"
+          },
+          "hardware_ids": [
+            "dc8e7ab7d654"
+          ],
+          "hardware_label": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB",
+          "load_seconds": 21.724581,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:e7595fa22b52",
+            "label": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 1761120256,
+          "performance": {
+            "median_generation_tokens_per_second": 78.6613,
+            "median_prompt_tokens_per_second": 1005.6498,
+            "median_scenario_seconds": 1.386925,
+            "median_ttft_seconds": 0.847503
+          },
+          "result_sources": [
+            "20260820T005528Z-dc8e7ab7d654.json",
+            "20260815T122918Z-dc8e7ab7d654.json"
+          ],
+          "run_ids": [
+            "ae32949da0e84d2cad248937039804c1",
+            "4d4bb97c804f49fb920416da84cedc26"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 49.91,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 88.94,
+          "tater_score_components": {
+            "accuracy": 79.82,
+            "generation_speed": 6.98,
+            "memory": 0.66,
+            "ttft": 1.48
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 3,
+            "name": "mtp",
+            "speculative_method": "draft-mtp"
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
               "routing": 82.27,
               "spudex": 0.0,
               "synthesis": 90.0,
@@ -529,6 +565,18 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:52:11.229193+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Overall accuracy 73.1% is below 85%.",
+              "Tool accuracy 84.6% is below 85%.",
+              "Spudex 0.0% is below 80%.",
+              "Overall accuracy 73.3% is below 85%."
+            ],
+            "status": "limited"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -644,6 +692,16 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:47:02.097192+00:00",
+          "fitness": {
+            "label": "Not Fit",
+            "provisional": false,
+            "rank": 3,
+            "reasons": [
+              "Overall accuracy 64.7% is below 70%.",
+              "Routing 66.5% is below 70%."
+            ],
+            "status": "not_fit"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -759,6 +817,17 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:45:37.242320+00:00",
+          "fitness": {
+            "label": "Not Fit",
+            "provisional": false,
+            "rank": 3,
+            "reasons": [
+              "Overall accuracy 37.4% is below 70%.",
+              "Tool accuracy 68.9% is below 70%.",
+              "Routing 0.0% is below 70%."
+            ],
+            "status": "not_fit"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -874,6 +943,17 @@
             "target_gpu_layers": "all"
           },
           "finished_at": "2026-08-20T00:42:29.439802+00:00",
+          "fitness": {
+            "label": "Not Fit",
+            "provisional": false,
+            "rank": 3,
+            "reasons": [
+              "Overall accuracy 30.1% is below 70%.",
+              "Tool accuracy 45.1% is below 70%.",
+              "Routing 6.5% is below 70%."
+            ],
+            "status": "not_fit"
+          },
           "hardware": {
             "architecture": "x86_64",
             "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -1018,6 +1098,15 @@
             "python_version": "3.11.11"
           },
           "finished_at": "2026-08-20T01:14:59.452371+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1124,6 +1213,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:04:13.758873+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1230,6 +1328,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:03:48.958884+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1336,6 +1443,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:04:56.554299+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1415,218 +1531,6 @@
           "accuracy": {
             "categories": {
               "chat": 100.0,
-              "routing": 79.88,
-              "spudex": 90.0,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 86.98
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "auto",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:07:29.363767+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 2.311217,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:beafc0d4dad4",
-            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 24862949376,
-          "performance": {
-            "median_generation_tokens_per_second": 98.9372,
-            "median_prompt_tokens_per_second": 1517.5976,
-            "median_scenario_seconds": 0.879545,
-            "median_ttft_seconds": 0.551187
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "d6ed4e955da94f9cad68484e884bda81",
-            "eefbe0866d3949b7b6f493df9d324325"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 26.49,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 82.72,
-          "tater_score_components": {
-            "accuracy": 79.07,
-            "generation_speed": 3.23,
-            "memory": 0.05,
-            "ttft": 0.37
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 3,
-            "name": "mtp",
-            "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 79.88,
-              "spudex": 90.0,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 86.98
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:06:44.120075+00:00",
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 11.28875,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:beafc0d4dad4",
-            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 22283894784,
-          "performance": {
-            "median_generation_tokens_per_second": 78.7654,
-            "median_prompt_tokens_per_second": 1573.2423,
-            "median_scenario_seconds": 0.958117,
-            "median_ttft_seconds": 0.530136
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "1d360f8a966e408c86e1190f16d6967d",
-            "9c8ef70ced554f05947f5c50ac7c44a3"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 0.0,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 82.09,
-          "tater_score_components": {
-            "accuracy": 79.07,
-            "generation_speed": 2.58,
-            "memory": 0.06,
-            "ttft": 0.39
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
-            "draft_tokens": 0,
-            "name": "baseline",
-            "speculative_method": ""
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
               "routing": 85.29,
               "spudex": 90.0,
               "synthesis": 100.0,
@@ -1654,6 +1558,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:10:50.330144+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1760,6 +1673,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:14:11.796656+00:00",
+          "fitness": {
+            "label": "Tater Ready",
+            "provisional": false,
+            "rank": 0,
+            "reasons": [
+              "All Tater readiness gates pass."
+            ],
+            "status": "ready"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1839,6 +1761,236 @@
           "accuracy": {
             "categories": {
               "chat": 100.0,
+              "routing": 79.88,
+              "spudex": 90.0,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 86.98
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "auto",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:07:29.363767+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Routing 79.9% is below 80%."
+            ],
+            "status": "limited"
+          },
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 2.311217,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:beafc0d4dad4",
+            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 24862949376,
+          "performance": {
+            "median_generation_tokens_per_second": 98.9372,
+            "median_prompt_tokens_per_second": 1517.5976,
+            "median_scenario_seconds": 0.879545,
+            "median_ttft_seconds": 0.551187
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "d6ed4e955da94f9cad68484e884bda81",
+            "eefbe0866d3949b7b6f493df9d324325"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 26.49,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 82.72,
+          "tater_score_components": {
+            "accuracy": 79.07,
+            "generation_speed": 3.23,
+            "memory": 0.05,
+            "ttft": 0.37
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 3,
+            "name": "mtp",
+            "speculative_method": "draft-mtp"
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 79.88,
+              "spudex": 90.0,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 86.98
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:06:44.120075+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Routing 79.9% is below 80%."
+            ],
+            "status": "limited"
+          },
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 11.28875,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:beafc0d4dad4",
+            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 22283894784,
+          "performance": {
+            "median_generation_tokens_per_second": 78.7654,
+            "median_prompt_tokens_per_second": 1573.2423,
+            "median_scenario_seconds": 0.958117,
+            "median_ttft_seconds": 0.530136
+          },
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "1d360f8a966e408c86e1190f16d6967d",
+            "9c8ef70ced554f05947f5c50ac7c44a3"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 0.0,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 82.09,
+          "tater_score_components": {
+            "accuracy": 79.07,
+            "generation_speed": 2.58,
+            "memory": 0.06,
+            "ttft": 0.39
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 0,
+            "name": "baseline",
+            "speculative_method": ""
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
               "routing": 81.54,
               "spudex": 78.33,
               "synthesis": 90.0,
@@ -1866,6 +2018,15 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:05:48.227024+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Spudex 78.3% is below 80%."
+            ],
+            "status": "limited"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -1972,6 +2133,17 @@
             "target_gpu_layers": "auto"
           },
           "finished_at": "2026-08-20T01:14:21.901105+00:00",
+          "fitness": {
+            "label": "Not Fit",
+            "provisional": true,
+            "rank": 3,
+            "reasons": [
+              "Overall accuracy 53.1% is below 70%.",
+              "Tool accuracy 60.0% is below 70%.",
+              "Routing 35.1% is below 70%."
+            ],
+            "status": "not_fit"
+          },
           "hardware": {
             "architecture": "arm64",
             "cpu": "Apple M3 Ultra",
@@ -2079,6 +2251,15 @@
         "python_version": "3.11.11"
       },
       "finished_at": "2026-08-20T01:14:59.452371+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": false,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware_ids": [
         "92797310f99b"
       ],
@@ -2163,6 +2344,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:04:13.758873+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": false,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2226,95 +2416,6 @@
       "accuracy": {
         "categories": {
           "chat": 100.0,
-          "routing": 84.88,
-          "spudex": 84.16,
-          "synthesis": 100.0,
-          "tool_accuracy": 87.43
-        },
-        "score": 87.87
-      },
-      "aggregate": true,
-      "configuration": {
-        "context_size": 8192,
-        "max_tokens": 320,
-        "prompt_profile": "tater-full-synthetic-2026-08-14",
-        "seed": 42,
-        "temperature": 0.0
-      },
-      "device_count": 2,
-      "device_weighted": true,
-      "engine": {
-        "context_size": 8192,
-        "draft_gpu_layers": "auto",
-        "engine": "llama.cpp",
-        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-        "server_version": "0.1.2-dev",
-        "target_gpu_layers": "auto"
-      },
-      "finished_at": "2026-08-20T01:07:29.363767+00:00",
-      "hardware_ids": [
-        "92797310f99b",
-        "dc8e7ab7d654"
-      ],
-      "load_seconds": 12.017899,
-      "model": {
-        "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-        "id": "llama_cpp:beafc0d4dad4",
-        "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-        "max_context_tokens": 0,
-        "model_bytes": 22663387424,
-        "provider": "llama_cpp",
-        "quantization": "UD-Q4_K_M",
-        "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-        "supports_vision": true
-      },
-      "peak_rss_bytes": 13312034816,
-      "performance": {
-        "median_generation_tokens_per_second": 88.7993,
-        "median_prompt_tokens_per_second": 1261.6237,
-        "median_scenario_seconds": 1.133235,
-        "median_ttft_seconds": 0.699345
-      },
-      "result_sources": [
-        "20260820T011459Z-92797310f99b.json",
-        "20260814T213345Z-92797310f99b.json",
-        "20260820T005528Z-dc8e7ab7d654.json",
-        "20260815T122918Z-dc8e7ab7d654.json"
-      ],
-      "run_ids": [
-        "d6ed4e955da94f9cad68484e884bda81",
-        "eefbe0866d3949b7b6f493df9d324325",
-        "ae32949da0e84d2cad248937039804c1",
-        "4d4bb97c804f49fb920416da84cedc26"
-      ],
-      "sample_count": 4,
-      "speedup_percent": 38.2,
-      "status": "complete",
-      "suite": {
-        "name": "Tater Core",
-        "repeats": 1,
-        "scenario_count": 22,
-        "version": "tater-core-0.2"
-      },
-      "tater_score": 85.83,
-      "tater_score_components": {
-        "accuracy": 79.44,
-        "generation_speed": 5.11,
-        "memory": 0.36,
-        "ttft": 0.93
-      },
-      "variant": {
-        "draft_bytes": 0,
-        "draft_filename": "",
-        "draft_tokens": 3,
-        "name": "mtp",
-        "speculative_method": "draft-mtp"
-      }
-    },
-    {
-      "accuracy": {
-        "categories": {
-          "chat": 100.0,
           "routing": 89.88,
           "spudex": 90.0,
           "synthesis": 90.0,
@@ -2341,6 +2442,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:04:56.554299+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": false,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2430,6 +2540,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:14:11.796656+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": false,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2493,6 +2612,105 @@
       "accuracy": {
         "categories": {
           "chat": 100.0,
+          "routing": 84.88,
+          "spudex": 84.16,
+          "synthesis": 100.0,
+          "tool_accuracy": 87.43
+        },
+        "score": 87.87
+      },
+      "aggregate": true,
+      "configuration": {
+        "context_size": 8192,
+        "max_tokens": 320,
+        "prompt_profile": "tater-full-synthetic-2026-08-14",
+        "seed": 42,
+        "temperature": 0.0
+      },
+      "device_count": 2,
+      "device_weighted": true,
+      "engine": {
+        "context_size": 8192,
+        "draft_gpu_layers": "auto",
+        "engine": "llama.cpp",
+        "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+        "server_version": "0.1.2-dev",
+        "target_gpu_layers": "auto"
+      },
+      "finished_at": "2026-08-20T01:07:29.363767+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": false,
+        "rank": 1,
+        "reasons": [
+          "Routing 79.9% is below 80%.",
+          "Spudex 78.3% is below 80%."
+        ],
+        "status": "limited"
+      },
+      "hardware_ids": [
+        "92797310f99b",
+        "dc8e7ab7d654"
+      ],
+      "load_seconds": 12.017899,
+      "model": {
+        "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "id": "llama_cpp:beafc0d4dad4",
+        "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "max_context_tokens": 0,
+        "model_bytes": 22663387424,
+        "provider": "llama_cpp",
+        "quantization": "UD-Q4_K_M",
+        "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+        "supports_vision": true
+      },
+      "peak_rss_bytes": 13312034816,
+      "performance": {
+        "median_generation_tokens_per_second": 88.7993,
+        "median_prompt_tokens_per_second": 1261.6237,
+        "median_scenario_seconds": 1.133235,
+        "median_ttft_seconds": 0.699345
+      },
+      "result_sources": [
+        "20260820T011459Z-92797310f99b.json",
+        "20260814T213345Z-92797310f99b.json",
+        "20260820T005528Z-dc8e7ab7d654.json",
+        "20260815T122918Z-dc8e7ab7d654.json"
+      ],
+      "run_ids": [
+        "d6ed4e955da94f9cad68484e884bda81",
+        "eefbe0866d3949b7b6f493df9d324325",
+        "ae32949da0e84d2cad248937039804c1",
+        "4d4bb97c804f49fb920416da84cedc26"
+      ],
+      "sample_count": 4,
+      "speedup_percent": 38.2,
+      "status": "complete",
+      "suite": {
+        "name": "Tater Core",
+        "repeats": 1,
+        "scenario_count": 22,
+        "version": "tater-core-0.2"
+      },
+      "tater_score": 85.83,
+      "tater_score_components": {
+        "accuracy": 79.44,
+        "generation_speed": 5.11,
+        "memory": 0.36,
+        "ttft": 0.93
+      },
+      "variant": {
+        "draft_bytes": 0,
+        "draft_filename": "",
+        "draft_tokens": 3,
+        "name": "mtp",
+        "speculative_method": "draft-mtp"
+      }
+    },
+    {
+      "accuracy": {
+        "categories": {
+          "chat": 100.0,
           "routing": 83.78,
           "spudex": 45.0,
           "synthesis": 95.0,
@@ -2519,6 +2737,16 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:10:50.330144+00:00",
+      "fitness": {
+        "label": "Mixed by Hardware",
+        "provisional": false,
+        "rank": 2,
+        "reasons": [
+          "Apple M3 Ultra \u00b7 96.0 GiB: Tater Ready.",
+          "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB: Limited \u2014 Not Ready."
+        ],
+        "status": "mixed"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2608,6 +2836,16 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:06:44.120075+00:00",
+      "fitness": {
+        "label": "Mixed by Hardware",
+        "provisional": false,
+        "rank": 2,
+        "reasons": [
+          "Apple M3 Ultra \u00b7 96.0 GiB: Limited \u2014 Not Ready.",
+          "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB: Not Fit."
+        ],
+        "status": "mixed"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2697,6 +2935,16 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:05:48.227024+00:00",
+      "fitness": {
+        "label": "Mixed by Hardware",
+        "provisional": false,
+        "rank": 2,
+        "reasons": [
+          "Apple M3 Ultra \u00b7 96.0 GiB: Limited \u2014 Not Ready.",
+          "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB: Not Fit."
+        ],
+        "status": "mixed"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2786,6 +3034,16 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:03:48.958884+00:00",
+      "fitness": {
+        "label": "Mixed by Hardware",
+        "provisional": false,
+        "rank": 2,
+        "reasons": [
+          "Apple M3 Ultra \u00b7 96.0 GiB: Tater Ready.",
+          "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S \u00b7 64.0 GiB: Not Fit."
+        ],
+        "status": "mixed"
+      },
       "hardware_ids": [
         "92797310f99b",
         "dc8e7ab7d654"
@@ -2875,6 +3133,17 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:14:21.901105+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 53.1% is below 70%.",
+          "Tool accuracy 60.0% is below 70%.",
+          "Routing 35.1% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware_ids": [
         "92797310f99b"
       ],
@@ -2958,6 +3227,15 @@
         "python_version": "3.11.11"
       },
       "finished_at": "2026-08-20T01:14:59.452371+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -3933,6 +4211,17 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:14:21.901105+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 53.1% is below 70%.",
+          "Tool accuracy 60.0% is below 70%.",
+          "Routing 35.1% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -5301,6 +5590,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:14:11.796656+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -6737,6 +7035,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:10:50.330144+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -8129,6 +8436,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:07:29.363767+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Routing 79.9% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -9568,6 +9884,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:06:44.120075+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Routing 79.9% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -10963,6 +11288,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:05:48.227024+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Spudex 78.3% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -12356,6 +12690,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:04:56.554299+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -13793,6 +14136,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:04:13.758873+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -15230,6 +15582,15 @@
         "target_gpu_layers": "auto"
       },
       "finished_at": "2026-08-20T01:03:48.958884+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -16612,6 +16973,15 @@
       },
       "error": "RuntimeError: llama.cpp generation failed with HTTP 400: {\"error\":{\"code\":400,\"message\":\"request (4420 tokens) exceeds the available context size (4096 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":4420,\"n_ctx\":4096}}",
       "finished_at": "2026-08-20T01:03:17.129956+00:00",
+      "fitness": {
+        "label": "Unrated",
+        "provisional": true,
+        "rank": 4,
+        "reasons": [
+          "A complete five-category accuracy map is required."
+        ],
+        "status": "unrated"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -16702,6 +17072,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:55:28.279842+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -18147,6 +18526,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:52:11.229193+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Overall accuracy 73.1% is below 85%.",
+          "Tool accuracy 84.6% is below 85%.",
+          "Spudex 0.0% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -19537,6 +19927,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:48:25.786706+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Spudex 78.3% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -20983,6 +21382,16 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:47:02.097192+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 64.7% is below 70%.",
+          "Routing 66.5% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -22376,6 +22785,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:45:37.242320+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 37.4% is below 70%.",
+          "Tool accuracy 68.9% is below 70%.",
+          "Routing 0.0% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -23688,6 +24108,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:44:15.074009+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -25134,6 +25563,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:43:16.924204+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -26580,6 +27018,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-20T00:42:29.439802+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 30.1% is below 70%.",
+          "Tool accuracy 45.1% is below 70%.",
+          "Routing 6.5% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -27895,6 +28344,15 @@
       },
       "error": "RuntimeError: llama.cpp generation failed with HTTP 400: {\"error\":{\"code\":400,\"message\":\"request (4420 tokens) exceeds the available context size (4096 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":4420,\"n_ctx\":4096}}",
       "finished_at": "2026-08-20T00:41:19.063357+00:00",
+      "fitness": {
+        "label": "Unrated",
+        "provisional": true,
+        "rank": 4,
+        "reasons": [
+          "A complete five-category accuracy map is required."
+        ],
+        "status": "unrated"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -27994,6 +28452,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:29:18.938662+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -29439,6 +29906,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:26:01.254512+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Overall accuracy 73.3% is below 85%.",
+          "Tool accuracy 84.6% is below 85%.",
+          "Spudex 0.0% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -30829,6 +31307,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:22:15.434255+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Spudex 78.3% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -32275,6 +32762,16 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:20:51.859924+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 64.7% is below 70%.",
+          "Routing 66.5% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -33668,6 +34165,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:19:27.390900+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 37.4% is below 70%.",
+          "Tool accuracy 68.9% is below 70%.",
+          "Routing 0.0% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -34980,6 +35488,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:18:05.387711+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -36426,6 +36943,15 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:17:07.547513+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -37872,6 +38398,17 @@
         "target_gpu_layers": "all"
       },
       "finished_at": "2026-08-15T12:16:21.092711+00:00",
+      "fitness": {
+        "label": "Not Fit",
+        "provisional": true,
+        "rank": 3,
+        "reasons": [
+          "Overall accuracy 30.1% is below 70%.",
+          "Tool accuracy 45.1% is below 70%.",
+          "Routing 6.5% is below 70%."
+        ],
+        "status": "not_fit"
+      },
       "hardware": {
         "architecture": "x86_64",
         "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
@@ -39196,6 +39733,15 @@
         "python_version": "3.11.11"
       },
       "finished_at": "2026-08-14T21:33:45.435853+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -40169,6 +40715,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:33:10.300966+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -41603,6 +42158,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:29:50.869875+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -42993,6 +43557,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:26:32.994760+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Routing 79.9% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -44430,6 +45003,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:25:48.331279+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Routing 79.9% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -45823,6 +46405,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:24:53.430831+00:00",
+      "fitness": {
+        "label": "Limited \u2014 Not Ready",
+        "provisional": true,
+        "rank": 1,
+        "reasons": [
+          "Spudex 78.3% is below 80%."
+        ],
+        "status": "limited"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -47214,6 +47805,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:24:03.026657+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -48649,6 +49249,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:23:20.647032+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",
@@ -50084,6 +50693,15 @@
         "server_version": "0.1.0-dev"
       },
       "finished_at": "2026-08-14T21:22:56.307368+00:00",
+      "fitness": {
+        "label": "Tater Ready",
+        "provisional": true,
+        "rank": 0,
+        "reasons": [
+          "All Tater readiness gates pass."
+        ],
+        "status": "ready"
+      },
       "hardware": {
         "architecture": "arm64",
         "cpu": "Apple M3 Ultra",

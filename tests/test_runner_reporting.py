@@ -133,6 +133,67 @@ class RunnerReportingTests(unittest.TestCase):
         self.assertEqual(scores["ultra-fast-unreliable"], 59.38)
         self.assertEqual(scores["slower-reliable"], 82.42)
         self.assertGreater(scores["slower-reliable"], scores["ultra-fast-unreliable"])
+        fitness = {item["model"]["id"]: item["fitness"]["status"] for item in aggregate["runs"]}
+        self.assertEqual(fitness, {"ultra-fast-unreliable": "not_fit", "slower-reliable": "ready"})
+
+    def test_cross_device_fitness_requires_unanimous_results(self) -> None:
+        def run(run_id: str, categories: dict[str, float], accuracy: float) -> dict:
+            return {
+                "run_id": run_id,
+                "status": "complete",
+                "model": {
+                    "id": "gemma",
+                    "repo_id": "org/gemma",
+                    "filename": "gemma.gguf",
+                    "provider": "llama_cpp",
+                },
+                "engine": {"engine": "llama.cpp"},
+                "variant": {"name": "baseline"},
+                "suite": {"version": "suite-1"},
+                "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
+                "accuracy": {"score": accuracy, "categories": categories},
+                "performance": {
+                    "median_generation_tokens_per_second": 20.0,
+                    "median_ttft_seconds": 0.1,
+                },
+                "peak_rss_bytes": 100,
+            }
+
+        ready = {
+            "tool_accuracy": 93.14,
+            "routing": 89.88,
+            "spudex": 90.0,
+            "synthesis": 90.0,
+            "chat": 100.0,
+        }
+        not_fit = {
+            "tool_accuracy": 45.14,
+            "routing": 6.5,
+            "spudex": 0.0,
+            "synthesis": 90.0,
+            "chat": 62.5,
+        }
+        aggregate = aggregate_payload(
+            [
+                {
+                    "hardware": {"hardware_id": "apple", "cpu": "Apple M3 Ultra", "memory_bytes": 100},
+                    "runs": [run("apple-run", ready, 91.78)],
+                },
+                {
+                    "hardware": {"hardware_id": "amd", "cpu": "AMD Ryzen", "memory_bytes": 100},
+                    "runs": [run("amd-run", not_fit, 30.1)],
+                },
+            ]
+        )
+        overall = aggregate["leaderboard"][0]
+        self.assertEqual(overall["fitness"]["status"], "mixed")
+        self.assertEqual(overall["fitness"]["label"], "Mixed by Hardware")
+        self.assertFalse(overall["fitness"]["provisional"])
+        device_fitness = {
+            device["hardware"]["cpu"]: device["leaderboard"][0]["fitness"]["status"]
+            for device in aggregate["devices"]
+        }
+        self.assertEqual(device_fitness, {"AMD Ryzen": "not_fit", "Apple M3 Ultra": "ready"})
 
     def test_cross_device_average_weights_each_device_equally(self) -> None:
         def run(run_id: str, accuracy: float) -> dict:
@@ -242,12 +303,13 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn("Tater Bench", html_text)
             self.assertIn("Best models for Tater", html_text)
             self.assertIn('class="score-entry"', html_text)
+            self.assertIn("Unrated", html_text)
             self.assertIn(
                 "90 category-weighted accuracy (35 tool · 25 routing · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory efficiency",
                 html_text,
             )
             self.assertIn('id="score-bars"', html_text)
-            self.assertIn("All Devices results — sorted by Tater Score", html_text)
+            self.assertIn("All Devices results — sorted by Fitness, then Tater Score", html_text)
             self.assertIn('class="detail-rank"', html_text)
             self.assertIn("scoreBars.style.setProperty('--bar-count'", html_text)
             self.assertIn('data-scope-button="overall"', html_text)

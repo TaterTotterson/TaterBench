@@ -13,6 +13,7 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
 - **Tater Score:** 90 points for category-weighted accuracy (35 tool accuracy, 25 routing, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency.
+- **Fitness:** Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every other category. Limited results miss a readiness gate; Not Fit results fall below 70% overall, tool, or routing accuracy.
 - **Accuracy:** Astraeus routing against the complete tool catalog, ordered planning, Thanatos tool selection and arguments, normal chat with full system awareness, Hermes result synthesis, and Spudex action decisions.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
 - **Speculation:** llama.cpp targets run once without speculative decoding and again with every compatible MTP, DFlash, or DSpark draft found beside the target GGUF.
@@ -118,6 +119,7 @@ New benchmark runs do not overwrite earlier submissions. Repeated runs of the sa
 - **All Devices** for the overall cross-device leaderboard.
 - One tab per hardware type, such as Apple M3 Ultra, for that device's averaged results.
 - An individual-runs dropdown on each result for every submitted measurement behind its average.
+- Tater Ready, Limited, Not Fit, and Mixed by Hardware verdicts with the failed accuracy gates shown directly on each result.
 - Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
 - Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
 
@@ -128,6 +130,8 @@ Hardware types are grouped by OS family, architecture, CPU, core counts, memory,
 Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware profile and suite.
 
 The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Tater-critical tool accuracy and routing most heavily; its speed, TTFT, and memory components are normalized to the best measured value in that group. Repeated submissions are averaged by hardware type first; the main leaderboard then gives every represented hardware type equal weight, so a popular device with many submissions cannot overwhelm the others. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
+
+Fitness is deliberately stricter than the score and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two runs are marked provisional, and older results without all five accuracy categories remain Unrated.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 
