@@ -89,6 +89,50 @@ class GradingTests(unittest.TestCase):
         )
         self.assertEqual(grade["score"], 1.0)
 
+    def test_astraeus_requires_nl_but_does_not_grade_its_wording(self) -> None:
+        scenario = {
+            "kind": "astraeus",
+            "available_tools": ["device_control"],
+            "expected": {
+                "mode": "execute",
+                "tool_sequence": ["device_control"],
+                "step_nl": [{"non_empty": True}],
+            },
+        }
+        arbitrary = grade_response(
+            scenario,
+            '{"mode":"execute","goal":"done","steps":[{"step_id":1,"intent":"lights","nl":"any natural-language instruction","tool_hint":"device_control"}]}',
+        )
+        missing = grade_response(
+            scenario,
+            '{"mode":"execute","goal":"done","steps":[{"step_id":1,"intent":"lights","nl":"","tool_hint":"device_control"}]}',
+        )
+        self.assertEqual(arbitrary["score"], 1.0)
+        self.assertTrue(arbitrary["passed"])
+        self.assertEqual(missing["score"], 0.79)
+        self.assertFalse(missing["passed"])
+
+    def test_verba_nl_argument_only_needs_to_be_non_empty(self) -> None:
+        scenario = {
+            "kind": "thanatos",
+            "expected": {
+                "function": "device_control",
+                "arguments": {"query": {"non_empty": True}},
+            },
+        }
+        arbitrary = grade_response(
+            scenario,
+            '{"function":"device_control","arguments":{"query":"any wording is accepted"}}',
+        )
+        wrong_field = grade_response(
+            scenario,
+            '{"function":"device_control","arguments":{"nl":"some text"}}',
+        )
+        self.assertEqual(arbitrary["score"], 1.0)
+        self.assertTrue(arbitrary["passed"])
+        self.assertEqual(wrong_field["score"], 0.65)
+        self.assertFalse(wrong_field["passed"])
+
     def test_fenced_json_loses_strict_format_points(self) -> None:
         scenario = {
             "kind": "thanatos",
@@ -101,10 +145,12 @@ class GradingTests(unittest.TestCase):
         self.assertLess(grade["score"], 1.0)
 
     def test_blocker_rejects_fake_tool_call(self) -> None:
-        scenario = {"kind": "thanatos", "expected": {"blocker": True, "contains": ["destination"]}}
-        good = grade_response(scenario, "The destination is missing.")
+        scenario = {"kind": "thanatos", "expected": {"blocker": True}}
+        good = grade_response(scenario, "Who should receive the update?")
+        empty = grade_response(scenario, "")
         bad = grade_response(scenario, '{"function":"send_message","arguments":{}}')
         self.assertEqual(good["score"], 1.0)
+        self.assertFalse(empty["passed"])
         self.assertLess(bad["score"], good["score"])
 
 

@@ -1,6 +1,6 @@
 {
   "name": "Tater Core",
-  "version": "tater-core-0.3",
+  "version": "tater-core-0.4",
   "description": "Frozen Tater routing, tool execution, chat, synthesis, and Spudex decisions with curated non-overlapping routing tools and every Core enabled.",
   "temperature": 0.0,
   "max_tokens": 320,
@@ -27,7 +27,11 @@
       "kind": "astraeus",
       "user": "What is the weather in Chicago right now?",
       "available_tools": ["weather_forecast", "device_control", "send_message"],
-      "expected": {"mode": "execute", "tool_sequence": ["weather_forecast"]}
+      "expected": {
+        "mode": "execute",
+        "tool_sequence": ["weather_forecast"],
+        "step_nl": [{"non_empty": true}]
+      }
     },
     {
       "id": "route-light",
@@ -35,7 +39,11 @@
       "kind": "astraeus",
       "user": "Turn the living room lights down to 30 percent.",
       "available_tools": ["weather_forecast", "device_control", "music_play"],
-      "expected": {"mode": "execute", "tool_sequence": ["device_control"]}
+      "expected": {
+        "mode": "execute",
+        "tool_sequence": ["device_control"],
+        "step_nl": [{"non_empty": true}]
+      }
     },
     {
       "id": "route-multi-action",
@@ -43,7 +51,11 @@
       "kind": "astraeus",
       "user": "Turn off the kitchen lights, then play Daft Punk in the kitchen.",
       "available_tools": ["device_control", "music_play", "send_message"],
-      "expected": {"mode": "execute", "tool_sequence": ["device_control", {"one_of": ["music_play", "music_assistant"]}]}
+      "expected": {
+        "mode": "execute",
+        "tool_sequence": ["device_control", {"one_of": ["music_play", "music_assistant"]}],
+        "step_nl": [{"non_empty": true}, {"non_empty": true}]
+      }
     },
     {
       "id": "route-download-chain",
@@ -51,7 +63,11 @@
       "kind": "astraeus",
       "user": "Find the official macOS installer for Example App and download it.",
       "available_tools": ["websearch", "inspect_webpage", "download_file", "send_message"],
-      "expected": {"mode": "execute", "tool_sequence": ["websearch", "inspect_webpage", "download_file"]}
+      "expected": {
+        "mode": "execute",
+        "tool_sequence": ["websearch", "inspect_webpage", "download_file"],
+        "step_nl": [{"non_empty": true}, {"non_empty": true}, {"non_empty": true}]
+      }
     },
     {
       "id": "route-send-message",
@@ -59,7 +75,11 @@
       "kind": "astraeus",
       "user": "Send Sam a Telegram message saying dinner is ready.",
       "available_tools": ["send_message", "device_control", "websearch"],
-      "expected": {"mode": "execute", "tool_sequence": ["send_message"]}
+      "expected": {
+        "mode": "execute",
+        "tool_sequence": ["send_message"],
+        "step_nl": [{"non_empty": true}]
+      }
     },
     {
       "id": "route-supplied-summary",
@@ -77,8 +97,8 @@
       "intent": "Create a timer",
       "instruction": "Create a 15-minute timer labeled pizza",
       "tool_hint": "voicepe_remote_timer",
-      "tool_contract": {"function": "voicepe_remote_timer", "arguments": {"nl": "complete timer action phrase"}},
-      "expected": {"function": "voicepe_remote_timer", "arguments": {"nl": {"contains": "pizza"}}},
+      "tool_contract": {"function": "voicepe_remote_timer", "arguments": {"query": "ONE natural-language timer request"}},
+      "expected": {"function": "voicepe_remote_timer", "arguments": {"query": {"non_empty": true}}},
       "weight": 1.25
     },
     {
@@ -89,8 +109,8 @@
       "intent": "Adjust living room lights",
       "instruction": "Turn the living room lights to 30 percent brightness",
       "tool_hint": "device_control",
-      "tool_contract": {"function": "device_control", "arguments": {"nl": "concise action phrase"}},
-      "expected": {"function": "device_control", "arguments": {"nl": {"contains": "living room lights"}}},
+      "tool_contract": {"function": "device_control", "arguments": {"query": "ONE natural-language device request"}},
+      "expected": {"function": "device_control", "arguments": {"query": {"non_empty": true}}},
       "weight": 1.25
     },
     {
@@ -101,8 +121,8 @@
       "intent": "Get current weather",
       "instruction": "Get the current weather for Chicago, Illinois",
       "tool_hint": "weather_forecast",
-      "tool_contract": {"function": "weather_forecast", "arguments": {"nl": "complete weather question"}},
-      "expected": {"function": "weather_forecast", "arguments": {"nl": {"contains": "chicago"}}},
+      "tool_contract": {"function": "weather_forecast", "arguments": {"request": "ONE natural-language weather request"}},
+      "expected": {"function": "weather_forecast", "arguments": {"request": {"non_empty": true}}},
       "weight": 1.25
     },
     {
@@ -132,14 +152,14 @@
     },
     {
       "id": "tool-spudex",
-      "category": "tool_accuracy",
+      "category": "spudex",
       "kind": "thanatos",
       "user": "Create a file named hello.txt containing hello potato.",
       "intent": "Create a workspace file",
       "instruction": "Create hello.txt with the text hello potato",
       "tool_hint": "run_terminal_task",
       "tool_contract": {"function": "run_terminal_task", "arguments": {"request": "complete terminal task instruction"}},
-      "expected": {"function": "run_terminal_task", "arguments": {"request": {"contains": "hello.txt"}}},
+      "expected": {"function": "run_terminal_task", "arguments": {"request": {"non_empty": true}}},
       "weight": 1.25
     },
     {
@@ -151,7 +171,7 @@
       "instruction": "Send the update to the requested destination",
       "tool_hint": "send_message",
       "tool_contract": {"function": "send_message", "arguments": {"platform": "platform", "destination": "name", "message": "text"}},
-      "expected": {"blocker": true, "contains": ["destination"]},
+      "expected": {"blocker": true},
       "weight": 1.25
     },
     {

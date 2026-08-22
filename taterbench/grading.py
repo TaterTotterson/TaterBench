@@ -35,11 +35,15 @@ def _normalized(value: Any) -> str:
 
 
 def _match_value(actual: Any, expected: Any) -> float:
-    if isinstance(expected, dict) and any(key in expected for key in ("equals", "contains", "one_of")):
+    if isinstance(expected, dict) and any(
+        key in expected for key in ("equals", "contains", "one_of", "non_empty")
+    ):
         if "equals" in expected:
             return _match_value(actual, expected["equals"])
         if "contains" in expected:
             return 1.0 if _normalized(expected["contains"]) in _normalized(actual) else 0.0
+        if "non_empty" in expected:
+            return 1.0 if _normalized(actual) else 0.0
         options = expected.get("one_of") or []
         return max((_match_value(actual, option) for option in options), default=0.0)
     if isinstance(expected, dict):
@@ -79,6 +83,19 @@ def _grade_astraeus(parsed: dict[str, Any] | None, strict: bool, expected: dict[
         expected_tool_partial_credit.append(partial_credit)
     expected_tools = [options[0] if options else "" for options in expected_tool_options]
     actual_tools = [str(item.get("tool_hint") or "") for item in steps if isinstance(item, dict)]
+    expected_step_nl = expected.get("step_nl") or []
+    actual_step_nl = [str(item.get("nl") or "") for item in steps if isinstance(item, dict)]
+    if expected_step_nl:
+        step_nl_scores = [
+            _match_value(actual_step_nl[index], nl_expected)
+            if index < len(actual_step_nl)
+            else 0.0
+            for index, nl_expected in enumerate(expected_step_nl)
+        ]
+        step_nl_score = sum(step_nl_scores) / len(expected_step_nl)
+    else:
+        step_nl_scores = []
+        step_nl_score = 1.0
     if expected_tool_options:
         tool_score = sum(
             (
@@ -100,6 +117,8 @@ def _grade_astraeus(parsed: dict[str, Any] | None, strict: bool, expected: dict[
     score = (0.15 if strict else 0.08) + (0.30 if mode_ok else 0.0) + 0.40 * tool_score
     score += 0.10 if count_ok else 0.0
     score += 0.05 * valid_score
+    if expected_step_nl and step_nl_score < 1.0:
+        score = min(score, 0.79)
     return min(1.0, score), {
         "valid_json": True,
         "strict_json": strict,
@@ -109,6 +128,10 @@ def _grade_astraeus(parsed: dict[str, Any] | None, strict: bool, expected: dict[
         "expected_tool_partial_credit": expected_tool_partial_credit,
         "actual_tools": actual_tools,
         "tool_sequence_score": tool_score,
+        "expected_step_nl": expected_step_nl,
+        "actual_step_nl": actual_step_nl,
+        "step_nl_scores": step_nl_scores,
+        "step_nl_score": step_nl_score,
         "step_count_ok": count_ok,
     }
 
@@ -117,7 +140,11 @@ def _grade_thanatos(text: str, parsed: dict[str, Any] | None, strict: bool, expe
     if expected.get("blocker"):
         contains = [str(item).lower() for item in expected.get("contains") or []]
         text_lower = text.lower()
-        keyword_score = sum(item in text_lower for item in contains) / len(contains) if contains else 1.0
+        keyword_score = (
+            sum(item in text_lower for item in contains) / len(contains)
+            if contains
+            else (1.0 if _normalized(text) else 0.0)
+        )
         not_json = parsed is None
         return 0.6 * keyword_score + (0.4 if not_json else 0.0), {
             "blocker_expected": True,

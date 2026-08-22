@@ -92,6 +92,7 @@ class RunnerReportingTests(unittest.TestCase):
         )
         html_text = render_html(aggregate)
         self.assertLess(html_text.index("org/fast"), html_text.index("org/slow"))
+        self.assertIn("its wording is not graded", html_text)
 
     def test_tater_critical_accuracy_outranks_raw_performance(self) -> None:
         def run(label: str, categories: dict[str, float], speed: float, ttft: float, memory: int) -> dict:

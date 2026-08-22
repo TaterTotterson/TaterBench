@@ -20,7 +20,7 @@ class SyntheticRuntimeTests(unittest.TestCase):
         verbas = fixture["verbas"]
         cores = fixture["cores"]
         self.assertEqual(fixture["profile"], "tater-full-synthetic-2026-08-14")
-        self.assertEqual(PROMPT_PROFILE_VERSION, "tater-curated-synthetic-2026-08-22")
+        self.assertEqual(PROMPT_PROFILE_VERSION, "tater-verba-nl-synthetic-2026-08-22")
         self.assertEqual(len(verbas), 63)
         self.assertEqual(len({row["id"] for row in verbas}), 63)
         self.assertTrue(all(row["enabled"] is True for row in verbas))
