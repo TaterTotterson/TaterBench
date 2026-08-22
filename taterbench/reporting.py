@@ -29,7 +29,7 @@ TATER_ACCURACY_WEIGHTS = {
 FITNESS_LABELS = {
     "ready": "Tater Ready",
     "limited": "Limited — Not Ready",
-    "mixed": "Mixed by Hardware",
+    "mixed": "Mixed Results",
     "not_fit": "Not Fit",
     "unrated": "Unrated",
 }
@@ -546,7 +546,26 @@ def _leaderboards(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], lis
     for device_rows in device_averages.values():
         for row in device_rows:
             all_device_groups[_result_key(row)].append(row)
-    overall = [_average_result(group_rows, device_weighted=True) for group_rows in all_device_groups.values()]
+    overall: list[dict[str, Any]] = []
+    for group_rows in all_device_groups.values():
+        best = min(
+            group_rows,
+            key=lambda row: (
+                int((row.get("fitness") or {}).get("rank", FITNESS_RANKS["unrated"])),
+                -float(row.get("tater_score") or 0.0),
+                -float((row.get("accuracy") or {}).get("score") or 0.0),
+                str(row.get("hardware_label") or ""),
+            ),
+        )
+        selected = dict(best)
+        selected["overall_best"] = True
+        selected["best_hardware"] = dict(best.get("hardware") or {})
+        selected["best_hardware_label"] = str(best.get("hardware_label") or "Unknown device")
+        selected["tested_device_count"] = len(group_rows)
+        selected["tested_hardware_labels"] = sorted(
+            str(row.get("hardware_label") or "Unknown device") for row in group_rows
+        )
+        overall.append(selected)
     overall.sort(key=ranking_key)
 
     devices: list[dict[str, Any]] = []
@@ -633,12 +652,12 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
     lines = [
         "# Tater Bench Results",
         "",
-        "Cross-device average accuracy and real-world speed for models running through Tater's llama.cpp and MLX engines.",
+        "Best observed hardware result for each model and mode running through Tater's llama.cpp and MLX engines.",
         "",
-        f"> {int(aggregate.get('duplicate_run_count') or 0)} duplicate runs with identical graded outcomes on the same hardware type are omitted, keeping the newest representative. Distinct outcomes are averaged per hardware type before hardware-type averages are combined.",
+        f"> {int(aggregate.get('duplicate_run_count') or 0)} duplicate runs with identical graded outcomes on the same hardware type are omitted, keeping the newest representative. Distinct outcomes are averaged within each hardware type, then Overall selects the best hardware result for each model and mode.",
         "",
-        "| Model | Engine | Mode | Fitness | Avg Tater Score | Avg Accuracy | Avg Gen tok/s | Avg TTFT | Devices | Unique Runs | Observations | Suite |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+        "| Model | Engine | Mode | Fitness | Tater Score | Accuracy | Gen tok/s | TTFT | Best Hardware | Tested Devices | Unique Runs | Observations | Suite |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|---|",
     ]
     for run in rows:
         model = run.get("model") or {}
@@ -662,7 +681,8 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
                     _fmt((run.get("accuracy") or {}).get("score")) + "%",
                     _fmt(performance.get("median_generation_tokens_per_second")),
                     _fmt(performance.get("median_ttft_seconds")) + "s",
-                    str(int(run.get("device_count") or 0)),
+                    str(run.get("best_hardware_label") or "Unknown device").replace("|", "\\|"),
+                    str(int(run.get("tested_device_count") or run.get("device_count") or 0)),
                     str(int(run.get("sample_count") or 0)),
                     str(int(run.get("observation_count") or run.get("sample_count") or 0)),
                     str((run.get("suite") or {}).get("version") or ""),
@@ -671,7 +691,7 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             + " |"
         )
     if not rows:
-        lines.extend(["| _No published benchmark runs yet_ | | | | | | | | | | | |", ""])
+        lines.extend(["| _No published benchmark runs yet_ | | | | | | | | | | | | |", ""])
     lines.extend(
         [
             "",
@@ -694,11 +714,11 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             "",
             "## Method",
             "",
-            "Tater Score starts with a 100-point raw formula: 90 points for category-weighted accuracy (35 Astraeus routing and tool selection, 25 Thanatos tool execution, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before repeated runs and hardware results are averaged. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
+            "Tater Score starts with a 100-point raw formula: 90 points for category-weighted accuracy (35 Astraeus routing and tool selection, 25 Thanatos tool execution, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before outcome-distinct runs are averaged within a hardware type. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
             "",
-            "Fitness is a separate reliability verdict. Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every remaining category. Limited results miss a readiness gate; Not Fit results have overall, tool, or routing accuracy below 70%. Aggregate labels are unanimous: a model is Tater Ready or Not Fit only when every underlying result has that verdict, while device disagreements are labeled Mixed by Hardware. Results based on fewer than two observations are provisional.",
+            "Fitness is a separate reliability verdict. Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every remaining category. Limited results miss a readiness gate; Not Fit results have overall, tool, or routing accuracy below 70%. Overall uses the verdict from the selected best hardware result; every device-specific verdict remains visible in its hardware tab. Results based on fewer than two observations on the selected hardware are provisional.",
             "",
-            "Tater Bench uses a versioned, frozen synthetic Tater runtime for routing, strict tool-call, synthesis, chat, and Spudex scenarios. Runs are considered duplicates only when the hardware type, model configuration, accuracy summary, and every graded scenario outcome match; timing variation is ignored. The newest duplicate is published while the original batch files remain untouched. Hidden duplicates still count as observations for reproducibility and provisional-status checks. Outcome-distinct runs are averaged by hardware type before every represented hardware type receives equal weight. Each result records the model, engine, speculative mode, suite version, prompt profile, hardware fingerprint, context, and raw per-scenario response.",
+            "Tater Bench uses a versioned, frozen synthetic Tater runtime for routing, strict tool-call, synthesis, chat, and Spudex scenarios. Runs are considered duplicates only when the hardware type, model configuration, accuracy summary, and every graded scenario outcome match; timing variation is ignored. The newest duplicate is published while the original batch files remain untouched. Hidden duplicates still count as observations for reproducibility and provisional-status checks. Outcome-distinct runs are averaged within each hardware type. Overall selects the best fitness-qualified hardware result for each model and mode, while hardware tabs retain every device-specific result. Each result records the model, engine, speculative mode, suite version, prompt profile, hardware fingerprint, context, and raw per-scenario response.",
             "",
             "MTP, DFlash, and DSpark percentages compare generation speed against the matching baseline run on the same hardware and suite.",
             "",
@@ -724,7 +744,7 @@ def render_html(aggregate: dict[str, Any]) -> str:
     raw_runs = list(aggregate.get("runs") or [])
     run_lookup = {str(run.get("run_id") or ""): run for run in raw_runs if str(run.get("run_id") or "")}
     scopes: list[tuple[str, str, list[dict[str, Any]]]] = [
-        ("overall", "All Devices", list(aggregate.get("leaderboard") or []))
+        ("overall", "Overall", list(aggregate.get("leaderboard") or []))
     ]
     scopes.extend(
         (
@@ -798,6 +818,12 @@ def render_html(aggregate: dict[str, Any]) -> str:
             samples = int(run.get("sample_count") or 1)
             observations = int(run.get("observation_count") or samples)
             devices = int(run.get("device_count") or (1 if run.get("hardware") else 0))
+            tested_devices = int(run.get("tested_device_count") or devices)
+            best_hardware_label = str(
+                run.get("best_hardware_label")
+                or run.get("hardware_label")
+                or _hardware_label(run.get("hardware") or {})
+            )
             card_id = f"result-{scope_index}-{index}"
             label = _chart_label(repo_id, provider)
             score_components = run.get("tater_score_components") or {}
@@ -817,12 +843,21 @@ def render_html(aggregate: dict[str, Any]) -> str:
                 f'<span><b>{html.escape(str(name).replace("_", " ").title())}</b>{_fmt(score)}%</span>'
                 for name, score in categories.items()
             )
-            average_label = "Cross-device average" if scope_id == "overall" else "Device average"
+            average_label = "Best device result" if scope_id == "overall" else "Device average"
+            hardware_metrics = (
+                f'<span><b>{html.escape(best_hardware_label)}</b> best hardware</span>'
+                f'<span><b>{tested_devices}</b> tested device{"s" if tested_devices != 1 else ""}</span>'
+                if scope_id == "overall"
+                else f'<span><b>{devices}</b> device{"s" if devices != 1 else ""}</span>'
+            )
+            best_hardware_suffix = (
+                f" · best on {best_hardware_label}" if scope_id == "overall" else ""
+            )
             cards.append(
                 f'''<article id="{card_id}" class="result-card" {data}>
                   <div class="card-head"><div><p class="eyebrow"><span class="detail-rank">#{index}</span> · {html.escape(average_label)} · {html.escape(str(engine.get("engine") or provider))} · {html.escape(mode.upper())}</p><h2>{html.escape(repo_id)}</h2><p>{html.escape(str(model.get("filename") or ""))}</p></div><div class="score">{_fmt(tater_score, 1)}<small>Tater score</small></div></div>
                   <div class="fitness-verdict fitness-{html.escape(fitness_status)}"><b>{html.escape(fitness_label)}</b><span>{html.escape(fitness_reason)}</span></div>
-                  <div class="metrics"><span><b>{_fmt(raw_tater_score, 1)}</b> raw formula</span><span><b>{_fmt(accuracy, 1)}%</b> accuracy</span><span><b>{_fmt(speed)}</b> tok/s</span><span><b>{_fmt(ttft)}s</b> TTFT</span><span><b>{bytes_label(memory)}</b> peak RSS</span><span><b>{devices}</b> device{"s" if devices != 1 else ""}</span><span><b>{samples}</b> unique run{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></div>
+                  <div class="metrics"><span><b>{_fmt(raw_tater_score, 1)}</b> raw formula</span><span><b>{_fmt(accuracy, 1)}%</b> accuracy</span><span><b>{_fmt(speed)}</b> tok/s</span><span><b>{_fmt(ttft)}s</b> TTFT</span><span><b>{bytes_label(memory)}</b> peak RSS</span>{hardware_metrics}<span><b>{samples}</b> unique run{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></div>
                   <div class="categories">{category_html}</div>
                   {run_details(run)}
                   <footer>Suite {html.escape(str((run.get("suite") or {}).get("version") or ""))} · Prompt {html.escape(str((run.get("configuration") or {}).get("prompt_profile") or ""))} · Score mix: {_fmt(score_components.get("accuracy"), 1)} accuracy + {_fmt(score_components.get("generation_speed"), 1)} speed + {_fmt(score_components.get("ttft"), 1)} TTFT + {_fmt(score_components.get("memory"), 1)} memory + {_fmt(score_components.get("readiness_adjustment"), 1)} readiness gate</footer>
@@ -832,7 +867,7 @@ def render_html(aggregate: dict[str, Any]) -> str:
                 engine_label = str(engine.get("engine") or provider)
                 leaderboard_items.append(
                     f'''<a class="score-entry" href="#{card_id}" {data} data-label="{html.escape(label)}, {tater_score:.1f} Tater Score" style="--bar-score:{tater_score}%;--bar-color:var(--mode-{html.escape(mode)})" aria-label="Rank {index}: {html.escape(label)}, {tater_score:.1f} Tater Score">
-                      <span class="score-rank">#{index}</span><span class="score-bar-stage"><span class="score-bar"><b>{tater_score:.1f}</b></span></span><span class="score-copy"><strong>{html.escape(label)}</strong><small>{html.escape(fitness_label)} · {html.escape(engine_label)} · {html.escape(mode.upper())} · {samples} unique / {observations} observed</small></span>
+                      <span class="score-rank">#{index}</span><span class="score-bar-stage"><span class="score-bar"><b>{tater_score:.1f}</b></span></span><span class="score-copy"><strong>{html.escape(label)}</strong><small>{html.escape(fitness_label)} · {html.escape(engine_label)} · {html.escape(mode.upper())} · {samples} unique / {observations} observed{html.escape(best_hardware_suffix)}</small></span>
                     </a>'''
                 )
                 present_modes.add(mode)
@@ -869,11 +904,11 @@ body{overflow-x:hidden}
 @media(max-width:820px){.shell{width:calc(100% - 24px);padding:22px 0 48px}header{gap:18px;padding-bottom:22px}.summary b{display:inline;margin-right:7px;font-size:28px}.summary span{display:inline}.brand{align-items:flex-start;gap:13px}.brand img{width:64px;height:64px;flex:0 0 auto}.lede{font-size:15px}.controls{flex-wrap:nowrap;overflow-x:auto;padding:0 2px 5px;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}.controls button{flex:0 0 auto;min-height:44px;scroll-snap-align:start}.toolbar{align-items:stretch;flex-direction:column;margin-bottom:18px}.sort-label,select{width:100%}.leaderboard{padding:17px;margin-bottom:22px;border-radius:18px}.chart-heading{gap:9px}.score-plot{padding-left:0;overflow:visible}.score-bars{width:100%;min-width:0;gap:11px}.score-entry{grid-template-columns:minmax(0,1.05fr) minmax(0,1.8fr);width:100%;gap:10px}.score-copy{min-width:0;padding-left:25px}.score-copy small{overflow-wrap:anywhere}.score-bar-stage{min-width:0;height:34px}.result-card{padding:18px;border-radius:18px}.result-card h2,.card-head p{overflow-wrap:anywhere}.empty{padding:40px 16px}}
 @media(max-width:560px){.shell{width:calc(100% - 18px)}h1{font-size:39px}.control-block{margin:18px 0}button,select{min-height:44px}.leaderboard{padding:14px}.chart-heading h2{font-size:24px}.score-entry{grid-template-columns:minmax(0,1.1fr) minmax(0,1.5fr);gap:8px}.score-copy strong{font-size:11px}.score-copy small{font-size:9px}.results-heading{font-size:22px}.result-card{padding:15px}.card-head{flex-direction:column;gap:12px}.result-card h2{font-size:18px}.score{min-width:0;text-align:left;font-size:32px}.metrics,.categories{grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.metrics span,.categories span{padding:9px;font-size:12px}footer{margin-top:14px;overflow-wrap:anywhere}}
 @media(max-width:360px){.brand img{width:56px;height:56px}h1{font-size:35px}.score-entry{grid-template-columns:minmax(0,1fr) minmax(110px,1.35fr)}.metrics,.categories{grid-template-columns:1fr}}
-</style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and measured speed averaged fairly across devices, engines, and speculative decoding configurations.</p></div><div class="summary"><b>__MODEL_COUNT__</b>model configurations<span>__DEVICE_COUNT__ __DEVICE_NOUN__ · __RUN_COUNT__ unique __RUN_NOUN__ · __DUPLICATE_COUNT__ __DUPLICATE_NOUN__ omitted</span></div></header>
+</style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and measured speed, with the best hardware result highlighted overall and every device preserved in its own view.</p></div><div class="summary"><b>__MODEL_COUNT__</b>model configurations<span>__DEVICE_COUNT__ __DEVICE_NOUN__ · __RUN_COUNT__ unique __RUN_NOUN__ · __DUPLICATE_COUNT__ __DUPLICATE_NOUN__ omitted</span></div></header>
 <div class="control-block"><span class="control-label">Hardware view</span><nav class="controls" aria-label="Choose hardware view">__SCOPES__</nav></div>
 <div class="toolbar"><div class="control-block"><span class="control-label">Filter</span><nav class="controls" aria-label="Filter results">__FILTERS__</nav></div><label class="sort-label">Sort results<select id="sort-results"><option value="score-desc">Final Tater Score — high to low</option><option value="fitness-desc">Fitness, then Tater Score</option><option value="accuracy-desc">Accuracy — high to low</option><option value="speed-desc">Generation speed — high to low</option><option value="ttft-asc">TTFT — low to high</option><option value="memory-asc">Memory — low to high</option><option value="samples-desc">Most tested</option><option value="model-asc">Model name — A to Z</option></select></label></div>
-<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — all devices</h2><p id="leaderboard-subtitle">Hardware-type averages receive equal weight in the overall score.</p></div><p class="score-formula"><b>100-point raw formula:</b> 90 category-weighted accuracy (35 Astraeus routing/tool selection · 25 Thanatos execution · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory. Limited results cap at 79.9; Not Fit results cap at 49.9 before averaging.</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Bars are ordered by final score. Readiness gates are applied to each underlying hardware result before cross-device averaging, preserving hardware-specific verdicts while preventing Limited or Not Fit results from displaying misleadingly high scores.</p></section>
-<h2 class="results-heading" id="results-heading">All Devices results — sorted by Final Tater Score</h2><main id="results-list">__CARDS__</main></div>
+<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — overall</h2><p id="leaderboard-subtitle">Each model and mode uses its best fitness-qualified hardware result.</p></div><p class="score-formula"><b>100-point raw formula:</b> 90 category-weighted accuracy (35 Astraeus routing/tool selection · 25 Thanatos execution · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory. Limited results cap at 79.9; Not Fit results cap at 49.9 before within-device averaging.</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Overall bars use each model and mode's best hardware result, selected by fitness and then final score. Device tabs continue to show hardware-specific Limited and Not Fit results.</p></section>
+<h2 class="results-heading" id="results-heading">Overall results — sorted by Final Tater Score</h2><main id="results-list">__CARDS__</main></div>
 <script>
 (() => {
   const filterButtons = [...document.querySelectorAll('button[data-filter]')];
@@ -925,11 +960,11 @@ body{overflow-x:hidden}
       resultsList.appendChild(card);
       if (visible) { detailRank += 1; card.querySelector('.detail-rank').textContent = `#${detailRank}`; }
     });
-    const scopeLabel = scopeButtons.find(button => button.dataset.scopeButton === activeScope)?.textContent.trim() || 'All Devices';
+    const scopeLabel = scopeButtons.find(button => button.dataset.scopeButton === activeScope)?.textContent.trim() || 'Overall';
     const filterLabel = filterButtons.find(button => button.dataset.filter === activeFilter)?.textContent.trim() || 'All';
     const titleScopeLabel = activeScope === 'overall' ? scopeLabel.toLowerCase() : scopeLabel;
     leaderboardTitle.textContent = `Best models for Tater — ${titleScopeLabel}`;
-    leaderboardSubtitle.textContent = activeScope === 'overall' ? 'Outcome-distinct runs are averaged per hardware type, then every hardware type receives equal weight.' : 'Outcome-distinct runs on this hardware type are averaged into one result.';
+    leaderboardSubtitle.textContent = activeScope === 'overall' ? 'Each model and mode uses its best fitness-qualified hardware result.' : 'Outcome-distinct runs on this hardware type are averaged into one result.';
     resultsHeading.textContent = `${scopeLabel}${activeFilter === 'all' ? '' : ` · ${filterLabel}`} — sorted ${sortSelect.options[sortSelect.selectedIndex].text.toLowerCase()}`;
   }
   filterButtons.forEach(button => button.addEventListener('click', () => {

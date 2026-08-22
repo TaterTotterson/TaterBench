@@ -176,7 +176,7 @@ class RunnerReportingTests(unittest.TestCase):
             ["slower-reliable", "fast-limited", "ultra-fast-unreliable"],
         )
 
-    def test_cross_device_fitness_requires_unanimous_results(self) -> None:
+    def test_overall_uses_best_device_result_and_preserves_device_verdicts(self) -> None:
         def run(run_id: str, categories: dict[str, float], accuracy: float) -> dict:
             return {
                 "run_id": run_id,
@@ -226,18 +226,21 @@ class RunnerReportingTests(unittest.TestCase):
             ]
         )
         overall = aggregate["leaderboard"][0]
-        self.assertEqual(overall["fitness"]["status"], "mixed")
-        self.assertEqual(overall["fitness"]["label"], "Mixed by Hardware")
-        self.assertFalse(overall["fitness"]["provisional"])
-        self.assertEqual(overall["raw_tater_score"], 87.5)
-        self.assertEqual(overall["tater_score"], 71.07)
+        self.assertEqual(overall["fitness"]["status"], "ready")
+        self.assertEqual(overall["fitness"]["label"], "Tater Ready")
+        self.assertTrue(overall["fitness"]["provisional"])
+        self.assertEqual(overall["raw_tater_score"], 92.24)
+        self.assertEqual(overall["tater_score"], 92.24)
+        self.assertEqual(overall["best_hardware"]["cpu"], "Apple M3 Ultra")
+        self.assertEqual(overall["tested_device_count"], 2)
+        self.assertEqual(overall["device_count"], 1)
         device_fitness = {
             device["hardware"]["cpu"]: device["leaderboard"][0]["fitness"]["status"]
             for device in aggregate["devices"]
         }
         self.assertEqual(device_fitness, {"AMD Ryzen": "not_fit", "Apple M3 Ultra": "ready"})
 
-    def test_cross_device_average_weights_each_device_equally(self) -> None:
+    def test_overall_selects_best_device_after_device_averaging(self) -> None:
         def run(run_id: str, accuracy: float) -> dict:
             return {
                 "run_id": run_id,
@@ -285,9 +288,12 @@ class RunnerReportingTests(unittest.TestCase):
             ]
         )
         result = aggregate["leaderboard"][0]
-        self.assertEqual(result["device_count"], 2)
-        self.assertEqual(result["sample_count"], 3)
-        self.assertEqual(result["tater_score"], 43.75)
+        self.assertEqual(result["device_count"], 1)
+        self.assertEqual(result["tested_device_count"], 2)
+        self.assertEqual(result["best_hardware"]["cpu"], "Device A")
+        self.assertEqual(result["sample_count"], 2)
+        self.assertEqual(result["observation_count"], 2)
+        self.assertEqual(result["tater_score"], 77.5)
         self.assertEqual(len(aggregate["devices"]), 2)
         self.assertEqual(aggregate["devices"][0]["leaderboard"][0]["sample_count"], 2)
         self.assertEqual(aggregate["devices"][0]["hardware_profile_count"], 2)
@@ -372,8 +378,10 @@ class RunnerReportingTests(unittest.TestCase):
             for device in aggregate["devices"]
         }
         self.assertEqual(observation_counts, {"AMD Ryzen": 1, "Apple M3": 3})
-        self.assertEqual(aggregate["leaderboard"][0]["sample_count"], 3)
-        self.assertEqual(aggregate["leaderboard"][0]["observation_count"], 4)
+        self.assertEqual(aggregate["leaderboard"][0]["best_hardware"]["cpu"], "AMD Ryzen")
+        self.assertEqual(aggregate["leaderboard"][0]["tested_device_count"], 2)
+        self.assertEqual(aggregate["leaderboard"][0]["sample_count"], 1)
+        self.assertEqual(aggregate["leaderboard"][0]["observation_count"], 1)
 
     def test_batch_is_privacy_safe_and_reports_render(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -444,7 +452,8 @@ class RunnerReportingTests(unittest.TestCase):
             )
             self.assertIn("Limited results cap at 79.9; Not Fit results cap at 49.9", html_text)
             self.assertIn('id="score-bars"', html_text)
-            self.assertIn("All Devices results — sorted by Final Tater Score", html_text)
+            self.assertIn("Overall results — sorted by Final Tater Score", html_text)
+            self.assertIn("Best device result", html_text)
             self.assertIn('class="detail-rank"', html_text)
             self.assertIn("scoreBars.style.setProperty('--bar-count'", html_text)
             self.assertIn('data-scope-button="overall"', html_text)

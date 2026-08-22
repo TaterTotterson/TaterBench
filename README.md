@@ -116,10 +116,10 @@ The HTML report is optional. GitHub can display the Markdown leaderboard and raw
 
 New benchmark runs do not overwrite earlier submissions. During report generation, runs with the same hardware type, model configuration, accuracy summary, and graded scenario outcomes are treated as duplicates even when their timing differs. The newest representative is published and the raw batch files remain untouched. Outcome-distinct runs are averaged within their hardware type. The dashboard provides:
 
-- **All Devices** for the overall cross-device leaderboard.
+- **Overall** for each model and mode's best fitness-qualified hardware result.
 - One tab per hardware type, such as Apple M3 Ultra, for that device's averaged results.
-- A unique-runs dropdown on each result for every outcome-distinct measurement behind its average.
-- Tater Ready, Limited, Not Fit, and Mixed by Hardware verdicts with the failed accuracy gates shown directly on each result.
+- A unique-runs dropdown on each result for every outcome-distinct measurement behind the selected hardware result or device average.
+- Tater Ready, Limited, Not Fit, and Mixed Results verdicts with the failed accuracy gates shown directly on each result.
 - Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
 - Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
 
@@ -129,9 +129,9 @@ Hardware types are grouped by OS family, architecture, CPU, core counts, memory,
 
 Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware profile and suite.
 
-The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Astraeus routing and tool selection most heavily, followed by Thanatos tool execution; its speed, TTFT, and memory components are normalized to the best measured value in that group. Duplicate graded outcomes are removed before scoring, outcome-distinct submissions are averaged by hardware type, and the main leaderboard gives every represented hardware type equal weight. Hidden duplicates still count as observations for reproducibility and provisional-status checks. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
+The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Astraeus routing and tool selection most heavily, followed by Thanatos tool execution; its speed, TTFT, and memory components are normalized to the best measured value in that group. Duplicate graded outcomes are removed before scoring and outcome-distinct submissions are averaged within their hardware type. Overall then selects each model and mode's best device result, preferring the stronger fitness verdict and then the higher final score. The winning hardware is shown directly, while every other device remains available in its own tab. Hidden duplicates still count as observations for reproducibility and provisional-status checks.
 
-Fitness is deliberately strict and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. A readiness cap is applied to each result before repeat runs and hardware types are averaged, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two observations are marked provisional, and older results without all five accuracy categories remain Unrated.
+Fitness is deliberately strict. A readiness cap is applied before outcome-distinct runs are averaged within a hardware type, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. Overall uses the verdict and score from the selected best hardware result instead of penalizing a model for a weaker device. Hardware tabs still expose those weaker results—for example, a model can be Tater Ready overall from Apple while remaining Not Fit in the Halo tab. Results with fewer than two observations on the selected hardware are marked provisional, and older results without all five accuracy categories remain Unrated.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 
