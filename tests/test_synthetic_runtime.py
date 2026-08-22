@@ -19,7 +19,8 @@ class SyntheticRuntimeTests(unittest.TestCase):
         fixture = load_runtime_fixture()
         verbas = fixture["verbas"]
         cores = fixture["cores"]
-        self.assertEqual(fixture["profile"], PROMPT_PROFILE_VERSION)
+        self.assertEqual(fixture["profile"], "tater-full-synthetic-2026-08-14")
+        self.assertEqual(PROMPT_PROFILE_VERSION, "tater-curated-synthetic-2026-08-22")
         self.assertEqual(len(verbas), 63)
         self.assertEqual(len({row["id"] for row in verbas}), 63)
         self.assertTrue(all(row["enabled"] is True for row in verbas))
@@ -32,7 +33,7 @@ class SyntheticRuntimeTests(unittest.TestCase):
         self.assertEqual(len(fixture["portals"]), 12)
         self.assertEqual(len(fixture["core_contexts"]), 5)
 
-    def test_full_tool_catalog_reaches_astraeus_payload(self) -> None:
+    def test_only_curated_tools_reach_astraeus_payload(self) -> None:
         messages = build_messages(
             {
                 "kind": "astraeus",
@@ -44,14 +45,35 @@ class SyntheticRuntimeTests(unittest.TestCase):
         stable_payload = json.loads(messages[0]["content"].split("\n\n" + prefix, 1)[1])
         dynamic_payload = json.loads(messages[1]["content"])
         tool_ids = stable_payload["available_tool_ids"]
-        self.assertEqual(tool_ids, enabled_tool_ids(["synthetic_lamp_control"]))
-        self.assertIn("automatic_plugin", tool_ids)
-        self.assertIn("run_terminal_task", tool_ids)
-        self.assertIn("guardian_status", tool_ids)
-        self.assertIn("personal_plans", tool_ids)
-        self.assertIn("synthetic_lamp_control", tool_ids)
+        self.assertEqual(tool_ids, ["synthetic_lamp_control"])
+        self.assertNotIn("automatic_plugin", tool_ids)
+        self.assertNotIn("music_play", tool_ids)
+        self.assertNotIn("music_assistant", tool_ids)
+        self.assertIn("Only the tools listed above are available", stable_payload["available_capabilities"])
         self.assertTrue(dynamic_payload["synthetic_runtime"]["all_shop_verbas_enabled"])
         self.assertTrue(dynamic_payload["synthetic_runtime"]["all_shop_cores_running"])
+        self.assertEqual(
+            dynamic_payload["synthetic_runtime"]["routing_catalog_scope"],
+            "scenario_curated_non_overlapping",
+        )
+
+    def test_core_routing_prompts_omit_overlapping_music_tools(self) -> None:
+        overlap = {"music_assistant", "music_control", "music_play", "roon_music"}
+        for scenario in load_suite("core")["scenarios"]:
+            if scenario.get("kind") != "astraeus":
+                continue
+            messages = build_messages(scenario)
+            prefix = "Astraeus stable execution catalog:\n"
+            stable_payload = json.loads(messages[0]["content"].split("\n\n" + prefix, 1)[1])
+            prompted = set(stable_payload["available_tool_ids"])
+            self.assertEqual(prompted, set(scenario.get("available_tools") or []), scenario["id"])
+            self.assertLessEqual(len(prompted & overlap), 1, scenario["id"])
+
+    def test_prompt_catalog_defensively_removes_equivalent_tools(self) -> None:
+        self.assertEqual(
+            enabled_tool_ids(["music_assistant", "music_play", "send_message"]),
+            ["music_play", "send_message"],
+        )
 
     def test_core_suite_uses_cataloged_tool_ids(self) -> None:
         available = set(enabled_tool_ids())
@@ -79,6 +101,21 @@ class SyntheticRuntimeTests(unittest.TestCase):
         self.assertIn("Guardian Core network context", chat_context)
         self.assertIn("Private Tater Tube activity context", chat_context)
         self.assertEqual(chat_context, render_core_context("hermes"))
+
+    def test_each_core_awareness_scenario_receives_its_frozen_fact(self) -> None:
+        facts = {
+            "chat-core-memory": "roasted potatoes",
+            "chat-core-personal": "Neighborhood potluck",
+            "chat-core-guardian": "Bench Printer",
+            "chat-core-music": "upbeat electronic music",
+            "chat-core-tater-tube": "Example Space Show",
+        }
+        scenarios = {scenario["id"]: scenario for scenario in load_suite("core")["scenarios"]}
+        self.assertEqual(set(facts), set(scenarios) & set(facts))
+        for scenario_id, fact in facts.items():
+            messages = build_messages(scenarios[scenario_id])
+            self.assertIn(fact, messages[0]["content"], scenario_id)
+            self.assertNotIn(fact, messages[-1]["content"], scenario_id)
 
     def test_chat_receives_system_status_and_spudex_uses_fake_paths(self) -> None:
         chat = build_messages({"kind": "chat", "user": "What can you do?"})

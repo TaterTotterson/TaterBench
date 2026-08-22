@@ -188,6 +188,7 @@ def build_messages(scenario: dict[str, Any]) -> list[dict[str, str]]:
                 "platform": identity.get("platform"),
                 "all_shop_verbas_enabled": True,
                 "all_shop_cores_running": True,
+                "routing_catalog_scope": "scenario_curated_non_overlapping",
             },
         }
         return _merge_system_messages([

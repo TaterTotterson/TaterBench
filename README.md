@@ -12,9 +12,9 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 
 Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
-- **Tater Score:** a 100-point raw formula with 90 points for category-weighted accuracy (35 tool accuracy, 25 routing, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before aggregation.
+- **Tater Score:** a 100-point raw formula with 90 points for category-weighted accuracy (35 Astraeus routing and tool selection, 25 Thanatos tool execution, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before aggregation.
 - **Fitness:** Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every other category. Limited results miss a readiness gate; Not Fit results fall below 70% overall, tool, or routing accuracy.
-- **Accuracy:** Astraeus routing against the complete tool catalog, ordered planning, Thanatos tool selection and arguments, normal chat with full system awareness, Hermes result synthesis, and Spudex action decisions.
+- **Accuracy:** Astraeus routing, tool selection, and ordered planning against a curated non-overlapping catalog; Thanatos execution and arguments for a locked tool contract; normal chat and behavioral recall from frozen Memory, Personal, Guardian, Music, and Tater Tube Core context; Hermes result synthesis; and Spudex action decisions.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
 - **Speculation:** llama.cpp targets run once without speculative decoding and again with every compatible MTP, DFlash, or DSpark draft found beside the target GGUF.
 - **Hardware:** OS, CPU, architecture, core count, memory, GPU/backend, engine version, and an anonymous hardware fingerprint.
@@ -51,15 +51,15 @@ Discovery starts from:
 
 If that registry is unavailable, Tater Bench safely scans Tater's llama.cpp and MLX model caches. Vision projectors and speculative draft GGUFs are attached to their target model and are not listed as independent benchmark targets.
 
-When a matching projector is installed, llama.cpp loads it with the target just as Tater does. The core v0.2 score remains text/tool focused; a separately scored vision suite can be added without changing existing scores.
+When a matching projector is installed, llama.cpp loads it with the target just as Tater does. The core v0.3 score remains text/tool focused; a separately scored vision suite can be added without changing existing scores.
 
 ## Frozen synthetic Tater runtime
 
-The core v0.2 suite uses a fixed synthetic runtime profile rather than importing prompts or state from the live Tater installation. Every model receives the same Tater identity, date, platform, fake filesystem and hardware state, tool results, and conversation context.
+The core v0.3 suite uses a fixed synthetic runtime profile rather than importing prompts or state from the live Tater installation. Every model receives the same Tater identity, date, platform, fake filesystem and hardware state, tool results, and conversation context.
 
-The profile includes every Verba and Core present in the Tater Shop snapshot dated August 14, 2026. All 63 Verbas, 18 built-in tools, 27 Core-provided kernel tools, 12 synthetic Portals, and 10 Cores are marked enabled; every Core is also marked running. Memory, Personal, Guardian, Music, and Tater Tube receive frozen fake context in the roles where those Cores normally extend Hydra. This gives Astraeus realistic routing pressure and gives chat the same type of system-awareness context Tater provides, without exposing personal data or letting a Shop update silently change scores.
+The profile retains every Verba and Core present in the Tater Shop snapshot dated August 14, 2026. All 63 Verbas, 18 built-in tools, 27 Core-provided kernel tools, 12 synthetic Portals, and 10 Cores remain available to the fixture; every Core is also marked running. For routing scenarios, Astraeus receives only the small, explicitly curated set of non-overlapping tools relevant to that turn. A defensive capability-family filter also removes an overlapping tool if one is accidentally added later. This prevents duplicate capabilities such as generic and provider-specific music controls from lowering an otherwise correct model's score. Declared equivalent tools receive full credit, explicitly declared less-preferred tools can receive partial credit, and unrelated or invented tools still lose credit. Chat retains full system-awareness context, and scored behavioral scenarios require the model to use frozen fake facts from Memory, Personal, Guardian, Music, and Tater Tube without exposing internal context labels.
 
-The catalog is stored in `taterbench/fixtures/tater-shop-2026-08-14.json`. Updating it requires a new dated prompt profile and suite version so results produced under different prompt conditions never share a comparison cohort. Maintainers can create a future snapshot with:
+The catalog is stored in `taterbench/fixtures/tater-shop-2026-08-14.json`. Changing the catalog or its prompt selection requires a new dated prompt profile and suite version so results produced under different prompt conditions never share a comparison cohort. Maintainers can create a future snapshot with:
 
 ~~~bash
 python scripts/snapshot_tater_shop.py --snapshot-date YYYY-MM-DD --output taterbench/fixtures/tater-shop-YYYY-MM-DD.json
@@ -114,11 +114,11 @@ tater-bench report
 
 The HTML report is optional. GitHub can display the Markdown leaderboard and raw JSON without GitHub Pages.
 
-New benchmark runs do not overwrite earlier submissions. Repeated runs of the same model and mode are averaged within their hardware type, while each result's **individual runs** dropdown keeps every underlying measurement available for inspection. The dashboard provides:
+New benchmark runs do not overwrite earlier submissions. During report generation, runs with the same hardware type, model configuration, accuracy summary, and graded scenario outcomes are treated as duplicates even when their timing differs. The newest representative is published and the raw batch files remain untouched. Outcome-distinct runs are averaged within their hardware type. The dashboard provides:
 
 - **All Devices** for the overall cross-device leaderboard.
 - One tab per hardware type, such as Apple M3 Ultra, for that device's averaged results.
-- An individual-runs dropdown on each result for every submitted measurement behind its average.
+- A unique-runs dropdown on each result for every outcome-distinct measurement behind its average.
 - Tater Ready, Limited, Not Fit, and Mixed by Hardware verdicts with the failed accuracy gates shown directly on each result.
 - Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
 - Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
@@ -129,9 +129,9 @@ Hardware types are grouped by OS family, architecture, CPU, core counts, memory,
 
 Compare generation speed only when hardware, engine version, context size, quantization, and suite version match. The MTP/DFlash/DSpark speedup shown in reports is calculated only against a matching baseline on the same hardware profile and suite.
 
-The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Tater-critical tool accuracy and routing most heavily; its speed, TTFT, and memory components are normalized to the best measured value in that group. Repeated submissions are averaged by hardware type first; the main leaderboard then gives every represented hardware type equal weight, so a popular device with many submissions cannot overwhelm the others. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
+The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Astraeus routing and tool selection most heavily, followed by Thanatos tool execution; its speed, TTFT, and memory components are normalized to the best measured value in that group. Duplicate graded outcomes are removed before scoring, outcome-distinct submissions are averaged by hardware type, and the main leaderboard gives every represented hardware type equal weight. Hidden duplicates still count as observations for reproducibility and provisional-status checks. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
 
-Fitness is deliberately strict and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. A readiness cap is applied to each result before repeat runs and hardware types are averaged, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two runs are marked provisional, and older results without all five accuracy categories remain Unrated.
+Fitness is deliberately strict and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. A readiness cap is applied to each result before repeat runs and hardware types are averaged, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two observations are marked provisional, and older results without all five accuracy categories remain Unrated.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 

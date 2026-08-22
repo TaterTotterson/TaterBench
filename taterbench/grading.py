@@ -61,17 +61,41 @@ def _grade_astraeus(parsed: dict[str, Any] | None, strict: bool, expected: dict[
         return 0.0, {"valid_json": False}
     mode_ok = _normalized(parsed.get("mode")) == _normalized(expected.get("mode"))
     steps = parsed.get("steps") if isinstance(parsed.get("steps"), list) else []
-    expected_tools = [str(item) for item in expected.get("tool_sequence") or []]
+    expected_tool_options: list[list[str]] = []
+    expected_tool_partial_credit: list[dict[str, float]] = []
+    for item in expected.get("tool_sequence") or []:
+        if isinstance(item, dict):
+            options = [str(value) for value in item.get("one_of") or [] if str(value)]
+            partial_credit: dict[str, float] = {}
+            for tool_id, credit in (item.get("partial_credit") or {}).items():
+                try:
+                    partial_credit[str(tool_id)] = max(0.0, min(1.0, float(credit)))
+                except (TypeError, ValueError):
+                    continue
+        else:
+            options = [str(item)] if str(item) else []
+            partial_credit = {}
+        expected_tool_options.append(options)
+        expected_tool_partial_credit.append(partial_credit)
+    expected_tools = [options[0] if options else "" for options in expected_tool_options]
     actual_tools = [str(item.get("tool_hint") or "") for item in steps if isinstance(item, dict)]
-    if expected_tools:
+    if expected_tool_options:
         tool_score = sum(
-            1 for index, tool in enumerate(expected_tools) if index < len(actual_tools) and actual_tools[index] == tool
-        ) / len(expected_tools)
-        count_ok = len(actual_tools) == len(expected_tools)
+            (
+                1.0
+                if actual_tools[index] in options
+                else expected_tool_partial_credit[index].get(actual_tools[index], 0.0)
+            )
+            for index, options in enumerate(expected_tool_options)
+            if index < len(actual_tools)
+        ) / len(expected_tool_options)
+        count_ok = len(actual_tools) == len(expected_tool_options)
     else:
         tool_score = 1.0 if not actual_tools else 0.0
         count_ok = not actual_tools
-    valid_ids = set(expected.get("available_tools") or [])
+    equivalent_ids = {tool_id for options in expected_tool_options for tool_id in options}
+    partial_ids = {tool_id for credits in expected_tool_partial_credit for tool_id in credits}
+    valid_ids = set(expected.get("available_tools") or []) | equivalent_ids | partial_ids
     valid_score = 1.0 if all(tool in valid_ids for tool in actual_tools) else 0.0
     score = (0.15 if strict else 0.08) + (0.30 if mode_ok else 0.0) + 0.40 * tool_score
     score += 0.10 if count_ok else 0.0
@@ -81,6 +105,8 @@ def _grade_astraeus(parsed: dict[str, Any] | None, strict: bool, expected: dict[
         "strict_json": strict,
         "mode_ok": mode_ok,
         "expected_tools": expected_tools,
+        "expected_tool_options": expected_tool_options,
+        "expected_tool_partial_credit": expected_tool_partial_credit,
         "actual_tools": actual_tools,
         "tool_sequence_score": tool_score,
         "step_count_ok": count_ok,

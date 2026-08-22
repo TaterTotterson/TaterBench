@@ -150,11 +150,17 @@ class RunnerReportingTests(unittest.TestCase):
         )
         scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
         raw_scores = {item["model"]["id"]: item["raw_tater_score"] for item in aggregate["runs"]}
-        self.assertEqual(raw_scores["ultra-fast-unreliable"], 59.38)
+        self.assertEqual(raw_scores["ultra-fast-unreliable"], 56.89)
         self.assertEqual(scores["ultra-fast-unreliable"], 49.9)
-        self.assertEqual(scores["slower-reliable"], 82.42)
+        self.assertEqual(scores["slower-reliable"], 82.21)
         self.assertEqual(raw_scores["fast-limited"], 96.85)
         self.assertEqual(scores["fast-limited"], 79.9)
+        accuracy_components = {
+            item["model"]["id"]: item["tater_score_components"]["accuracy"]
+            for item in aggregate["runs"]
+        }
+        self.assertEqual(accuracy_components["ultra-fast-unreliable"], 46.89)
+        self.assertEqual(accuracy_components["slower-reliable"], 80.21)
         self.assertGreater(scores["slower-reliable"], scores["ultra-fast-unreliable"])
         fitness = {item["model"]["id"]: item["fitness"]["status"] for item in aggregate["runs"]}
         self.assertEqual(
@@ -223,8 +229,8 @@ class RunnerReportingTests(unittest.TestCase):
         self.assertEqual(overall["fitness"]["status"], "mixed")
         self.assertEqual(overall["fitness"]["label"], "Mixed by Hardware")
         self.assertFalse(overall["fitness"]["provisional"])
-        self.assertEqual(overall["raw_tater_score"], 88.91)
-        self.assertEqual(overall["tater_score"], 71.23)
+        self.assertEqual(overall["raw_tater_score"], 87.5)
+        self.assertEqual(overall["tater_score"], 71.07)
         device_fitness = {
             device["hardware"]["cpu"]: device["leaderboard"][0]["fitness"]["status"]
             for device in aggregate["devices"]
@@ -286,6 +292,89 @@ class RunnerReportingTests(unittest.TestCase):
         self.assertEqual(aggregate["devices"][0]["leaderboard"][0]["sample_count"], 2)
         self.assertEqual(aggregate["devices"][0]["hardware_profile_count"], 2)
 
+    def test_duplicate_graded_outcomes_on_same_device_are_omitted(self) -> None:
+        def run(run_id: str, finished_at: str, scenario_score: float, speed: float) -> dict:
+            passed = scenario_score == 1.0
+            return {
+                "run_id": run_id,
+                "status": "complete",
+                "finished_at": finished_at,
+                "model": {
+                    "id": "shared-model",
+                    "repo_id": "org/shared-model",
+                    "filename": "shared.gguf",
+                    "provider": "llama_cpp",
+                },
+                "engine": {"engine": "llama.cpp"},
+                "variant": {"name": "baseline"},
+                "suite": {"version": "suite-1"},
+                "configuration": {"context_size": 4096, "prompt_profile": "profile-1"},
+                "accuracy": {"score": scenario_score * 100.0, "categories": {"chat": scenario_score * 100.0}},
+                "scenario_results": [
+                    {
+                        "id": "chat-one",
+                        "category": "chat",
+                        "kind": "chat",
+                        "passed": passed,
+                        "score": scenario_score,
+                        "weight": 1.0,
+                        "attempts": [
+                            {
+                                "repeat": 1,
+                                "grade": {"passed": passed, "score": scenario_score},
+                                "performance": {"elapsed_seconds": 1.0 / speed},
+                                "response": f"response from {run_id}",
+                            }
+                        ],
+                    }
+                ],
+                "performance": {
+                    "median_generation_tokens_per_second": speed,
+                    "median_ttft_seconds": 0.1,
+                },
+                "peak_rss_bytes": 100,
+            }
+
+        aggregate = aggregate_payload(
+            [
+                {
+                    "hardware": {"hardware_id": "apple-old", "cpu": "Apple M3", "memory_bytes": 100},
+                    "runs": [run("apple-old", "2026-08-14T00:00:00Z", 1.0, 20.0)],
+                },
+                {
+                    "hardware": {"hardware_id": "apple-new", "cpu": "Apple M3", "memory_bytes": 100},
+                    "runs": [run("apple-new", "2026-08-14T00:01:00Z", 1.0, 30.0)],
+                },
+                {
+                    "hardware": {"hardware_id": "amd", "cpu": "AMD Ryzen", "memory_bytes": 100},
+                    "runs": [run("amd-same-outcome", "2026-08-14T00:02:00Z", 1.0, 40.0)],
+                },
+                {
+                    "hardware": {"hardware_id": "apple-different", "cpu": "Apple M3", "memory_bytes": 100},
+                    "runs": [run("apple-different", "2026-08-14T00:03:00Z", 0.5, 25.0)],
+                },
+            ]
+        )
+        self.assertEqual(aggregate["raw_run_count"], 4)
+        self.assertEqual(aggregate["run_count"], 3)
+        self.assertEqual(aggregate["duplicate_run_count"], 1)
+        self.assertEqual(
+            {item["run_id"] for item in aggregate["runs"]},
+            {"apple-new", "amd-same-outcome", "apple-different"},
+        )
+        newest = next(item for item in aggregate["runs"] if item["run_id"] == "apple-new")
+        self.assertEqual(newest["performance"]["median_generation_tokens_per_second"], 30.0)
+        self.assertEqual(newest["observation_count"], 2)
+        device_counts = {device["hardware"]["cpu"]: device["run_count"] for device in aggregate["devices"]}
+        self.assertEqual(device_counts, {"AMD Ryzen": 1, "Apple M3": 2})
+        observation_counts = {
+            device["hardware"]["cpu"]: device["observation_count"]
+            for device in aggregate["devices"]
+        }
+        self.assertEqual(observation_counts, {"AMD Ryzen": 1, "Apple M3": 3})
+        self.assertEqual(aggregate["leaderboard"][0]["sample_count"], 3)
+        self.assertEqual(aggregate["leaderboard"][0]["observation_count"], 4)
+
     def test_batch_is_privacy_safe_and_reports_render(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -335,6 +424,10 @@ class RunnerReportingTests(unittest.TestCase):
             report_payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
             self.assertEqual(report_payload["runs"][0]["tater_score"], 100.0)
             self.assertEqual(report_payload["runs"][0]["raw_tater_score"], 100.0)
+            self.assertEqual(report_payload["raw_run_count"], 1)
+            self.assertEqual(report_payload["run_count"], 1)
+            self.assertEqual(report_payload["duplicate_run_count"], 0)
+            self.assertEqual(report_payload["runs"][0]["observation_count"], 1)
             self.assertEqual(report_payload["runs"][0]["tater_score_components"]["accuracy"], 90.0)
             self.assertEqual(
                 report_payload["runs"][0]["tater_score_components"]["readiness_adjustment"],
@@ -346,7 +439,7 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn('class="score-entry"', html_text)
             self.assertIn("Unrated", html_text)
             self.assertIn(
-                "90 category-weighted accuracy (35 tool · 25 routing · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory",
+                "90 category-weighted accuracy (35 Astraeus routing/tool selection · 25 Thanatos execution · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory",
                 html_text,
             )
             self.assertIn("Limited results cap at 79.9; Not Fit results cap at 49.9", html_text)
@@ -358,7 +451,9 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertNotIn('data-scope-button="runs"', html_text)
             self.assertIn('id="sort-results"', html_text)
             self.assertIn('<details class="run-details"', html_text)
-            self.assertIn("See 1 individual run", html_text)
+            self.assertIn("See 1 unique run", html_text)
+            self.assertIn("1 unique run · 0 duplicates omitted", html_text)
+            self.assertIn("1 unique / 1 observed", html_text)
             self.assertIn("@media(max-width:560px)", html_text)
             self.assertIn(".score-bars{width:100%;min-width:0", html_text)
             self.assertNotIn('id="benchmark-chart"', html_text)

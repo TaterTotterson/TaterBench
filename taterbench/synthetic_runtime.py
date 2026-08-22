@@ -14,6 +14,13 @@ from typing import Any, Iterable
 
 CATALOG_FILE = "tater-shop-2026-08-14.json"
 
+# Prefer the first tool when more than one equivalent capability is accidentally
+# selected for the same routing turn. Provider-specific tools remain available
+# when they are the only member explicitly requested by a scenario.
+OVERLAPPING_TOOL_FAMILIES = (
+    ("music_play", "music_assistant", "roon_music"),
+)
+
 
 def _short(value: Any, limit: int) -> str:
     text = " ".join(str(value or "").split())
@@ -29,14 +36,24 @@ def load_runtime_fixture() -> dict[str, Any]:
         return json.load(handle)
 
 
-def enabled_tool_rows(extra_tool_ids: Iterable[str] = ()) -> list[dict[str, str]]:
+def enabled_tool_rows(tool_ids: Iterable[str] | None = None) -> list[dict[str, str]]:
+    requested = (
+        None
+        if tool_ids is None
+        else {str(value or "").strip() for value in tool_ids if str(value or "").strip()}
+    )
+    if requested is not None:
+        for family in OVERLAPPING_TOOL_FAMILIES:
+            selected = [tool_id for tool_id in family if tool_id in requested]
+            if len(selected) > 1:
+                requested.difference_update(selected[1:])
     fixture = load_runtime_fixture()
     rows: list[dict[str, str]] = []
     seen: set[str] = set()
     for group in (fixture.get("verbas") or [], fixture.get("kernel_tools") or []):
         for row in group:
             tool_id = str(row.get("id") or "").strip()
-            if not tool_id or tool_id in seen:
+            if not tool_id or tool_id in seen or (requested is not None and tool_id not in requested):
                 continue
             seen.add(tool_id)
             rows.append(
@@ -45,7 +62,7 @@ def enabled_tool_rows(extra_tool_ids: Iterable[str] = ()) -> list[dict[str, str]
                     "description": _short(row.get("description") or "available Tater capability", 80),
                 }
             )
-    for value in extra_tool_ids:
+    for value in requested or ():
         tool_id = str(value or "").strip()
         if tool_id and tool_id not in seen:
             seen.add(tool_id)
@@ -53,32 +70,37 @@ def enabled_tool_rows(extra_tool_ids: Iterable[str] = ()) -> list[dict[str, str]
     return sorted(rows, key=lambda row: row["id"])
 
 
-def enabled_tool_ids(extra_tool_ids: Iterable[str] = ()) -> list[str]:
-    return [row["id"] for row in enabled_tool_rows(extra_tool_ids)]
+def enabled_tool_ids(tool_ids: Iterable[str] | None = None) -> list[str]:
+    return [row["id"] for row in enabled_tool_rows(tool_ids)]
 
 
-def render_tool_index(extra_tool_ids: Iterable[str] = ()) -> str:
+def render_tool_index(tool_ids: Iterable[str] | None = None) -> str:
     fixture = load_runtime_fixture()
-    extras = {str(value or "").strip() for value in extra_tool_ids if str(value or "").strip()}
-    known = {
-        str(row.get("id") or "").strip()
-        for group in (fixture.get("verbas") or [], fixture.get("kernel_tools") or [])
-        for row in group
-    }
+    requested = (
+        None
+        if tool_ids is None
+        else {str(value or "").strip() for value in tool_ids if str(value or "").strip()}
+    )
+    selected = enabled_tool_rows(tool_ids)
+    selected_by_id = {row["id"]: row for row in selected}
+    kernel_ids = {str(row.get("id") or "").strip() for row in fixture.get("kernel_tools") or []}
+    verba_ids = {str(row.get("id") or "").strip() for row in fixture.get("verbas") or []}
     lines = ["Available kernel tools (id | description):"]
     lines.extend(
-        f"- id: {row['id']} | description: {_short(row['description'], 80)}"
-        for row in fixture.get("kernel_tools") or []
+        f"- id: {tool_id} | description: {selected_by_id[tool_id]['description']}"
+        for tool_id in sorted(kernel_ids & selected_by_id.keys())
     )
     lines.append("Available enabled verba tools on this platform (id | description):")
     lines.extend(
-        f"- id: {row['id']} | description: {_short(row['description'], 80)}"
-        for row in fixture.get("verbas") or []
+        f"- id: {tool_id} | description: {selected_by_id[tool_id]['description']}"
+        for tool_id in sorted(verba_ids & selected_by_id.keys())
     )
     lines.extend(
-        f"- id: {tool_id} | description: Synthetic scenario-specific Tater capability."
-        for tool_id in sorted(extras - known)
+        f"- id: {tool_id} | description: {selected_by_id[tool_id]['description']}"
+        for tool_id in sorted(selected_by_id.keys() - kernel_ids - verba_ids)
     )
+    if requested is not None:
+        lines.append("Only the tools listed above are available for this benchmark turn.")
     return "\n".join(lines)
 
 

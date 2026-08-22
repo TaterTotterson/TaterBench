@@ -1,7 +1,7 @@
 {
   "name": "Tater Core",
-  "version": "tater-core-0.2",
-  "description": "Frozen full-runtime Tater routing, tool execution, chat, synthesis, and Spudex decisions with every cataloged Verba and Core enabled.",
+  "version": "tater-core-0.3",
+  "description": "Frozen Tater routing, tool execution, chat, synthesis, and Spudex decisions with curated non-overlapping routing tools and every Core enabled.",
   "temperature": 0.0,
   "max_tokens": 320,
   "scenarios": [
@@ -18,7 +18,7 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "What is speculative decoding and why does it help?",
-      "available_tools": ["websearch", "inspect_webpage"],
+      "available_tools": ["websearch", "device_control"],
       "expected": {"mode": "chat", "tool_sequence": []}
     },
     {
@@ -26,7 +26,7 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "What is the weather in Chicago right now?",
-      "available_tools": ["weather_forecast", "websearch", "device_control"],
+      "available_tools": ["weather_forecast", "device_control", "send_message"],
       "expected": {"mode": "execute", "tool_sequence": ["weather_forecast"]}
     },
     {
@@ -34,7 +34,7 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "Turn the living room lights down to 30 percent.",
-      "available_tools": ["weather_forecast", "device_control", "music_assistant"],
+      "available_tools": ["weather_forecast", "device_control", "music_play"],
       "expected": {"mode": "execute", "tool_sequence": ["device_control"]}
     },
     {
@@ -42,8 +42,8 @@
       "category": "routing",
       "kind": "astraeus",
       "user": "Turn off the kitchen lights, then play Daft Punk in the kitchen.",
-      "available_tools": ["device_control", "music_assistant", "send_message"],
-      "expected": {"mode": "execute", "tool_sequence": ["device_control", "music_assistant"]}
+      "available_tools": ["device_control", "music_play", "send_message"],
+      "expected": {"mode": "execute", "tool_sequence": ["device_control", {"one_of": ["music_play", "music_assistant"]}]}
     },
     {
       "id": "route-download-chain",
@@ -168,6 +168,46 @@
       "kind": "chat",
       "user": "Explain what a smart-home scene is in two short sentences.",
       "expected": {"any_of": ["devices", "settings", "actions"], "forbidden": ["i have activated", "i turned on", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-core-memory",
+      "category": "chat",
+      "kind": "chat",
+      "user": "What snack do I have saved as my favorite?",
+      "expected": {"contains": ["roasted potatoes"], "forbidden": ["do not know", "don't know", "memory context", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-core-personal",
+      "category": "chat",
+      "kind": "chat",
+      "user": "What upcoming plan is on my calendar, and where is it?",
+      "expected": {"contains": ["Neighborhood potluck", "Test Park"], "forbidden": ["do not know", "don't know", "personal core", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-core-guardian",
+      "category": "chat",
+      "kind": "chat",
+      "user": "Which device is currently offline on my network?",
+      "expected": {"contains": ["Bench Printer"], "forbidden": ["do not know", "don't know", "guardian core", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-core-music",
+      "category": "chat",
+      "kind": "chat",
+      "user": "What kind of music do I prefer while working?",
+      "expected": {"contains": ["upbeat", "electronic"], "forbidden": ["do not know", "don't know", "background tracking", "music context", "astraeus", "thanatos"]},
+      "weight": 0.75
+    },
+    {
+      "id": "chat-core-tater-tube",
+      "category": "chat",
+      "kind": "chat",
+      "user": "What show was I watching, and how far did I get?",
+      "expected": {"contains": ["Example Space Show", "42%"], "forbidden": ["do not know", "don't know", "background tracking", "tater tube activity context", "astraeus", "thanatos"]},
       "weight": 0.75
     },
     {
