@@ -39,6 +39,8 @@ class DiscoveryTests(unittest.TestCase):
                                 "filename": main.name,
                                 "repo_id": "org/model",
                                 "supports_vision": True,
+                                "supports_video": True,
+                                "supports_audio": True,
                                 "mmproj_path": str(mmproj),
                             },
                             {"provider": "llama_cpp", "model_path": str(mtp), "filename": mtp.name},
@@ -50,6 +52,9 @@ class DiscoveryTests(unittest.TestCase):
             models = discover_models(home)
             self.assertEqual(len(models), 1)
             self.assertEqual(models[0].repo_id, "org/model")
+            self.assertTrue(models[0].supports_vision)
+            self.assertTrue(models[0].supports_video)
+            self.assertTrue(models[0].supports_audio)
             self.assertEqual([variant.name for variant in variants_for_model(models[0])], ["baseline", "mtp", "dflash"])
             self.assertEqual(models[0].mmproj_path, mmproj.absolute())
 

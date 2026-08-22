@@ -19,10 +19,9 @@ TATER_SCORE_WEIGHTS = {
 }
 
 TATER_ACCURACY_WEIGHTS = {
-    "tool_accuracy": 25.0,
-    "routing": 35.0,
-    "spudex": 15.0,
-    "synthesis": 10.0,
+    "tool_accuracy": 30.0,
+    "routing": 40.0,
+    "synthesis": 15.0,
     "chat": 5.0,
 }
 
@@ -46,6 +45,43 @@ FITNESS_SCORE_CAPS = {
     "limited": 79.9,
     "not_fit": 49.9,
 }
+
+
+def _load_capability_catalog() -> dict[str, dict[str, bool]]:
+    path = Path(__file__).parent / "fixtures" / "model-capabilities-2026-08-22.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    models = payload.get("models") if isinstance(payload, dict) else {}
+    if not isinstance(models, dict):
+        return {}
+    return {
+        str(repo_id).lower(): {
+            "vision": bool(flags.get("vision")),
+            "video": bool(flags.get("video")),
+            "audio": bool(flags.get("audio")),
+        }
+        for repo_id, flags in models.items()
+        if isinstance(flags, dict)
+    }
+
+
+MODEL_CAPABILITY_CATALOG = _load_capability_catalog()
+
+
+def _model_capabilities(model: Any) -> dict[str, Any]:
+    model = model if isinstance(model, dict) else {}
+    known = MODEL_CAPABILITY_CATALOG.get(str(model.get("repo_id") or "").lower(), {})
+    supported = {
+        name: bool(model.get(f"supports_{name}")) or bool(known.get(name))
+        for name in ("vision", "video", "audio")
+    }
+    labels = [label for name, label in (("vision", "Vision"), ("video", "Video"), ("audio", "Audio")) if supported[name]]
+    return {
+        **{f"supports_{name}": value for name, value in supported.items()},
+        "labels": labels or ["Text only"],
+    }
 
 
 def load_batches(results_dir: str | Path) -> list[dict[str, Any]]:
@@ -141,6 +177,18 @@ def _accuracy_component(run: dict[str, Any]) -> float:
     return (_bounded_percent(accuracy.get("score")) / 100.0) * TATER_SCORE_WEIGHTS["accuracy"]
 
 
+def _required_accuracy_score(accuracy: Any) -> float:
+    accuracy = accuracy if isinstance(accuracy, dict) else {}
+    categories = accuracy.get("categories")
+    if isinstance(categories, dict) and all(name in categories for name in TATER_ACCURACY_WEIGHTS):
+        weighted_points = sum(
+            (_bounded_percent(categories.get(name)) / 100.0) * weight
+            for name, weight in TATER_ACCURACY_WEIGHTS.items()
+        )
+        return (weighted_points / TATER_SCORE_WEIGHTS["accuracy"]) * 100.0
+    return _bounded_percent(accuracy.get("score"))
+
+
 def _fitness_for_accuracy(accuracy: Any) -> dict[str, Any]:
     accuracy = accuracy if isinstance(accuracy, dict) else {}
     categories = accuracy.get("categories")
@@ -149,15 +197,15 @@ def _fitness_for_accuracy(accuracy: Any) -> dict[str, Any]:
             "status": "unrated",
             "label": FITNESS_LABELS["unrated"],
             "rank": FITNESS_RANKS["unrated"],
-            "reasons": ["A complete five-category accuracy map is required."],
+            "reasons": ["A complete required-category accuracy map is required."],
             "provisional": True,
         }
 
-    overall = _bounded_percent(accuracy.get("score"))
+    overall = _required_accuracy_score(accuracy)
     scores = {name: _bounded_percent(categories.get(name)) for name in TATER_ACCURACY_WEIGHTS}
     not_fit_reasons: list[str] = []
     if overall < 70.0:
-        not_fit_reasons.append(f"Overall accuracy {overall:.1f}% is below 70%.")
+        not_fit_reasons.append(f"Required accuracy {overall:.1f}% is below 70%.")
     if scores["tool_accuracy"] < 70.0:
         not_fit_reasons.append(f"Tool accuracy {scores['tool_accuracy']:.1f}% is below 70%.")
     if scores["routing"] < 70.0:
@@ -173,15 +221,14 @@ def _fitness_for_accuracy(accuracy: Any) -> dict[str, Any]:
 
     readiness_reasons: list[str] = []
     if overall < 85.0:
-        readiness_reasons.append(f"Overall accuracy {overall:.1f}% is below 85%.")
+        readiness_reasons.append(f"Required accuracy {overall:.1f}% is below 85%.")
     if scores["tool_accuracy"] < 85.0:
         readiness_reasons.append(f"Tool accuracy {scores['tool_accuracy']:.1f}% is below 85%.")
     if scores["routing"] < 80.0:
         readiness_reasons.append(f"Routing {scores['routing']:.1f}% is below 80%.")
-    for name in ("spudex", "synthesis", "chat"):
+    for name in ("synthesis", "chat"):
         if scores[name] < 80.0:
-            label = "Spudex" if name == "spudex" else name.title()
-            readiness_reasons.append(f"{label} {scores[name]:.1f}% is below 80%.")
+            readiness_reasons.append(f"{name.title()} {scores[name]:.1f}% is below 80%.")
     if readiness_reasons:
         return {
             "status": "limited",
@@ -489,6 +536,18 @@ def _average_result(rows: list[dict[str, Any]], *, device_weighted: bool) -> dic
         },
         "accuracy": {
             "score": round(_mean([(row.get("accuracy") or {}).get("score") for row in rows]), 2),
+            "required_score": round(
+                _mean(
+                    [
+                        (row.get("accuracy") or {}).get(
+                            "required_score",
+                            _required_accuracy_score(row.get("accuracy")),
+                        )
+                        for row in rows
+                    ]
+                ),
+                2,
+            ),
             "categories": _average_categories(rows),
         },
         "performance": {
@@ -529,7 +588,12 @@ def _leaderboards(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], lis
         return (
             -float(row.get("tater_score") or 0.0),
             int(fitness.get("rank") or 0),
-            -float((row.get("accuracy") or {}).get("score") or 0.0),
+            -float(
+                (row.get("accuracy") or {}).get(
+                    "required_score",
+                    (row.get("accuracy") or {}).get("score") or 0.0,
+                )
+            ),
             _result_key(row),
         )
 
@@ -561,7 +625,12 @@ def _leaderboards(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], lis
             key=lambda row: (
                 int((row.get("fitness") or {}).get("rank", FITNESS_RANKS["unrated"])),
                 -float(row.get("tater_score") or 0.0),
-                -float((row.get("accuracy") or {}).get("score") or 0.0),
+                -float(
+                    (row.get("accuracy") or {}).get(
+                        "required_score",
+                        (row.get("accuracy") or {}).get("score") or 0.0,
+                    )
+                ),
                 str(row.get("hardware_label") or ""),
             ),
         )
@@ -613,6 +682,14 @@ def aggregate_payload(batches: list[dict[str, Any]]) -> dict[str, Any]:
     public_rows: list[dict[str, Any]] = []
     for row in rows:
         item = dict(row)
+        model = dict(item.get("model") or {})
+        capabilities = _model_capabilities(model)
+        model.update({name: value for name, value in capabilities.items() if name != "labels"})
+        model["capabilities"] = capabilities["labels"]
+        item["model"] = model
+        accuracy = dict(item.get("accuracy") or {})
+        accuracy["required_score"] = round(_required_accuracy_score(accuracy), 2)
+        item["accuracy"] = accuracy
         item["speedup_percent"] = round(_speedup(row, rows), 2)
         score = _tater_score(row, rows)
         raw_score = score["total"]
@@ -664,8 +741,8 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
         "",
         f"> {int(aggregate.get('duplicate_run_count') or 0)} duplicate runs with identical graded outcomes on the same hardware type are omitted, keeping the newest representative. Distinct outcomes are averaged within each hardware type, then Overall selects the best hardware result for each model and mode.",
         "",
-        "| Model | Engine | Mode | Fitness | Tater Score | Accuracy | Gen tok/s | TTFT | Best Hardware | Tested Devices | Unique Runs | Observations | Suite |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|---|",
+        "| Model | Inputs | Engine | Mode | Fitness | Tater Score | Required Accuracy | Gen tok/s | TTFT | Best Hardware | Tested Devices | Unique Runs | Observations | Suite |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|---|",
     ]
     for run in rows:
         model = run.get("model") or {}
@@ -682,11 +759,18 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             + " | ".join(
                 [
                     label,
+                    ", ".join(_model_capabilities(model)["labels"]),
                     str(engine.get("engine") or model.get("provider") or ""),
                     mode,
                     _fitness_display_label(run.get("fitness")),
                     _fmt(run.get("tater_score")),
-                    _fmt((run.get("accuracy") or {}).get("score")) + "%",
+                    _fmt(
+                        (run.get("accuracy") or {}).get(
+                            "required_score",
+                            (run.get("accuracy") or {}).get("score"),
+                        )
+                    )
+                    + "%",
                     _fmt(performance.get("median_generation_tokens_per_second")),
                     _fmt(performance.get("median_ttft_seconds")) + "s",
                     str(run.get("best_hardware_label") or "Unknown device").replace("|", "\\|"),
@@ -699,7 +783,7 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             + " |"
         )
     if not rows:
-        lines.extend(["| _No published benchmark runs yet_ | | | | | | | | | | | | |", ""])
+        lines.extend(["| _No published benchmark runs yet_ | | | | | | | | | | | | | |", ""])
     lines.extend(
         [
             "",
@@ -722,9 +806,11 @@ def render_markdown(aggregate: dict[str, Any]) -> str:
             "",
             "## Method",
             "",
-            "Tater Score starts with a 100-point raw formula: 90 points for category-weighted accuracy (35 Astraeus routing and tool selection, 25 Thanatos tool execution, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before outcome-distinct runs are averaged within a hardware type. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
+            "Tater Score starts with a 100-point raw formula: 90 points for required, category-weighted accuracy (40 Astraeus routing and tool selection, 30 Thanatos tool execution, 15 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Spudex is reported as an optional capability and contributes no score or readiness penalty. Limited results are capped at 79.9 and Not Fit results at 49.9 before outcome-distinct runs are averaged within a hardware type. Performance and efficiency are normalized within matching hardware, suite, context, and prompt profile.",
             "",
-            "Fitness is a separate reliability verdict. Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every remaining category. Limited results miss a readiness gate; Not Fit results have overall, tool, or routing accuracy below 70%. Overall uses the verdict from the selected best hardware result; every device-specific verdict remains visible in its hardware tab. Results based on fewer than two observations on the selected hardware are provisional.",
+            "Fitness is a separate reliability verdict. Tater Ready requires at least 85% weighted required accuracy, 85% tool accuracy, 80% routing, 80% synthesis, and 80% chat. Limited results miss a required readiness gate; Not Fit results have required, tool, or routing accuracy below 70%. Spudex is not a readiness gate. Overall uses the verdict from the selected best hardware result; every device-specific verdict remains visible in its hardware tab. Results based on fewer than two observations on the selected hardware are provisional.",
+            "",
+            "Model input badges come from Tater's downloaded-model registry. Vision, Video, and Audio are informational and are not scored by this text/tool suite. Audio can include speech or music input and does not imply that a model generates music.",
             "",
             "Tater Bench uses a versioned, frozen synthetic Tater runtime for routing, strict tool-call, synthesis, chat, and Spudex scenarios. Runs are considered duplicates only when the hardware type, model configuration, accuracy summary, and every graded scenario outcome match; timing variation is ignored. The newest duplicate is published while the original batch files remain untouched. Hidden duplicates still count as observations for reproducibility and provisional-status checks. Outcome-distinct runs are averaged within each hardware type. Overall selects the best fitness-qualified hardware result for each model and mode, while hardware tabs retain every device-specific result. Each result records the model, engine, speculative mode, suite version, prompt profile, hardware fingerprint, context, and raw per-scenario response.",
             "",
@@ -786,7 +872,7 @@ def render_html(aggregate: dict[str, Any]) -> str:
                 f"<td>{html.escape(_fitness_display_label(detail.get('fitness')))}</td>"
                 f"<td>{_fmt(detail.get('tater_score'), 1)}</td>"
                 f"<td>{_fmt(detail.get('raw_tater_score', detail.get('tater_score')), 1)}</td>"
-                f"<td>{_fmt((detail.get('accuracy') or {}).get('score'), 1)}%</td>"
+                f"<td>{_fmt((detail.get('accuracy') or {}).get('required_score', (detail.get('accuracy') or {}).get('score')), 1)}%</td>"
                 f"<td>{_fmt(performance.get('median_generation_tokens_per_second'))}</td>"
                 f"<td>{_fmt(performance.get('median_ttft_seconds'))}s</td>"
                 "</tr>"
@@ -794,7 +880,7 @@ def render_html(aggregate: dict[str, Any]) -> str:
         count = len(detail_runs)
         return (
             f'<details class="run-details"><summary>See {count} unique run{"s" if count != 1 else ""}</summary>'
-            '<div class="table-wrap"><table><thead><tr><th>Device</th><th>Finished</th><th>Observations</th><th>Fitness</th><th>Final score</th><th>Raw formula</th><th>Accuracy</th><th>tok/s</th><th>TTFT</th></tr></thead>'
+            '<div class="table-wrap"><table><thead><tr><th>Device</th><th>Finished</th><th>Observations</th><th>Fitness</th><th>Final score</th><th>Raw formula</th><th>Required accuracy</th><th>tok/s</th><th>TTFT</th></tr></thead>'
             f'<tbody>{"".join(rows_html)}</tbody></table></div></details>'
         )
 
@@ -804,7 +890,12 @@ def render_html(aggregate: dict[str, Any]) -> str:
             key=lambda run: (
                 -float(run.get("tater_score") or 0.0),
                 int((run.get("fitness") or {}).get("rank") or 0),
-                -float((run.get("accuracy") or {}).get("score") or 0.0),
+                -float(
+                    (run.get("accuracy") or {}).get(
+                        "required_score",
+                        (run.get("accuracy") or {}).get("score") or 0.0,
+                    )
+                ),
                 str((run.get("model") or {}).get("repo_id") or ""),
             ),
         )
@@ -819,7 +910,12 @@ def render_html(aggregate: dict[str, Any]) -> str:
             repo_id = str(model.get("repo_id") or model.get("label") or "Unknown model")
             tater_score = float(run.get("tater_score") or 0.0)
             raw_tater_score = float(run.get("raw_tater_score", tater_score) or 0.0)
-            accuracy = float((run.get("accuracy") or {}).get("score") or 0.0)
+            accuracy = float(
+                (run.get("accuracy") or {}).get(
+                    "required_score",
+                    (run.get("accuracy") or {}).get("score") or 0.0,
+                )
+            )
             speed = float(performance.get("median_generation_tokens_per_second") or 0.0)
             ttft = float(performance.get("median_ttft_seconds") or 0.0)
             memory = float(run.get("peak_rss_bytes") or 0.0)
@@ -844,6 +940,23 @@ def render_html(aggregate: dict[str, Any]) -> str:
             )
             card_id = f"result-{scope_index}-{index}"
             label = _chart_label(repo_id, provider)
+            model_capabilities = _model_capabilities(model)
+            capability_pairs = [
+                (name, label)
+                for name, label in (("vision", "Vision"), ("video", "Video"), ("audio", "Audio"))
+                if model_capabilities[f"supports_{name}"]
+            ] or [("text", "Text only")]
+            capability_badges = "".join(
+                f'<span class="capability-badge capability-{name}">{html.escape(capability_label)}</span>'
+                for name, capability_label in capability_pairs
+            )
+            capability_label = ", ".join(label for _name, label in capability_pairs)
+            score_capabilities = (
+                f'<span class="capability-badges score-capabilities" aria-label="Model inputs: {html.escape(capability_label)}">{capability_badges}</span>'
+            )
+            detail_capabilities = (
+                f'<div class="detail-capabilities"><span class="capability-badges" aria-label="Model inputs: {html.escape(capability_label)}">{capability_badges}</span><small>Declared model inputs · not scored</small></div>'
+            )
             score_components = run.get("tater_score_components") or {}
             fitness = run.get("fitness") or {}
             fitness_status = str(fitness.get("status") or "unrated")
@@ -855,10 +968,11 @@ def render_html(aggregate: dict[str, Any]) -> str:
                 f'data-mode="{html.escape(mode)}" data-score="{tater_score}" data-accuracy="{accuracy}" '
                 f'data-raw-score="{raw_tater_score}" data-speed="{speed}" data-ttft="{ttft}" data-memory="{memory}" '
                 f'data-model="{html.escape(label.lower())}" data-samples="{observations}" '
+                f'data-capabilities="{html.escape(" ".join(name for name, _label in capability_pairs))}" '
                 f'data-fitness="{html.escape(fitness_status)}" data-fitness-rank="{fitness_rank}"'
             )
             category_html = "".join(
-                f'<span><b>{html.escape(str(name).replace("_", " ").title())}</b>{_fmt(score)}%</span>'
+                f'<span><b>{html.escape("Spudex (optional)" if name == "spudex" else str(name).replace("_", " ").title())}</b>{_fmt(score)}%</span>'
                 for name, score in categories.items()
             )
             average_label = "Best device result" if scope_id == "overall" else "Device average"
@@ -875,9 +989,9 @@ def render_html(aggregate: dict[str, Any]) -> str:
             )
             cards.append(
                 f'''<article id="{card_id}" class="result-card" {data}>
-                  <div class="card-head"><div><p class="eyebrow"><span class="detail-rank">#{index}</span> · {html.escape(average_label)} · {html.escape(str(engine.get("engine") or provider))} · {html.escape(mode.upper())}</p><h2>{html.escape(repo_id)}</h2><p>{html.escape(str(model.get("filename") or ""))}</p></div><div class="score">{_fmt(tater_score, 1)}<small>Tater score</small></div></div>
+                  <div class="card-head"><div><p class="eyebrow"><span class="detail-rank">#{index}</span> · {html.escape(average_label)} · {html.escape(str(engine.get("engine") or provider))} · {html.escape(mode.upper())}</p><h2>{html.escape(repo_id)}</h2><p>{html.escape(str(model.get("filename") or ""))}</p>{detail_capabilities}</div><div class="score">{_fmt(tater_score, 1)}<small>Tater score</small></div></div>
                   <div class="fitness-verdict fitness-{html.escape(fitness_status)}"><b>{html.escape(fitness_label)}</b><span>{html.escape(fitness_reason)}</span></div>
-                  <div class="metrics"><span><b>{_fmt(raw_tater_score, 1)}</b> raw formula</span><span><b>{_fmt(accuracy, 1)}%</b> accuracy</span><span><b>{_fmt(speed)}</b> tok/s</span><span><b>{_fmt(ttft)}s</b> TTFT</span><span><b>{bytes_label(memory)}</b> peak RSS</span>{hardware_metrics}<span><b>{samples}</b> unique run{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></div>
+                  <div class="metrics"><span><b>{_fmt(raw_tater_score, 1)}</b> raw formula</span><span><b>{_fmt(accuracy, 1)}%</b> required accuracy</span><span><b>{_fmt(speed)}</b> tok/s</span><span><b>{_fmt(ttft)}s</b> TTFT</span><span><b>{bytes_label(memory)}</b> peak RSS</span>{hardware_metrics}<span><b>{samples}</b> unique run{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></div>
                   <div class="categories">{category_html}</div>
                   {run_details(run)}
                   <footer>Suite {html.escape(str((run.get("suite") or {}).get("version") or ""))} · Prompt {html.escape(str((run.get("configuration") or {}).get("prompt_profile") or ""))} · Score mix: {_fmt(score_components.get("accuracy"), 1)} accuracy + {_fmt(score_components.get("generation_speed"), 1)} speed + {_fmt(score_components.get("ttft"), 1)} TTFT + {_fmt(score_components.get("memory"), 1)} memory + {_fmt(score_components.get("readiness_adjustment"), 1)} readiness gate</footer>
@@ -887,7 +1001,7 @@ def render_html(aggregate: dict[str, Any]) -> str:
                 engine_label = str(engine.get("engine") or provider)
                 leaderboard_items.append(
                     f'''<a class="score-entry" href="#{card_id}" {data} data-label="{html.escape(label)}, {tater_score:.1f} Tater Score" style="--bar-score:{tater_score}%;--bar-color:var(--mode-{html.escape(mode)})" aria-label="Rank {index}: {html.escape(label)}, {tater_score:.1f} Tater Score">
-                      <span class="score-rank">#{index}</span><span class="score-bar-stage"><span class="score-bar"><b>{tater_score:.1f}</b></span></span><span class="score-copy"><strong>{html.escape(label)}</strong><span class="score-badges"><span class="score-badge status-{html.escape(fitness_status)}">{html.escape(fitness_label)}</span><span class="score-badge">{html.escape(engine_label)}</span><span class="score-badge mode-badge">{html.escape(mode.upper())}</span></span>{leaderboard_hardware}<span class="score-evidence"><span><b>{samples}</b> unique result{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></span></span>
+                      <span class="score-rank">#{index}</span><span class="score-bar-stage"><span class="score-bar"><b>{tater_score:.1f}</b></span></span><span class="score-copy"><strong>{html.escape(label)}</strong>{score_capabilities}<span class="score-badges"><span class="score-badge status-{html.escape(fitness_status)}">{html.escape(fitness_label)}</span><span class="score-badge">{html.escape(engine_label)}</span><span class="score-badge mode-badge">{html.escape(mode.upper())}</span></span>{leaderboard_hardware}<span class="score-evidence"><span><b>{samples}</b> unique result{"s" if samples != 1 else ""}</span><span><b>{observations}</b> observation{"s" if observations != 1 else ""}</span></span></span>
                     </a>'''
                 )
                 present_modes.add(mode)
@@ -921,9 +1035,10 @@ def render_html(aggregate: dict[str, Any]) -> str:
 *{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 0,#2b1608 0,transparent 34%),#090909;color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,sans-serif}.shell{width:min(1240px,calc(100% - 32px));margin:auto;padding:34px 0 70px}header{display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;border-bottom:1px solid var(--line);padding-bottom:28px}.brand{display:flex;align-items:center;gap:18px}.brand img{width:88px;height:88px;border-radius:50%;border:2px solid var(--orange);box-shadow:0 0 34px #ff7a1840}.eyebrow{margin:0 0 5px;color:var(--orange2);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:.95;letter-spacing:-.055em}.lede{max-width:700px;color:var(--muted);font-size:17px}.summary{text-align:right}.summary b{display:block;color:var(--orange);font-size:34px}.summary span{display:block;color:var(--muted);font-size:12px}.control-block{margin:22px 0}.control-label{display:block;margin-bottom:8px;color:#777;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.controls{display:flex;gap:9px;flex-wrap:wrap}.toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px}.toolbar .control-block{margin:0}.sort-label{display:grid;gap:8px;color:#777;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}button,select{border:1px solid var(--line);border-radius:999px;background:#111;color:var(--muted);padding:9px 15px;cursor:pointer}select{min-width:180px;border-radius:12px;color:var(--ink)}button.active,button:hover{border-color:var(--orange);color:#fff;background:#271509}.leaderboard{margin:10px 0 30px;padding:24px;background:linear-gradient(145deg,#171717,#0e0e0e);border:1px solid var(--line);border-radius:24px}.chart-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:14px}.chart-heading h2{margin:0;font-size:clamp(23px,4vw,34px);letter-spacing:-.025em}.chart-heading p{margin:4px 0 0;color:var(--muted)}.score-formula{max-width:630px;text-align:right;color:var(--muted);font-size:12px}.score-formula b{color:var(--ink)}.score-plot{position:relative;padding-left:44px;margin-top:22px;overflow-x:auto}.score-grid{position:absolute;z-index:0;left:44px;right:0;top:0;height:320px;min-width:680px}.score-grid span{position:absolute;left:0;right:0;bottom:var(--grid-position);height:1px;background:var(--grid)}.score-grid i{position:absolute;right:calc(100% + 10px);top:-8px;color:var(--muted);font-size:10px;font-style:normal}.score-bars{position:relative;z-index:1;display:grid;grid-template-columns:repeat(var(--bar-count),minmax(82px,1fr));gap:10px;min-width:max(680px,calc(var(--bar-count) * 92px));min-height:430px}.score-entry{position:relative;display:grid;grid-template-rows:320px auto;text-decoration:none;color:var(--ink);min-width:0}.score-rank{position:absolute;z-index:2;top:6px;left:50%;transform:translateX(-50%);color:#ffffffb8;font-size:11px;font-weight:900}.score-bar-stage{display:flex;align-items:flex-end;justify-content:center;height:320px}.score-bar{display:flex;align-items:flex-start;justify-content:center;width:min(64px,78%);height:var(--bar-score);min-height:34px;padding-top:13px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,color-mix(in srgb,var(--bar-color),white 13%),var(--bar-color));box-shadow:0 8px 30px color-mix(in srgb,var(--bar-color),transparent 75%);transition:filter .18s,transform .18s}.score-bar b{font-size:15px;color:#fff;text-shadow:0 1px 4px #0008}.score-copy{display:block;padding:12px 3px 0;text-align:center;line-height:1.25}.score-copy strong{display:block;font-size:12px;overflow-wrap:anywhere}.score-copy small{display:block;margin-top:5px;color:var(--muted);font-size:10px}.score-entry:hover .score-bar,.score-entry:focus .score-bar{filter:brightness(1.18);transform:translateY(-3px)}.score-entry:focus{outline:2px solid var(--orange2);outline-offset:3px;border-radius:5px}.score-entry.is-leader .score-bar{background:linear-gradient(180deg,#ffe5a3,var(--gold) 34%,var(--orange));box-shadow:0 0 32px #ffb13b66}.score-entry.is-leader .score-rank{color:var(--gold)}.score-note{margin:10px 0 0;color:var(--muted);font-size:12px}.results-heading{margin:8px 0 14px;font-size:25px}main{display:grid;gap:16px;min-width:0}.result-card{min-width:0;scroll-margin-top:16px;background:linear-gradient(145deg,#191919,#101010);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 60px #0006}.result-card:target{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 18px 60px #0006}.card-head{display:flex;justify-content:space-between;gap:18px;min-width:0}.card-head>div{min-width:0}.result-card h2{margin:0;font-size:21px;overflow-wrap:anywhere}.card-head p:not(.eyebrow){margin:4px 0;color:var(--muted);overflow-wrap:anywhere}.score{min-width:94px;text-align:center;color:var(--orange);font-size:36px;font-weight:900;line-height:1}.score small{display:block;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:7px}.fitness-verdict{display:flex;align-items:center;gap:10px;margin-top:17px;padding:10px 12px;border:1px solid;border-radius:12px;background:#0c0c0c}.fitness-verdict b{flex:0 0 auto}.fitness-verdict span{color:var(--muted);font-size:12px}.fitness-ready{border-color:#317a4d}.fitness-ready b{color:#56d68b}.fitness-limited{border-color:#80672b}.fitness-limited b{color:#ffd166}.fitness-mixed{border-color:#2e6685}.fitness-mixed b{color:#42b8ff}.fitness-not_fit{border-color:#803b35}.fitness-not_fit b{color:#ff8278}.fitness-unrated{border-color:#494949}.fitness-unrated b{color:#aaa9a2}.metrics,.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:19px;min-width:0}.metrics span,.categories span{min-width:0;background:#0c0c0c;border:1px solid #272622;border-radius:13px;padding:11px;color:var(--muted)}.metrics b,.categories b{display:block;color:var(--ink);font-size:15px}.run-details{margin-top:18px;border:1px solid #292824;border-radius:14px;background:#0b0b0b}.run-details summary{padding:12px 14px;cursor:pointer;color:var(--orange2);font-weight:750}.table-wrap{overflow-x:auto;padding:0 14px 14px}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{padding:9px 12px;border-bottom:1px solid #24231f;text-align:left;font-size:12px}th{color:#777;text-transform:uppercase;letter-spacing:.08em}td{color:var(--muted)}footer{margin-top:18px;color:#777;font-size:12px}.empty{padding:70px;text-align:center;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
 @media(max-width:820px){header{grid-template-columns:1fr}.summary{text-align:left}.leaderboard{padding:18px}.chart-heading{align-items:flex-start;flex-direction:column}.score-formula{text-align:left}.score-plot{padding-left:0}.score-grid{display:none}.score-bars{display:flex;flex-direction:column;gap:13px;min-height:0}.score-entry{display:grid;grid-template-columns:minmax(106px,1fr) minmax(140px,2fr);grid-template-rows:auto;height:auto;gap:12px;align-items:center}.score-copy{position:relative;grid-column:1;grid-row:1;padding:0 0 0 27px;text-align:left}.score-bar-stage{grid-column:2;grid-row:1;height:30px;justify-content:flex-start;background:#090909;border:1px solid var(--line);border-radius:6px;overflow:hidden}.score-bar{align-items:center;justify-content:flex-end;width:var(--bar-score);height:100%;min-width:48px;padding:0 8px;border-radius:4px}.score-rank{top:0;left:0;right:auto;transform:none;color:#ffffff88}.score-entry.is-leader .score-rank{color:var(--gold)}.brand img{width:68px;height:68px}.card-head{align-items:flex-start}}@media(max-width:430px){.shell{width:min(100% - 20px,1180px)}.leaderboard{padding:14px}.score-entry{grid-template-columns:minmax(94px,1fr) minmax(128px,1.55fr);gap:9px}.card-head{flex-direction:column}.score{text-align:left}.metrics,.categories{grid-template-columns:1fr 1fr}}
 /* Turn each chart label into a compact, scannable result summary. */
-.score-bars{grid-template-columns:repeat(var(--bar-count),minmax(132px,1fr));gap:14px;min-width:max(760px,calc(var(--bar-count) * 146px));min-height:500px}
-.score-copy{display:flex;min-height:154px;margin-top:10px;padding:11px 9px;flex-direction:column;align-items:center;gap:8px;border:1px solid #292824;border-radius:12px;background:linear-gradient(155deg,#151515,#0c0c0c);text-align:center;line-height:1.25;transition:border-color .18s,background .18s}
+.score-bars{grid-template-columns:repeat(var(--bar-count),minmax(132px,1fr));gap:14px;min-width:max(760px,calc(var(--bar-count) * 146px));min-height:525px}
+.score-copy{display:flex;min-height:179px;margin-top:10px;padding:11px 9px;flex-direction:column;align-items:center;gap:8px;border:1px solid #292824;border-radius:12px;background:linear-gradient(155deg,#151515,#0c0c0c);text-align:center;line-height:1.25;transition:border-color .18s,background .18s}
 .score-copy strong{display:flex;min-height:2.5em;align-items:center;justify-content:center;font-size:12px;line-height:1.25;overflow-wrap:anywhere}
+.capability-badges{display:flex;align-items:center;flex-wrap:wrap;gap:5px}.capability-badge{display:inline-flex;align-items:center;min-height:20px;padding:3px 7px;border:1px solid #3d3c38;border-radius:6px;background:#141414;color:#c6c5bf;font-size:8px;font-weight:850;line-height:1;letter-spacing:.06em;text-transform:uppercase}.capability-vision{border-color:#2e6685;background:#0d2230;color:#64c9ff}.capability-video{border-color:#634c91;background:#1e1531;color:#c4a8ff}.capability-audio{border-color:#317a4d;background:#10251a;color:#70e4a0}.capability-text{color:#aaa9a2}.score-capabilities{justify-content:center}.detail-capabilities{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:9px}.detail-capabilities small{color:#777;font-size:10px}
 .score-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
 .score-badge{display:inline-flex;align-items:center;min-height:19px;padding:3px 6px;border:1px solid #3a3935;border-radius:999px;background:#171717;color:#c6c5bf;font-size:8px;font-weight:850;line-height:1.1;letter-spacing:.045em;text-transform:uppercase}
 .score-badge.mode-badge{border-color:color-mix(in srgb,var(--bar-color),#333 48%);background:color-mix(in srgb,var(--bar-color),transparent 86%);color:color-mix(in srgb,var(--bar-color),white 30%)}
@@ -935,11 +1050,11 @@ body{overflow-x:hidden}
 @media(max-width:820px){.shell{width:calc(100% - 24px);padding:22px 0 48px}header{gap:18px;padding-bottom:22px}.summary b{display:inline;margin-right:7px;font-size:28px}.summary span{display:inline}.brand{align-items:flex-start;gap:13px}.brand img{width:64px;height:64px;flex:0 0 auto}.lede{font-size:15px}.controls{flex-wrap:nowrap;overflow-x:auto;padding:0 2px 5px;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}.controls button{flex:0 0 auto;min-height:44px;scroll-snap-align:start}.toolbar{align-items:stretch;flex-direction:column;margin-bottom:18px}.sort-label,select{width:100%}.leaderboard{padding:17px;margin-bottom:22px;border-radius:18px}.chart-heading{gap:9px}.score-plot{padding-left:0;overflow:visible}.score-bars{width:100%;min-width:0;gap:11px}.score-entry{grid-template-columns:minmax(0,1.05fr) minmax(0,1.8fr);width:100%;gap:10px}.score-copy{min-width:0;padding-left:25px}.score-copy small{overflow-wrap:anywhere}.score-bar-stage{min-width:0;height:34px}.result-card{padding:18px;border-radius:18px}.result-card h2,.card-head p{overflow-wrap:anywhere}.empty{padding:40px 16px}}
 @media(max-width:560px){.shell{width:calc(100% - 18px)}h1{font-size:39px}.control-block{margin:18px 0}button,select{min-height:44px}.leaderboard{padding:14px}.chart-heading h2{font-size:24px}.score-entry{grid-template-columns:minmax(0,1.1fr) minmax(0,1.5fr);gap:8px}.score-copy strong{font-size:11px}.score-copy small{font-size:9px}.results-heading{font-size:22px}.result-card{padding:15px}.card-head{flex-direction:column;gap:12px}.result-card h2{font-size:18px}.score{min-width:0;text-align:left;font-size:32px}.metrics,.categories{grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.metrics span,.categories span{padding:9px;font-size:12px}footer{margin-top:14px;overflow-wrap:anywhere}}
 @media(max-width:360px){.brand img{width:56px;height:56px}h1{font-size:35px}.score-entry{grid-template-columns:minmax(0,1fr) minmax(110px,1.35fr)}.metrics,.categories{grid-template-columns:1fr}}
-@media(max-width:820px){.score-bars{min-width:0;min-height:0;gap:10px}.score-entry{display:grid;grid-template-columns:1fr;grid-template-rows:34px auto;gap:8px;padding:10px;border:1px solid #272622;border-radius:12px;background:#10100f}.score-copy{position:relative;grid-column:1;grid-row:2;min-height:0;margin:0;padding:0;align-items:flex-start;gap:7px;border:0;background:transparent;text-align:left}.score-copy strong{min-height:0;justify-content:flex-start;font-size:13px}.score-badges,.score-evidence{justify-content:flex-start}.score-hardware{flex-direction:row;flex-wrap:wrap;gap:4px}.score-hardware b::after{content:":"}.score-bar-stage{grid-column:1;grid-row:1;height:34px}.score-rank{top:17px;left:8px;transform:translateY(-50%);color:#fff;font-size:10px}.score-entry:hover .score-copy,.score-entry:focus .score-copy{background:transparent}.score-entry.is-leader .score-rank{color:#fff}}
+@media(max-width:820px){.score-bars{min-width:0;min-height:0;gap:10px}.score-entry{display:grid;grid-template-columns:1fr;grid-template-rows:34px auto;gap:8px;padding:10px;border:1px solid #272622;border-radius:12px;background:#10100f}.score-copy{position:relative;grid-column:1;grid-row:2;min-height:0;margin:0;padding:0;align-items:flex-start;gap:7px;border:0;background:transparent;text-align:left}.score-copy strong{min-height:0;justify-content:flex-start;font-size:13px}.score-badges,.score-evidence,.score-capabilities{justify-content:flex-start}.score-hardware{flex-direction:row;flex-wrap:wrap;gap:4px}.score-hardware b::after{content:":"}.score-bar-stage{grid-column:1;grid-row:1;height:34px}.score-rank{top:17px;left:8px;transform:translateY(-50%);color:#fff;font-size:10px}.score-entry:hover .score-copy,.score-entry:focus .score-copy{background:transparent}.score-entry.is-leader .score-rank{color:#fff}}
 </style></head><body><div class="shell"><header><div><div class="brand"><img src="tater-mascot.png" alt="Tater mascot"><div><p class="eyebrow">Local model field test</p><h1>Tater Bench</h1></div></div><p class="lede">Tater-style accuracy and measured speed, with the best hardware result highlighted overall and every device preserved in its own view.</p></div><div class="summary"><b>__MODEL_COUNT__</b>model configurations<span>__DEVICE_COUNT__ __DEVICE_NOUN__ · __RUN_COUNT__ unique __RUN_NOUN__ · __DUPLICATE_COUNT__ __DUPLICATE_NOUN__ omitted</span></div></header>
 <div class="control-block"><span class="control-label">Hardware view</span><nav class="controls" aria-label="Choose hardware view">__SCOPES__</nav></div>
-<div class="toolbar"><div class="control-block"><span class="control-label">Filter</span><nav class="controls" aria-label="Filter results">__FILTERS__</nav></div><label class="sort-label">Sort results<select id="sort-results"><option value="score-desc">Final Tater Score — high to low</option><option value="fitness-desc">Fitness, then Tater Score</option><option value="accuracy-desc">Accuracy — high to low</option><option value="speed-desc">Generation speed — high to low</option><option value="ttft-asc">TTFT — low to high</option><option value="memory-asc">Memory — low to high</option><option value="samples-desc">Most tested</option><option value="model-asc">Model name — A to Z</option></select></label></div>
-<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — overall</h2><p id="leaderboard-subtitle">Each model and mode uses its best fitness-qualified hardware result.</p></div><p class="score-formula"><b>100-point raw formula:</b> 90 category-weighted accuracy (35 Astraeus routing/tool selection · 25 Thanatos execution · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory. Limited results cap at 79.9; Not Fit results cap at 49.9 before within-device averaging.</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Overall bars use each model and mode's best hardware result, selected by fitness and then final score. Device tabs continue to show hardware-specific Limited and Not Fit results.</p></section>
+<div class="toolbar"><div class="control-block"><span class="control-label">Filter</span><nav class="controls" aria-label="Filter results">__FILTERS__</nav></div><label class="sort-label">Sort results<select id="sort-results"><option value="score-desc">Final Tater Score — high to low</option><option value="fitness-desc">Fitness, then Tater Score</option><option value="accuracy-desc">Required accuracy — high to low</option><option value="speed-desc">Generation speed — high to low</option><option value="ttft-asc">TTFT — low to high</option><option value="memory-asc">Memory — low to high</option><option value="samples-desc">Most tested</option><option value="model-asc">Model name — A to Z</option></select></label></div>
+<section class="leaderboard" aria-labelledby="leaderboard-title"><div class="chart-heading"><div><p class="eyebrow">Tater leaderboard</p><h2 id="leaderboard-title">Best models for Tater — overall</h2><p id="leaderboard-subtitle">Each model and mode uses its best fitness-qualified hardware result.</p></div><p class="score-formula"><b>100-point raw formula:</b> 90 required accuracy (40 Astraeus routing/tool selection · 30 Thanatos execution · 15 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory. Spudex is optional, displayed separately, and has no score or readiness penalty. Limited results cap at 79.9; Not Fit results cap at 49.9 before within-device averaging.</p></div><div class="score-plot"><div class="score-grid" aria-hidden="true"><span style="--grid-position:0%"><i>0</i></span><span style="--grid-position:20%"><i>20</i></span><span style="--grid-position:40%"><i>40</i></span><span style="--grid-position:60%"><i>60</i></span><span style="--grid-position:80%"><i>80</i></span><span style="--grid-position:100%"><i>100</i></span></div><div class="score-bars" id="score-bars" style="--bar-count:__BAR_COUNT__">__LEADERBOARD__</div></div><p class="score-note">Overall bars use each model and mode's best hardware result, selected by fitness and then final score. Input badges come from Tater's model registry and are informational; this text/tool suite does not score vision, video, or audio quality. Device tabs continue to show hardware-specific Limited and Not Fit results.</p></section>
 <h2 class="results-heading" id="results-heading">Overall results — sorted by Final Tater Score</h2><main id="results-list">__CARDS__</main></div>
 <script>
 (() => {

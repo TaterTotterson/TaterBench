@@ -1,0 +1,19 @@
+{
+  "source": "Tater downloaded_models.json",
+  "snapshot_date": "2026-08-22",
+  "models": {
+    "allenai/olmoe-1b-7b-0924-instruct-gguf": {"vision": true, "video": true, "audio": false},
+    "liquidai/lfm2.5-audio-1.5b-gguf": {"vision": true, "video": true, "audio": true},
+    "ornith-ai/ornith-1.5-35b-a3b-gguf": {"vision": true, "video": true, "audio": false},
+    "ornith-ai/ornith-1.5-9b-gguf": {"vision": true, "video": false, "audio": false},
+    "tatertotterson/gemma-4-26b-a4b-it-ud-q4_k_xl-mlx-tater-nothink": {"vision": false, "video": false, "audio": false},
+    "tatertotterson/gemma-4-26b-a4b-it-gguf-tater-nothink": {"vision": true, "video": true, "audio": false},
+    "tatertotterson/nvidia-nemotron-3.5-lightning-30b-a3b-gguf-tater-nothink": {"vision": true, "video": true, "audio": false},
+    "tatertotterson/qwen3.6-35b-a3b-mtp-gguf-tater-nothink": {"vision": true, "video": true, "audio": false},
+    "tatertotterson/qwen3.8-27b-gguf-tater-nothink": {"vision": true, "video": true, "audio": false},
+    "unsloth/gemma-4-12b-it-qat-gguf": {"vision": true, "video": true, "audio": true},
+    "unsloth/gemma-4-e2b-it-qat-gguf": {"vision": true, "video": true, "audio": false},
+    "unsloth/gemma-4-e4b-it-qat-gguf": {"vision": true, "video": true, "audio": false},
+    "unsloth/qwen3.5-0.8b-gguf": {"vision": true, "video": true, "audio": false}
+  }
+}

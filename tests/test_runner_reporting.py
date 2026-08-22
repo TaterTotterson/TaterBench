@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from taterbench.engines.base import EngineSession
-from taterbench.reporting import aggregate_payload, render_html, write_reports
+from taterbench.reporting import _model_capabilities, aggregate_payload, render_html, write_reports
 from taterbench.runner import BenchmarkRunner, save_batch
 from taterbench.types import GenerationResult, ModelCandidate, RunVariant
 
@@ -37,6 +37,17 @@ class FakeSession(EngineSession):
 
 
 class RunnerReportingTests(unittest.TestCase):
+    def test_historical_results_use_registry_capability_snapshot(self) -> None:
+        capabilities = _model_capabilities(
+            {
+                "repo_id": "LiquidAI/LFM2.5-Audio-1.5B-GGUF",
+                "supports_vision": False,
+                "supports_video": False,
+                "supports_audio": False,
+            }
+        )
+        self.assertEqual(capabilities["labels"], ["Vision", "Video", "Audio"])
+
     def test_tater_score_weights_accuracy_speed_ttft_and_memory(self) -> None:
         def run(label: str, accuracy: float, speed: float, ttft: float, memory: int) -> dict:
             return {
@@ -132,11 +143,11 @@ class RunnerReportingTests(unittest.TestCase):
                             500,
                         ),
                         run(
-                            "fast-limited",
+                            "fast-optional-spudex",
                             {
                                 "tool_accuracy": 100.0,
                                 "routing": 100.0,
-                                "spudex": 79.0,
+                                "spudex": 0.0,
                                 "synthesis": 100.0,
                                 "chat": 100.0,
                             },
@@ -150,17 +161,18 @@ class RunnerReportingTests(unittest.TestCase):
         )
         scores = {item["model"]["id"]: item["tater_score"] for item in aggregate["runs"]}
         raw_scores = {item["model"]["id"]: item["raw_tater_score"] for item in aggregate["runs"]}
-        self.assertEqual(raw_scores["ultra-fast-unreliable"], 56.89)
+        self.assertEqual(raw_scores["ultra-fast-unreliable"], 60.69)
         self.assertEqual(scores["ultra-fast-unreliable"], 49.9)
-        self.assertEqual(scores["slower-reliable"], 82.21)
-        self.assertEqual(raw_scores["fast-limited"], 96.85)
-        self.assertEqual(scores["fast-limited"], 79.9)
+        self.assertEqual(scores["slower-reliable"], 82.35)
+        self.assertEqual(raw_scores["fast-optional-spudex"], 100.0)
+        self.assertEqual(scores["fast-optional-spudex"], 100.0)
         accuracy_components = {
             item["model"]["id"]: item["tater_score_components"]["accuracy"]
             for item in aggregate["runs"]
         }
-        self.assertEqual(accuracy_components["ultra-fast-unreliable"], 46.89)
-        self.assertEqual(accuracy_components["slower-reliable"], 80.21)
+        self.assertEqual(accuracy_components["ultra-fast-unreliable"], 50.69)
+        self.assertEqual(accuracy_components["slower-reliable"], 80.35)
+        self.assertEqual(accuracy_components["fast-optional-spudex"], 90.0)
         self.assertGreater(scores["slower-reliable"], scores["ultra-fast-unreliable"])
         fitness = {item["model"]["id"]: item["fitness"]["status"] for item in aggregate["runs"]}
         self.assertEqual(
@@ -168,13 +180,14 @@ class RunnerReportingTests(unittest.TestCase):
             {
                 "ultra-fast-unreliable": "not_fit",
                 "slower-reliable": "ready",
-                "fast-limited": "limited",
+                "fast-optional-spudex": "ready",
             },
         )
         self.assertEqual(
             [item["model"]["id"] for item in aggregate["leaderboard"]],
-            ["slower-reliable", "fast-limited", "ultra-fast-unreliable"],
+            ["fast-optional-spudex", "slower-reliable", "ultra-fast-unreliable"],
         )
+        self.assertIn("Spudex (optional)", render_html(aggregate))
 
     def test_overall_uses_best_device_result_and_preserves_device_verdicts(self) -> None:
         def run(run_id: str, categories: dict[str, float], accuracy: float) -> dict:
@@ -229,8 +242,8 @@ class RunnerReportingTests(unittest.TestCase):
         self.assertEqual(overall["fitness"]["status"], "ready")
         self.assertEqual(overall["fitness"]["label"], "Tater Ready")
         self.assertTrue(overall["fitness"]["provisional"])
-        self.assertEqual(overall["raw_tater_score"], 92.24)
-        self.assertEqual(overall["tater_score"], 92.24)
+        self.assertEqual(overall["raw_tater_score"], 92.39)
+        self.assertEqual(overall["tater_score"], 92.39)
         self.assertEqual(overall["best_hardware"]["cpu"], "Apple M3 Ultra")
         self.assertEqual(overall["tested_device_count"], 2)
         self.assertEqual(overall["device_count"], 1)
@@ -397,6 +410,8 @@ class RunnerReportingTests(unittest.TestCase):
                 repo_id="org/model",
                 filename=model_path.name,
                 quantization="Q4_K_M",
+                supports_vision=True,
+                supports_audio=True,
             )
             suite = {
                 "name": "Tiny",
@@ -421,6 +436,9 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertNotIn("PrivateUser", result_text)
             self.assertNotIn("/private/path", result_text)
             self.assertEqual(batch["runs"][0]["accuracy"]["score"], 100.0)
+            self.assertTrue(batch["runs"][0]["model"]["supports_vision"])
+            self.assertFalse(batch["runs"][0]["model"]["supports_video"])
+            self.assertTrue(batch["runs"][0]["model"]["supports_audio"])
             results_dir = root / "results"
             save_batch(batch, results_dir)
             outputs = write_reports(
@@ -447,9 +465,13 @@ class RunnerReportingTests(unittest.TestCase):
             self.assertIn('class="score-entry"', html_text)
             self.assertIn("Unrated", html_text)
             self.assertIn(
-                "90 category-weighted accuracy (35 Astraeus routing/tool selection · 25 Thanatos execution · 15 Spudex · 10 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory",
+                "90 required accuracy (40 Astraeus routing/tool selection · 30 Thanatos execution · 15 synthesis · 5 chat) · 7 generation speed · 2 TTFT · 1 memory",
                 html_text,
             )
+            self.assertIn("Spudex is optional, displayed separately, and has no score or readiness penalty", html_text)
+            self.assertIn('<span class="capability-badge capability-vision">Vision</span>', html_text)
+            self.assertIn('<span class="capability-badge capability-audio">Audio</span>', html_text)
+            self.assertIn("Declared model inputs · not scored", html_text)
             self.assertIn("Limited results cap at 79.9; Not Fit results cap at 49.9", html_text)
             self.assertIn('id="score-bars"', html_text)
             self.assertIn("Overall results — sorted by Final Tater Score", html_text)

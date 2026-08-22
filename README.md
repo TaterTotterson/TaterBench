@@ -12,11 +12,12 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 
 Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
-- **Tater Score:** a 100-point raw formula with 90 points for category-weighted accuracy (35 Astraeus routing and tool selection, 25 Thanatos tool execution, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before aggregation.
-- **Fitness:** Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every other category. Limited results miss a readiness gate; Not Fit results fall below 70% overall, tool, or routing accuracy.
-- **Accuracy:** Astraeus routing, tool selection, and ordered planning against a curated non-overlapping catalog; Thanatos execution and arguments for a locked tool contract; normal chat and behavioral recall from frozen Memory, Personal, Guardian, Music, and Tater Tube Core context; Hermes result synthesis; and Spudex action decisions.
+- **Tater Score:** a 100-point raw formula with 90 points for required, category-weighted accuracy (40 Astraeus routing and tool selection, 30 Thanatos tool execution, 15 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Spudex is reported as an optional capability and contributes no score or readiness penalty. Limited results are capped at 79.9 and Not Fit results at 49.9 before aggregation.
+- **Fitness:** Tater Ready requires at least 85% weighted required accuracy, 85% tool accuracy, 80% routing, 80% synthesis, and 80% chat. Limited results miss a required readiness gate; Not Fit results fall below 70% required, tool, or routing accuracy. Spudex is not a readiness gate.
+- **Accuracy:** Astraeus routing, tool selection, and ordered planning against a curated non-overlapping catalog; Thanatos execution and arguments for a locked tool contract; normal chat and behavioral recall from frozen Memory, Personal, Guardian, Music, and Tater Tube Core context; and Hermes result synthesis. Optional Spudex action decisions are tested and displayed separately without affecting the score.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
 - **Speculation:** llama.cpp targets run once without speculative decoding and again with every compatible MTP, DFlash, or DSpark draft found beside the target GGUF.
+- **Model inputs:** Tater-declared Vision, Video, and Audio compatibility is published with each result. Audio can include speech or music input; these badges do not imply media generation and are not scored by the text/tool suite.
 - **Hardware:** OS, CPU, architecture, core count, memory, GPU/backend, engine version, and an anonymous hardware fingerprint.
 
 MLX models currently run a baseline pass. MTP, DFlash, and DSpark are tested on compatible llama.cpp GGUF targets because those are the speculative methods Tater exposes for that engine.
@@ -52,6 +53,8 @@ Discovery starts from:
 If that registry is unavailable, Tater Bench safely scans Tater's llama.cpp and MLX model caches. Vision projectors and speculative draft GGUFs are attached to their target model and are not listed as independent benchmark targets.
 
 When a matching projector is installed, llama.cpp loads it with the target just as Tater does. The core v0.3 score remains text/tool focused; a separately scored vision suite can be added without changing existing scores.
+
+Capability badges come from Tater's downloaded-model registry. New benchmark runs preserve Vision, Video, and Audio flags in their raw result metadata; the published registry snapshot supplies the same fields to older results without changing their measured scores.
 
 ## Frozen synthetic Tater runtime
 
@@ -121,6 +124,7 @@ New benchmark runs do not overwrite earlier submissions. During report generatio
 - A unique-runs dropdown on each result for every outcome-distinct measurement behind the selected hardware result or device average.
 - Tater Ready, Limited, Not Fit, and Mixed Results verdicts with the failed accuracy gates shown directly on each result.
 - Base, MTP, DFlash, DSpark, llama.cpp, and MLX filters whenever matching results exist.
+- Vision, Video, Audio, or Text-only input badges for every model configuration.
 - Sorting by Tater Score, accuracy, generation speed, TTFT, memory, test count, or model name.
 
 Hardware types are grouped by OS family, architecture, CPU, core counts, memory, and GPU configuration. Patch-level OS, Python, and driver changes remain visible in the individual result metadata but do not split otherwise matching devices into separate leaderboard tabs.
@@ -131,7 +135,7 @@ Compare generation speed only when hardware, engine version, context size, quant
 
 The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Astraeus routing and tool selection most heavily, followed by Thanatos tool execution; its speed, TTFT, and memory components are normalized to the best measured value in that group. Duplicate graded outcomes are removed before scoring and outcome-distinct submissions are averaged within their hardware type. Overall then selects each model and mode's best device result, preferring the stronger fitness verdict and then the higher final score. The winning hardware is shown directly, while every other device remains available in its own tab. Hidden duplicates still count as observations for reproducibility and provisional-status checks.
 
-Fitness is deliberately strict. A readiness cap is applied before outcome-distinct runs are averaged within a hardware type, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. Overall uses the verdict and score from the selected best hardware result instead of penalizing a model for a weaker device. Hardware tabs still expose those weaker results—for example, a model can be Tater Ready overall from Apple while remaining Not Fit in the Halo tab. Results with fewer than two observations on the selected hardware are marked provisional, and older results without all five accuracy categories remain Unrated.
+Fitness is deliberately strict. A readiness cap is applied before outcome-distinct runs are averaged within a hardware type, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. Overall uses the verdict and score from the selected best hardware result instead of penalizing a model for a weaker device. Hardware tabs still expose those weaker results—for example, a model can be Tater Ready overall from Apple while remaining Not Fit in the Halo tab. Results with fewer than two observations on the selected hardware are marked provisional, and older results without all four required accuracy categories remain Unrated.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 

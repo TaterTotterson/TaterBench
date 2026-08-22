@@ -110,6 +110,8 @@ def _candidate_from_row(row: dict[str, Any]) -> ModelCandidate | None:
         filename=filename,
         quantization=quantization_from_name(" ".join((filename, repo_id, label))),
         supports_vision=bool(row.get("supports_vision") or mmproj),
+        supports_video=bool(row.get("supports_video")),
+        supports_audio=bool(row.get("supports_audio")),
         mmproj_path=mmproj,
         max_context_tokens=max_context,
         drafts=drafts,
@@ -184,6 +186,8 @@ def discover_models(home: str | Path | None = None) -> list[ModelCandidate]:
         if not existing.mmproj_path and candidate.mmproj_path:
             existing.mmproj_path = candidate.mmproj_path
             existing.supports_vision = True
+        existing.supports_video = existing.supports_video or candidate.supports_video
+        existing.supports_audio = existing.supports_audio or candidate.supports_audio
         known = {(draft.method, draft.path.name.lower()) for draft in existing.drafts}
         for draft in candidate.drafts:
             key = (draft.method, draft.path.name.lower())

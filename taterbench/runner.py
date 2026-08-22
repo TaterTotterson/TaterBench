@@ -36,6 +36,8 @@ def _public_model(model: ModelCandidate) -> dict[str, Any]:
         "filename": model.filename or model.model_path.name,
         "quantization": model.quantization,
         "supports_vision": model.supports_vision,
+        "supports_video": model.supports_video,
+        "supports_audio": model.supports_audio,
         "max_context_tokens": model.max_context_tokens,
         "model_bytes": _path_size(model.model_path),
     }

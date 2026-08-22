@@ -25,6 +25,8 @@ class ModelCandidate:
     filename: str = ""
     quantization: str = ""
     supports_vision: bool = False
+    supports_video: bool = False
+    supports_audio: bool = False
     mmproj_path: Path | None = None
     max_context_tokens: int = 0
     drafts: list[DraftModel] = field(default_factory=list)
@@ -39,6 +41,8 @@ class ModelCandidate:
             "filename": self.filename,
             "quantization": self.quantization,
             "supports_vision": self.supports_vision,
+            "supports_video": self.supports_video,
+            "supports_audio": self.supports_audio,
             "mmproj_path": str(self.mmproj_path) if self.mmproj_path else "",
             "max_context_tokens": self.max_context_tokens,
             "drafts": [draft.to_dict() for draft in self.drafts],
