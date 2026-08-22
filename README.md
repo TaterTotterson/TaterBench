@@ -12,7 +12,7 @@ Tater does not need to be running, and Tater Bench never changes Tater's model f
 
 Tater Bench records capability and performance separately, then combines them into a transparent Tater Score for the leaderboard:
 
-- **Tater Score:** 90 points for category-weighted accuracy (35 tool accuracy, 25 routing, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency.
+- **Tater Score:** a 100-point raw formula with 90 points for category-weighted accuracy (35 tool accuracy, 25 routing, 15 Spudex, 10 synthesis, and 5 chat), 7 for generation speed, 2 for time to first token, and 1 for peak-memory efficiency. Limited results are capped at 79.9 and Not Fit results at 49.9 before aggregation.
 - **Fitness:** Tater Ready requires at least 85% overall accuracy, 85% tool accuracy, 80% routing, and 80% in every other category. Limited results miss a readiness gate; Not Fit results fall below 70% overall, tool, or routing accuracy.
 - **Accuracy:** Astraeus routing against the complete tool catalog, ordered planning, Thanatos tool selection and arguments, normal chat with full system awareness, Hermes result synthesis, and Spudex action decisions.
 - **Speed:** model load time, time to first token, prompt speed, generation speed, complete scenario latency, and peak engine RSS.
@@ -131,7 +131,7 @@ Compare generation speed only when hardware, engine version, context size, quant
 
 The Tater Score is calculated only within matching hardware-profile, suite, context, and prompt-profile groups. Its 90-point accuracy component weights Tater-critical tool accuracy and routing most heavily; its speed, TTFT, and memory components are normalized to the best measured value in that group. Repeated submissions are averaged by hardware type first; the main leaderboard then gives every represented hardware type equal weight, so a popular device with many submissions cannot overwhelm the others. Raw accuracy and performance remain visible so the composite score never hides a quality regression or hardware difference.
 
-Fitness is deliberately stricter than the score and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two runs are marked provisional, and older results without all five accuracy categories remain Unrated.
+Fitness is deliberately strict and is never inferred from a cross-device average. Tater Ready and Not Fit are unanimous verdicts across all underlying results. A readiness cap is applied to each result before repeat runs and hardware types are averaged, so a Limited result cannot display 80 or higher and a Not Fit result cannot display 50 or higher. When hardware results disagree, the overall entry is Mixed by Hardware while each hardware tab keeps its own verdict—for example, a model can be Tater Ready on Apple without being declared ready on every platform. Results with fewer than two runs are marked provisional, and older results without all five accuracy categories remain Unrated.
 
 Speculative decoding is expected to preserve answers, but every speculative pass is graded independently so quality regressions remain visible.
 

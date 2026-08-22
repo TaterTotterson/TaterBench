@@ -130,6 +130,7 @@
             "median_scenario_seconds": 1.06361,
             "median_ttft_seconds": 0.671949
           },
+          "raw_tater_score": 89.62,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -152,6 +153,7 @@
             "accuracy": 80.82,
             "generation_speed": 6.5,
             "memory": 0.42,
+            "readiness_adjustment": 0.0,
             "ttft": 1.87
           },
           "variant": {
@@ -254,6 +256,7 @@
             "median_scenario_seconds": 1.342927,
             "median_ttft_seconds": 0.720328
           },
+          "raw_tater_score": 86.64,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -276,6 +279,7 @@
             "accuracy": 80.82,
             "generation_speed": 3.84,
             "memory": 0.24,
+            "readiness_adjustment": 0.0,
             "ttft": 1.75
           },
           "variant": {
@@ -378,6 +382,7 @@
             "median_scenario_seconds": 3.739218,
             "median_ttft_seconds": 2.346795
           },
+          "raw_tater_score": 83.11,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -400,6 +405,7 @@
             "accuracy": 80.42,
             "generation_speed": 1.88,
             "memory": 0.27,
+            "readiness_adjustment": 0.0,
             "ttft": 0.54
           },
           "variant": {
@@ -502,6 +508,7 @@
             "median_scenario_seconds": 1.386925,
             "median_ttft_seconds": 0.847503
           },
+          "raw_tater_score": 88.94,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -519,11 +526,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 88.94,
+          "tater_score": 79.9,
           "tater_score_components": {
             "accuracy": 79.82,
             "generation_speed": 6.98,
             "memory": 0.66,
+            "readiness_adjustment": -9.04,
             "ttft": 1.48
           },
           "variant": {
@@ -629,6 +637,7 @@
             "median_scenario_seconds": 6.961736,
             "median_ttft_seconds": 2.322608
           },
+          "raw_tater_score": 66.11,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -651,6 +660,7 @@
             "accuracy": 64.16,
             "generation_speed": 0.97,
             "memory": 0.43,
+            "readiness_adjustment": 0.0,
             "ttft": 0.54
           },
           "variant": {
@@ -754,6 +764,7 @@
             "median_scenario_seconds": 1.785228,
             "median_ttft_seconds": 0.818711
           },
+          "raw_tater_score": 62.62,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -771,11 +782,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 62.62,
+          "tater_score": 49.9,
           "tater_score_components": {
             "accuracy": 55.74,
             "generation_speed": 4.66,
             "memory": 0.69,
+            "readiness_adjustment": -12.72,
             "ttft": 1.54
           },
           "variant": {
@@ -880,6 +892,7 @@
             "median_scenario_seconds": 2.650356,
             "median_ttft_seconds": 0.870534
           },
+          "raw_tater_score": 44.45,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -902,6 +915,7 @@
             "accuracy": 36.73,
             "generation_speed": 5.28,
             "memory": 1.0,
+            "readiness_adjustment": 0.0,
             "ttft": 1.44
           },
           "variant": {
@@ -1006,6 +1020,7 @@
             "median_scenario_seconds": 1.145805,
             "median_ttft_seconds": 0.628876
           },
+          "raw_tater_score": 35.89,
           "result_sources": [
             "20260820T005528Z-dc8e7ab7d654.json",
             "20260815T122918Z-dc8e7ab7d654.json"
@@ -1028,6 +1043,7 @@
             "accuracy": 29.55,
             "generation_speed": 3.83,
             "memory": 0.5,
+            "readiness_adjustment": 0.0,
             "ttft": 2.0
           },
           "variant": {
@@ -1150,6 +1166,7 @@
             "median_scenario_seconds": 0.765737,
             "median_ttft_seconds": 0.264571
           },
+          "raw_tater_score": 88.43,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1172,6 +1189,7 @@
             "accuracy": 85.97,
             "generation_speed": 1.62,
             "memory": 0.07,
+            "readiness_adjustment": 0.0,
             "ttft": 0.77
           },
           "variant": {
@@ -1265,6 +1283,7 @@
             "median_scenario_seconds": 0.754265,
             "median_ttft_seconds": 0.517456
           },
+          "raw_tater_score": 86.58,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1287,6 +1306,7 @@
             "accuracy": 82.57,
             "generation_speed": 3.55,
             "memory": 0.06,
+            "readiness_adjustment": 0.0,
             "ttft": 0.39
           },
           "variant": {
@@ -1380,6 +1400,7 @@
             "median_scenario_seconds": 0.839943,
             "median_ttft_seconds": 0.50991
           },
+          "raw_tater_score": 85.76,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1402,6 +1423,7 @@
             "accuracy": 82.57,
             "generation_speed": 2.73,
             "memory": 0.07,
+            "readiness_adjustment": 0.0,
             "ttft": 0.4
           },
           "variant": {
@@ -1495,6 +1517,7 @@
             "median_scenario_seconds": 1.407763,
             "median_ttft_seconds": 0.525171
           },
+          "raw_tater_score": 84.2,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1517,6 +1540,7 @@
             "accuracy": 82.57,
             "generation_speed": 1.19,
             "memory": 0.06,
+            "readiness_adjustment": 0.0,
             "ttft": 0.39
           },
           "variant": {
@@ -1610,6 +1634,7 @@
             "median_scenario_seconds": 3.914949,
             "median_ttft_seconds": 2.758882
           },
+          "raw_tater_score": 81.44,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1632,6 +1657,7 @@
             "accuracy": 80.42,
             "generation_speed": 0.88,
             "memory": 0.07,
+            "readiness_adjustment": 0.0,
             "ttft": 0.07
           },
           "variant": {
@@ -1725,6 +1751,7 @@
             "median_scenario_seconds": 3.87584,
             "median_ttft_seconds": 2.806923
           },
+          "raw_tater_score": 81.34,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1747,126 +1774,12 @@
             "accuracy": 80.42,
             "generation_speed": 0.8,
             "memory": 0.05,
+            "readiness_adjustment": 0.0,
             "ttft": 0.07
           },
           "variant": {
             "draft_bytes": 3164006688,
             "draft_filename": "mtp-Qwen3.8-27B-Q8_0.gguf",
-            "draft_tokens": 3,
-            "name": "mtp",
-            "speculative_method": "draft-mtp"
-          }
-        },
-        {
-          "accuracy": {
-            "categories": {
-              "chat": 100.0,
-              "routing": 79.88,
-              "spudex": 90.0,
-              "synthesis": 100.0,
-              "tool_accuracy": 87.43
-            },
-            "score": 86.98
-          },
-          "aggregate": true,
-          "configuration": {
-            "context_size": 8192,
-            "max_tokens": 320,
-            "prompt_profile": "tater-full-synthetic-2026-08-14",
-            "seed": 42,
-            "temperature": 0.0
-          },
-          "device_count": 1,
-          "device_id": "0836c00c5432",
-          "device_weighted": false,
-          "engine": {
-            "context_size": 8192,
-            "draft_gpu_layers": "auto",
-            "engine": "llama.cpp",
-            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
-            "server_version": "0.1.2-dev",
-            "target_gpu_layers": "auto"
-          },
-          "finished_at": "2026-08-20T01:07:29.363767+00:00",
-          "fitness": {
-            "label": "Limited \u2014 Not Ready",
-            "provisional": false,
-            "rank": 1,
-            "reasons": [
-              "Routing 79.9% is below 80%."
-            ],
-            "status": "limited"
-          },
-          "hardware": {
-            "architecture": "arm64",
-            "cpu": "Apple M3 Ultra",
-            "gpus": [
-              {
-                "backend": "metal",
-                "name": "Apple M3 Ultra",
-                "vendor": "sppci_vendor_Apple",
-                "vram": "unified"
-              }
-            ],
-            "hardware_id": "92797310f99b",
-            "logical_cores": 28,
-            "memory_bytes": 103079215104,
-            "os": "Darwin",
-            "os_release": "25.5.0",
-            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
-            "physical_cores": 28,
-            "python": "3.9.6"
-          },
-          "hardware_ids": [
-            "92797310f99b"
-          ],
-          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
-          "load_seconds": 2.311217,
-          "model": {
-            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "id": "llama_cpp:beafc0d4dad4",
-            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-            "max_context_tokens": 0,
-            "model_bytes": 22663387424,
-            "provider": "llama_cpp",
-            "quantization": "UD-Q4_K_M",
-            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
-            "supports_vision": true
-          },
-          "peak_rss_bytes": 24862949376,
-          "performance": {
-            "median_generation_tokens_per_second": 98.9372,
-            "median_prompt_tokens_per_second": 1517.5976,
-            "median_scenario_seconds": 0.879545,
-            "median_ttft_seconds": 0.551187
-          },
-          "result_sources": [
-            "20260820T011459Z-92797310f99b.json",
-            "20260814T213345Z-92797310f99b.json"
-          ],
-          "run_ids": [
-            "d6ed4e955da94f9cad68484e884bda81",
-            "eefbe0866d3949b7b6f493df9d324325"
-          ],
-          "sample_count": 2,
-          "speedup_percent": 26.49,
-          "status": "complete",
-          "suite": {
-            "name": "Tater Core",
-            "repeats": 1,
-            "scenario_count": 22,
-            "version": "tater-core-0.2"
-          },
-          "tater_score": 82.72,
-          "tater_score_components": {
-            "accuracy": 79.07,
-            "generation_speed": 3.23,
-            "memory": 0.05,
-            "ttft": 0.37
-          },
-          "variant": {
-            "draft_bytes": 0,
-            "draft_filename": "",
             "draft_tokens": 3,
             "name": "mtp",
             "speculative_method": "draft-mtp"
@@ -1955,6 +1868,7 @@
             "median_scenario_seconds": 0.958117,
             "median_ttft_seconds": 0.530136
           },
+          "raw_tater_score": 82.09,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -1972,11 +1886,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 82.09,
+          "tater_score": 79.9,
           "tater_score_components": {
             "accuracy": 79.07,
             "generation_speed": 2.58,
             "memory": 0.06,
+            "readiness_adjustment": -2.19,
             "ttft": 0.39
           },
           "variant": {
@@ -1985,6 +1900,123 @@
             "draft_tokens": 0,
             "name": "baseline",
             "speculative_method": ""
+          }
+        },
+        {
+          "accuracy": {
+            "categories": {
+              "chat": 100.0,
+              "routing": 79.88,
+              "spudex": 90.0,
+              "synthesis": 100.0,
+              "tool_accuracy": 87.43
+            },
+            "score": 86.98
+          },
+          "aggregate": true,
+          "configuration": {
+            "context_size": 8192,
+            "max_tokens": 320,
+            "prompt_profile": "tater-full-synthetic-2026-08-14",
+            "seed": 42,
+            "temperature": 0.0
+          },
+          "device_count": 1,
+          "device_id": "0836c00c5432",
+          "device_weighted": false,
+          "engine": {
+            "context_size": 8192,
+            "draft_gpu_layers": "auto",
+            "engine": "llama.cpp",
+            "server_system_info": "version: 0.1.2-dev (build 1, commit fe8156f) built with AppleClang 16.0.0.16000026 for Darwin arm64",
+            "server_version": "0.1.2-dev",
+            "target_gpu_layers": "auto"
+          },
+          "finished_at": "2026-08-20T01:07:29.363767+00:00",
+          "fitness": {
+            "label": "Limited \u2014 Not Ready",
+            "provisional": false,
+            "rank": 1,
+            "reasons": [
+              "Routing 79.9% is below 80%."
+            ],
+            "status": "limited"
+          },
+          "hardware": {
+            "architecture": "arm64",
+            "cpu": "Apple M3 Ultra",
+            "gpus": [
+              {
+                "backend": "metal",
+                "name": "Apple M3 Ultra",
+                "vendor": "sppci_vendor_Apple",
+                "vram": "unified"
+              }
+            ],
+            "hardware_id": "92797310f99b",
+            "logical_cores": 28,
+            "memory_bytes": 103079215104,
+            "os": "Darwin",
+            "os_release": "25.5.0",
+            "os_version": "Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:15 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6031",
+            "physical_cores": 28,
+            "python": "3.9.6"
+          },
+          "hardware_ids": [
+            "92797310f99b"
+          ],
+          "hardware_label": "Apple M3 Ultra \u00b7 96.0 GiB",
+          "load_seconds": 2.311217,
+          "model": {
+            "filename": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "id": "llama_cpp:beafc0d4dad4",
+            "label": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink::Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+            "max_context_tokens": 0,
+            "model_bytes": 22663387424,
+            "provider": "llama_cpp",
+            "quantization": "UD-Q4_K_M",
+            "repo_id": "TaterTotterson/Qwen3.6-35B-A3B-MTP-GGUF-Tater-NoThink",
+            "supports_vision": true
+          },
+          "peak_rss_bytes": 24862949376,
+          "performance": {
+            "median_generation_tokens_per_second": 98.9372,
+            "median_prompt_tokens_per_second": 1517.5976,
+            "median_scenario_seconds": 0.879545,
+            "median_ttft_seconds": 0.551187
+          },
+          "raw_tater_score": 82.72,
+          "result_sources": [
+            "20260820T011459Z-92797310f99b.json",
+            "20260814T213345Z-92797310f99b.json"
+          ],
+          "run_ids": [
+            "d6ed4e955da94f9cad68484e884bda81",
+            "eefbe0866d3949b7b6f493df9d324325"
+          ],
+          "sample_count": 2,
+          "speedup_percent": 26.49,
+          "status": "complete",
+          "suite": {
+            "name": "Tater Core",
+            "repeats": 1,
+            "scenario_count": 22,
+            "version": "tater-core-0.2"
+          },
+          "tater_score": 79.9,
+          "tater_score_components": {
+            "accuracy": 79.07,
+            "generation_speed": 3.23,
+            "memory": 0.05,
+            "readiness_adjustment": -2.83,
+            "ttft": 0.37
+          },
+          "variant": {
+            "draft_bytes": 0,
+            "draft_filename": "",
+            "draft_tokens": 3,
+            "name": "mtp",
+            "speculative_method": "draft-mtp"
           }
         },
         {
@@ -2070,6 +2102,7 @@
             "median_scenario_seconds": 0.928408,
             "median_ttft_seconds": 0.564357
           },
+          "raw_tater_score": 80.47,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json",
             "20260814T213345Z-92797310f99b.json"
@@ -2087,11 +2120,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 80.47,
+          "tater_score": 79.9,
           "tater_score_components": {
             "accuracy": 76.73,
             "generation_speed": 3.3,
             "memory": 0.07,
+            "readiness_adjustment": -0.57,
             "ttft": 0.36
           },
           "variant": {
@@ -2187,6 +2221,7 @@
             "median_scenario_seconds": 0.291918,
             "median_ttft_seconds": 0.10192
           },
+          "raw_tater_score": 59.38,
           "result_sources": [
             "20260820T011459Z-92797310f99b.json"
           ],
@@ -2202,11 +2237,12 @@
             "scenario_count": 22,
             "version": "tater-core-0.2"
           },
-          "tater_score": 59.38,
+          "tater_score": 49.9,
           "tater_score_components": {
             "accuracy": 49.38,
             "generation_speed": 7.0,
             "memory": 1.0,
+            "readiness_adjustment": -9.48,
             "ttft": 2.0
           },
           "variant": {
@@ -2282,6 +2318,7 @@
         "median_scenario_seconds": 0.765737,
         "median_ttft_seconds": 0.264571
       },
+      "raw_tater_score": 88.43,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json"
@@ -2304,6 +2341,7 @@
         "accuracy": 85.97,
         "generation_speed": 1.62,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.77
       },
       "variant": {
@@ -2376,6 +2414,7 @@
         "median_scenario_seconds": 0.908937,
         "median_ttft_seconds": 0.594703
       },
+      "raw_tater_score": 88.1,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2402,6 +2441,7 @@
         "accuracy": 81.69,
         "generation_speed": 5.03,
         "memory": 0.24,
+        "readiness_adjustment": 0.0,
         "ttft": 1.13
       },
       "variant": {
@@ -2474,6 +2514,7 @@
         "median_scenario_seconds": 1.375345,
         "median_ttft_seconds": 0.62275
       },
+      "raw_tater_score": 85.42,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2500,6 +2541,7 @@
         "accuracy": 81.69,
         "generation_speed": 2.51,
         "memory": 0.15,
+        "readiness_adjustment": 0.0,
         "ttft": 1.07
       },
       "variant": {
@@ -2572,6 +2614,7 @@
         "median_scenario_seconds": 3.807529,
         "median_ttft_seconds": 2.576859
       },
+      "raw_tater_score": 82.22,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2598,6 +2641,7 @@
         "accuracy": 80.42,
         "generation_speed": 1.34,
         "memory": 0.16,
+        "readiness_adjustment": 0.0,
         "ttft": 0.31
       },
       "variant": {
@@ -2671,6 +2715,7 @@
         "median_scenario_seconds": 1.133235,
         "median_ttft_seconds": 0.699345
       },
+      "raw_tater_score": 85.83,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2692,11 +2737,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 85.83,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.44,
         "generation_speed": 5.11,
         "memory": 0.36,
+        "readiness_adjustment": -5.93,
         "ttft": 0.93
       },
       "variant": {
@@ -2770,6 +2816,7 @@
         "median_scenario_seconds": 5.438343,
         "median_ttft_seconds": 2.540745
       },
+      "raw_tater_score": 73.78,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2796,6 +2843,7 @@
         "accuracy": 72.29,
         "generation_speed": 0.93,
         "memory": 0.25,
+        "readiness_adjustment": 0.0,
         "ttft": 0.31
       },
       "variant": {
@@ -2869,6 +2917,7 @@
         "median_scenario_seconds": 1.371673,
         "median_ttft_seconds": 0.674424
       },
+      "raw_tater_score": 72.36,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2890,11 +2939,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 72.36,
+      "tater_score": 64.9,
       "tater_score_components": {
         "accuracy": 67.41,
         "generation_speed": 3.62,
         "memory": 0.38,
+        "readiness_adjustment": -7.46,
         "ttft": 0.97
       },
       "variant": {
@@ -2968,6 +3018,7 @@
         "median_scenario_seconds": 1.789382,
         "median_ttft_seconds": 0.717445
       },
+      "raw_tater_score": 62.46,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -2989,11 +3040,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 62.46,
+      "tater_score": 62.18,
       "tater_score_components": {
         "accuracy": 56.73,
         "generation_speed": 4.29,
         "memory": 0.54,
+        "readiness_adjustment": -0.28,
         "ttft": 0.9
       },
       "variant": {
@@ -3067,6 +3119,7 @@
         "median_scenario_seconds": 0.992874,
         "median_ttft_seconds": 0.569393
       },
+      "raw_tater_score": 60.83,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json",
         "20260814T213345Z-92797310f99b.json",
@@ -3093,6 +3146,7 @@
         "accuracy": 56.06,
         "generation_speed": 3.28,
         "memory": 0.29,
+        "readiness_adjustment": 0.0,
         "ttft": 1.2
       },
       "variant": {
@@ -3166,6 +3220,7 @@
         "median_scenario_seconds": 0.291918,
         "median_ttft_seconds": 0.10192
       },
+      "raw_tater_score": 59.38,
       "result_sources": [
         "20260820T011459Z-92797310f99b.json"
       ],
@@ -3181,11 +3236,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 59.38,
+      "tater_score": 49.9,
       "tater_score_components": {
         "accuracy": 49.38,
         "generation_speed": 7.0,
         "memory": 1.0,
+        "readiness_adjustment": -9.48,
         "ttft": 2.0
       },
       "variant": {
@@ -3276,6 +3332,7 @@
         "median_scenario_seconds": 0.811928,
         "median_ttft_seconds": 0.26138
       },
+      "raw_tater_score": 88.43,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "48dd8fa7b6ef4e279ed85c7a84f870c2",
       "scenario_results": [
@@ -4171,6 +4228,7 @@
         "accuracy": 85.97,
         "generation_speed": 1.62,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.78
       },
       "variant": {
@@ -4262,6 +4320,7 @@
         "median_scenario_seconds": 0.291918,
         "median_ttft_seconds": 0.10192
       },
+      "raw_tater_score": 59.38,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "18a8d84e3421461491518cc7d3348754",
       "scenario_results": [
@@ -5545,11 +5604,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 59.38,
+      "tater_score": 49.9,
       "tater_score_components": {
         "accuracy": 49.38,
         "generation_speed": 7.0,
         "memory": 1.0,
+        "readiness_adjustment": -9.48,
         "ttft": 2.0
       },
       "variant": {
@@ -5639,6 +5699,7 @@
         "median_scenario_seconds": 3.883991,
         "median_ttft_seconds": 2.822674
       },
+      "raw_tater_score": 81.35,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "77657c0972674b53946900a0425f06ec",
       "scenario_results": [
@@ -6995,6 +7056,7 @@
         "accuracy": 80.42,
         "generation_speed": 0.81,
         "memory": 0.05,
+        "readiness_adjustment": 0.0,
         "ttft": 0.07
       },
       "variant": {
@@ -7084,6 +7146,7 @@
         "median_scenario_seconds": 3.950645,
         "median_ttft_seconds": 2.783083
       },
+      "raw_tater_score": 81.43,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "d436f0f5f881420d907d046bea99be89",
       "scenario_results": [
@@ -8396,6 +8459,7 @@
         "accuracy": 80.42,
         "generation_speed": 0.87,
         "memory": 0.06,
+        "readiness_adjustment": 0.0,
         "ttft": 0.07
       },
       "variant": {
@@ -8485,6 +8549,7 @@
         "median_scenario_seconds": 0.891885,
         "median_ttft_seconds": 0.553404
       },
+      "raw_tater_score": 82.65,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "d6ed4e955da94f9cad68484e884bda81",
       "scenario_results": [
@@ -9839,11 +9904,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 82.65,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.07,
         "generation_speed": 3.16,
         "memory": 0.05,
+        "readiness_adjustment": -2.75,
         "ttft": 0.37
       },
       "variant": {
@@ -9933,6 +9999,7 @@
         "median_scenario_seconds": 0.961829,
         "median_ttft_seconds": 0.533597
       },
+      "raw_tater_score": 82.07,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "1d360f8a966e408c86e1190f16d6967d",
       "scenario_results": [
@@ -11243,11 +11310,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 82.07,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.07,
         "generation_speed": 2.56,
         "memory": 0.06,
+        "readiness_adjustment": -2.17,
         "ttft": 0.38
       },
       "variant": {
@@ -11337,6 +11405,7 @@
         "median_scenario_seconds": 0.936561,
         "median_ttft_seconds": 0.568038
       },
+      "raw_tater_score": 80.44,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "6786792c709942919e7deac8048a80c7",
       "scenario_results": [
@@ -12645,11 +12714,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 80.44,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 76.73,
         "generation_speed": 3.27,
         "memory": 0.07,
+        "readiness_adjustment": -0.54,
         "ttft": 0.36
       },
       "variant": {
@@ -12739,6 +12809,7 @@
         "median_scenario_seconds": 1.406947,
         "median_ttft_seconds": 0.523247
       },
+      "raw_tater_score": 84.2,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "8a49326cfafa459abd94290205977e99",
       "scenario_results": [
@@ -14096,6 +14167,7 @@
         "accuracy": 82.57,
         "generation_speed": 1.18,
         "memory": 0.06,
+        "readiness_adjustment": 0.0,
         "ttft": 0.39
       },
       "variant": {
@@ -14185,6 +14257,7 @@
         "median_scenario_seconds": 0.758444,
         "median_ttft_seconds": 0.517032
       },
+      "raw_tater_score": 86.58,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "55319369558b45b18561e09728e0bad0",
       "scenario_results": [
@@ -15542,6 +15615,7 @@
         "accuracy": 82.57,
         "generation_speed": 3.55,
         "memory": 0.06,
+        "readiness_adjustment": 0.0,
         "ttft": 0.39
       },
       "variant": {
@@ -15631,6 +15705,7 @@
         "median_scenario_seconds": 0.846485,
         "median_ttft_seconds": 0.513022
       },
+      "raw_tater_score": 85.75,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "94cab86d442b4f2b83074da33210eaa6",
       "scenario_results": [
@@ -16944,6 +17019,7 @@
         "accuracy": 82.57,
         "generation_speed": 2.72,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.4
       },
       "variant": {
@@ -17015,6 +17091,7 @@
         "supports_vision": true
       },
       "peak_rss_bytes": 5301501952,
+      "raw_tater_score": 0.25,
       "result_source": "20260820T011459Z-92797310f99b.json",
       "run_id": "79b2ebb06bfc4fc2a0a883714359afd9",
       "scenario_results": [],
@@ -17032,6 +17109,7 @@
         "accuracy": 0.0,
         "generation_speed": 0.0,
         "memory": 0.25,
+        "readiness_adjustment": 0.0,
         "ttft": 0.0
       },
       "variant": {
@@ -17130,6 +17208,7 @@
         "median_scenario_seconds": 3.737473,
         "median_ttft_seconds": 2.348736
       },
+      "raw_tater_score": 83.11,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "dd94572f7a8c4f32a2e1f4ef7330cc7f",
       "scenario_results": [
@@ -18486,6 +18565,7 @@
         "accuracy": 80.42,
         "generation_speed": 1.88,
         "memory": 0.27,
+        "readiness_adjustment": 0.0,
         "ttft": 0.53
       },
       "variant": {
@@ -18586,6 +18666,7 @@
         "median_scenario_seconds": 6.963087,
         "median_ttft_seconds": 2.323564
       },
+      "raw_tater_score": 66.03,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "97735676dc6649298e20dfa7ed852650",
       "scenario_results": [
@@ -19887,6 +19968,7 @@
         "accuracy": 64.09,
         "generation_speed": 0.97,
         "memory": 0.43,
+        "readiness_adjustment": 0.0,
         "ttft": 0.54
       },
       "variant": {
@@ -19985,6 +20067,7 @@
         "median_scenario_seconds": 1.385812,
         "median_ttft_seconds": 0.848212
       },
+      "raw_tater_score": 88.92,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "ae32949da0e84d2cad248937039804c1",
       "scenario_results": [
@@ -21337,11 +21420,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 88.92,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.82,
         "generation_speed": 6.96,
         "memory": 0.66,
+        "readiness_adjustment": -9.02,
         "ttft": 1.48
       },
       "variant": {
@@ -21441,6 +21525,7 @@
         "median_scenario_seconds": 1.789395,
         "median_ttft_seconds": 0.820779
       },
+      "raw_tater_score": 62.61,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "64bdef9d9c644298a6cea02099da7a16",
       "scenario_results": [
@@ -22740,11 +22825,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 62.61,
+      "tater_score": 49.9,
       "tater_score_components": {
         "accuracy": 55.74,
         "generation_speed": 4.66,
         "memory": 0.69,
+        "readiness_adjustment": -12.71,
         "ttft": 1.53
       },
       "variant": {
@@ -22845,6 +22931,7 @@
         "median_scenario_seconds": 2.653558,
         "median_ttft_seconds": 0.87246
       },
+      "raw_tater_score": 44.42,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "b2b532cce1224a46bea35f4a571b753f",
       "scenario_results": [
@@ -24068,6 +24155,7 @@
         "accuracy": 36.73,
         "generation_speed": 5.26,
         "memory": 1.0,
+        "readiness_adjustment": 0.0,
         "ttft": 1.44
       },
       "variant": {
@@ -24166,6 +24254,7 @@
         "median_scenario_seconds": 1.344217,
         "median_ttft_seconds": 0.721542
       },
+      "raw_tater_score": 86.62,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "de6a559d232945ae9e1362c28e8d72d9",
       "scenario_results": [
@@ -25523,6 +25612,7 @@
         "accuracy": 80.82,
         "generation_speed": 3.83,
         "memory": 0.24,
+        "readiness_adjustment": 0.0,
         "ttft": 1.74
       },
       "variant": {
@@ -25621,6 +25711,7 @@
         "median_scenario_seconds": 1.063355,
         "median_ttft_seconds": 0.673628
       },
+      "raw_tater_score": 89.61,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "33d4bce517304d228399dab235c77788",
       "scenario_results": [
@@ -26978,6 +27069,7 @@
         "accuracy": 80.82,
         "generation_speed": 6.51,
         "memory": 0.42,
+        "readiness_adjustment": 0.0,
         "ttft": 1.86
       },
       "variant": {
@@ -27078,6 +27170,7 @@
         "median_scenario_seconds": 1.145907,
         "median_ttft_seconds": 0.629754
       },
+      "raw_tater_score": 35.88,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "ec0cb40385ac485aac8bca22a7d97020",
       "scenario_results": [
@@ -28315,6 +28408,7 @@
         "accuracy": 29.55,
         "generation_speed": 3.84,
         "memory": 0.5,
+        "readiness_adjustment": 0.0,
         "ttft": 1.99
       },
       "variant": {
@@ -28395,6 +28489,7 @@
         "supports_vision": false
       },
       "peak_rss_bytes": 461529088,
+      "raw_tater_score": 2.51,
       "result_source": "20260820T005528Z-dc8e7ab7d654.json",
       "run_id": "59299a7b6c0045749070b2eb8c1a688a",
       "scenario_results": [],
@@ -28412,6 +28507,7 @@
         "accuracy": 0.0,
         "generation_speed": 0.0,
         "memory": 2.51,
+        "readiness_adjustment": 0.0,
         "ttft": 0.0
       },
       "variant": {
@@ -28510,6 +28606,7 @@
         "median_scenario_seconds": 3.740963,
         "median_ttft_seconds": 2.344854
       },
+      "raw_tater_score": 83.11,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "092b959f74cf42ba9b6bf1e24690d82b",
       "scenario_results": [
@@ -29866,6 +29963,7 @@
         "accuracy": 80.42,
         "generation_speed": 1.88,
         "memory": 0.27,
+        "readiness_adjustment": 0.0,
         "ttft": 0.54
       },
       "variant": {
@@ -29966,6 +30064,7 @@
         "median_scenario_seconds": 6.960385,
         "median_ttft_seconds": 2.321652
       },
+      "raw_tater_score": 66.18,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "f9ed1713c7c942a49f9330f12ef153c5",
       "scenario_results": [
@@ -31267,6 +31366,7 @@
         "accuracy": 64.24,
         "generation_speed": 0.97,
         "memory": 0.43,
+        "readiness_adjustment": 0.0,
         "ttft": 0.54
       },
       "variant": {
@@ -31365,6 +31465,7 @@
         "median_scenario_seconds": 1.388038,
         "median_ttft_seconds": 0.846794
       },
+      "raw_tater_score": 88.96,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "4d4bb97c804f49fb920416da84cedc26",
       "scenario_results": [
@@ -32717,11 +32818,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 88.96,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.82,
         "generation_speed": 7.0,
         "memory": 0.66,
+        "readiness_adjustment": -9.06,
         "ttft": 1.48
       },
       "variant": {
@@ -32821,6 +32923,7 @@
         "median_scenario_seconds": 1.781061,
         "median_ttft_seconds": 0.816642
       },
+      "raw_tater_score": 62.63,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "24f1a57d9a944cc5905a1cb496b4f29f",
       "scenario_results": [
@@ -34120,11 +34223,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 62.63,
+      "tater_score": 49.9,
       "tater_score_components": {
         "accuracy": 55.74,
         "generation_speed": 4.66,
         "memory": 0.69,
+        "readiness_adjustment": -12.73,
         "ttft": 1.54
       },
       "variant": {
@@ -34225,6 +34329,7 @@
         "median_scenario_seconds": 2.647154,
         "median_ttft_seconds": 0.868607
       },
+      "raw_tater_score": 44.47,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "338f084434104af99b67a7317c3a5cf9",
       "scenario_results": [
@@ -35448,6 +35553,7 @@
         "accuracy": 36.73,
         "generation_speed": 5.3,
         "memory": 1.0,
+        "readiness_adjustment": 0.0,
         "ttft": 1.45
       },
       "variant": {
@@ -35546,6 +35652,7 @@
         "median_scenario_seconds": 1.341637,
         "median_ttft_seconds": 0.719114
       },
+      "raw_tater_score": 86.65,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "733e149a9acb4e8e90dcef742e54ebf4",
       "scenario_results": [
@@ -36903,6 +37010,7 @@
         "accuracy": 80.82,
         "generation_speed": 3.85,
         "memory": 0.24,
+        "readiness_adjustment": 0.0,
         "ttft": 1.75
       },
       "variant": {
@@ -37001,6 +37109,7 @@
         "median_scenario_seconds": 1.063865,
         "median_ttft_seconds": 0.670269
       },
+      "raw_tater_score": 89.62,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "656c61b4c95d464cbed6522f1f929623",
       "scenario_results": [
@@ -38358,6 +38467,7 @@
         "accuracy": 80.82,
         "generation_speed": 6.5,
         "memory": 0.42,
+        "readiness_adjustment": 0.0,
         "ttft": 1.87
       },
       "variant": {
@@ -38458,6 +38568,7 @@
         "median_scenario_seconds": 1.145703,
         "median_ttft_seconds": 0.627997
       },
+      "raw_tater_score": 35.89,
       "result_source": "20260815T122918Z-dc8e7ab7d654.json",
       "run_id": "a461d933fb6c4b29b2aa461cba047365",
       "scenario_results": [
@@ -39695,6 +39806,7 @@
         "accuracy": 29.55,
         "generation_speed": 3.83,
         "memory": 0.5,
+        "readiness_adjustment": 0.0,
         "ttft": 2.0
       },
       "variant": {
@@ -39782,6 +39894,7 @@
         "median_scenario_seconds": 0.719545,
         "median_ttft_seconds": 0.267762
       },
+      "raw_tater_score": 88.43,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "2ed76a38baea4afba3336493f6c951aa",
       "scenario_results": [
@@ -40677,6 +40790,7 @@
         "accuracy": 85.97,
         "generation_speed": 1.63,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.76
       },
       "variant": {
@@ -40764,6 +40878,7 @@
         "median_scenario_seconds": 3.86769,
         "median_ttft_seconds": 2.791172
       },
+      "raw_tater_score": 81.34,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "3b4d961afa9e464e80d77235b74cd469",
       "scenario_results": [
@@ -42120,6 +42235,7 @@
         "accuracy": 80.42,
         "generation_speed": 0.79,
         "memory": 0.05,
+        "readiness_adjustment": 0.0,
         "ttft": 0.07
       },
       "variant": {
@@ -42207,6 +42323,7 @@
         "median_scenario_seconds": 3.879252,
         "median_ttft_seconds": 2.734681
       },
+      "raw_tater_score": 81.45,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "ff4ffad343614037ac5d1dc19325cddd",
       "scenario_results": [
@@ -43519,6 +43636,7 @@
         "accuracy": 80.42,
         "generation_speed": 0.89,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.07
       },
       "variant": {
@@ -43606,6 +43724,7 @@
         "median_scenario_seconds": 0.867205,
         "median_ttft_seconds": 0.548971
       },
+      "raw_tater_score": 82.8,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "eefbe0866d3949b7b6f493df9d324325",
       "scenario_results": [
@@ -44960,11 +45079,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 82.8,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.07,
         "generation_speed": 3.3,
         "memory": 0.05,
+        "readiness_adjustment": -2.9,
         "ttft": 0.37
       },
       "variant": {
@@ -45052,6 +45172,7 @@
         "median_scenario_seconds": 0.954405,
         "median_ttft_seconds": 0.526675
       },
+      "raw_tater_score": 82.11,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "9c8ef70ced554f05947f5c50ac7c44a3",
       "scenario_results": [
@@ -46362,11 +46483,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 82.11,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 79.07,
         "generation_speed": 2.59,
         "memory": 0.06,
+        "readiness_adjustment": -2.21,
         "ttft": 0.39
       },
       "variant": {
@@ -46454,6 +46576,7 @@
         "median_scenario_seconds": 0.920255,
         "median_ttft_seconds": 0.560676
       },
+      "raw_tater_score": 80.5,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "2fc3530c0da7481eb663874622ed1f66",
       "scenario_results": [
@@ -47762,11 +47885,12 @@
         "scenario_count": 22,
         "version": "tater-core-0.2"
       },
-      "tater_score": 80.5,
+      "tater_score": 79.9,
       "tater_score_components": {
         "accuracy": 76.73,
         "generation_speed": 3.34,
         "memory": 0.07,
+        "readiness_adjustment": -0.6,
         "ttft": 0.36
       },
       "variant": {
@@ -47854,6 +47978,7 @@
         "median_scenario_seconds": 1.408578,
         "median_ttft_seconds": 0.527095
       },
+      "raw_tater_score": 84.2,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "1c78854944d2470c9170d1d5b74be538",
       "scenario_results": [
@@ -49211,6 +49336,7 @@
         "accuracy": 82.57,
         "generation_speed": 1.19,
         "memory": 0.06,
+        "readiness_adjustment": 0.0,
         "ttft": 0.39
       },
       "variant": {
@@ -49298,6 +49424,7 @@
         "median_scenario_seconds": 0.750086,
         "median_ttft_seconds": 0.517879
       },
+      "raw_tater_score": 86.58,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "98857f0906254ad093e84dac31bf0c10",
       "scenario_results": [
@@ -50655,6 +50782,7 @@
         "accuracy": 82.57,
         "generation_speed": 3.55,
         "memory": 0.06,
+        "readiness_adjustment": 0.0,
         "ttft": 0.39
       },
       "variant": {
@@ -50742,6 +50870,7 @@
         "median_scenario_seconds": 0.833401,
         "median_ttft_seconds": 0.506799
       },
+      "raw_tater_score": 85.77,
       "result_source": "20260814T213345Z-92797310f99b.json",
       "run_id": "3da9de2a4d5d478ebbc2ff224d72f31a",
       "scenario_results": [
@@ -52055,6 +52184,7 @@
         "accuracy": 82.57,
         "generation_speed": 2.73,
         "memory": 0.07,
+        "readiness_adjustment": 0.0,
         "ttft": 0.4
       },
       "variant": {
